@@ -1,15 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using ProjectProgress.Data;
+using ProjectProgress.Data.Interface;
+using ProjectProgress.Data.Repository;
+using ProjectProgress.Service.Interface;
+using ProjectProgress.Service.Service;
 
 namespace ProjectProgress
 {
@@ -26,6 +35,45 @@ namespace ProjectProgress
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddDbContext<AppDbContext>(options => {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultCS"));
+                options.UseLazyLoadingProxies();
+            });
+
+            var key = Encoding.ASCII.GetBytes(Configuration["JwtOptions:SecKey"]);
+
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateLifetime = true,
+                RequireExpirationTime = false,
+                ClockSkew = TimeSpan.Zero
+            };
+
+
+            services.AddAuthentication(options => {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(jwt => {
+                jwt.SaveToken = true;
+                jwt.TokenValidationParameters = tokenValidationParameters;
+            });
+
+            services.AddAuthorization();
+
+
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUserManager, UserManager>();
+            services.AddScoped<ITokenService, TokenService>();
+
+            services.AddSingleton(tokenValidationParameters);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +87,14 @@ namespace ProjectProgress
             {
                 app.UseHsts();
             }
+
+
+            app.UseCors(options=> {
+                options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+            });
+
+
+            app.UseAuthentication();
 
             app.UseHttpsRedirection();
             app.UseMvc();

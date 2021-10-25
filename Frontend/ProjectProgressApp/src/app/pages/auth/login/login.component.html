@@ -1,0 +1,13 @@
+  <div>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <label for="userName">user</label>
+          <input type="text" formControlName="userName" required><br/>
+          <label for="password">password</label>
+          <input type="password" formControlName="password" required><br/>
+          <label for="isRemember">Remember Me</label>
+          <input type="checkbox" formControlName="isRemember"><br/>
+          <button type="submit" [disabled]="!loginForm.valid">
+              Login
+          </button>
+      </form>
+  </div>

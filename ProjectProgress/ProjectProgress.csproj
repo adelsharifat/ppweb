@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <ApplicationIcon />
+    <OutputType>Exe</OutputType>
+    <StartupObject />
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,6 +14,15 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectProgress.Data\ProjectProgress.Data.csproj" />
+    <ProjectReference Include="..\ProjectProgress.Domain\ProjectProgress.Domain.csproj" />
+    <ProjectReference Include="..\ProjectProgress.Service\ProjectProgress.Service.csproj" />
+    <ProjectReference Include="..\ProjectProgress.Utils\ProjectProgress.Utils.csproj" />
   </ItemGroup>
 
 </Project>
