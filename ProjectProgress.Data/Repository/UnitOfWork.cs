@@ -53,14 +53,29 @@ namespace ProjectProgress.Data.Repository
             }
         }
 
+        private IItemRepo itemRepo;
+        public IItemRepo ItemRepo
+        {
+            get
+            {
+                if (itemRepo == null) itemRepo = new ItemRepo(_context);
+                return itemRepo;
+            }
+        }
+
+        private IAttachmentRepo attachmentRepo;
+        public IAttachmentRepo AttachmentRepo
+        {
+            get
+            {
+                if (attachmentRepo == null) attachmentRepo = new AttachmentRepo(_context);
+                return attachmentRepo;
+            }
+        }
+
         public async Task<int> Commit()
         {
             return await _context?.SaveChangesAsync();
-        }
-
-        public void Dispose()
-        {
-            _context?.Dispose();
         }
     }
 }

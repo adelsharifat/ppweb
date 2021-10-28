@@ -1,0 +1,31 @@
+<div class="page-wrapper">
+  <div class="header">
+    <app-nav pageTitle="{{itemName}}"></app-nav>
+  </div>
+  <div class="content">
+    <mat-spinner *ngIf="loading"></mat-spinner>
+    <div class="attachment">
+      <input type="text" readonly>
+      <button>Browse</button>
+    </div>
+    <div class="uploadBtnWrapper border-bottom">
+      <button class="uploadBtn primary">
+        <mat-icon class="icon">cloud_upload</mat-icon>
+        <div>Upload</div>
+      </button>
+      <button class="uploadBtn light">
+        <mat-icon class="icon">restart_alt</mat-icon>
+        <div>Reset</div>
+      </button>
+    </div>
+
+    <div class="attachmentWrapper">
+
+
+
+
+
+
+    </div>
+  </div>
+</div>

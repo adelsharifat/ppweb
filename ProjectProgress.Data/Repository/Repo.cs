@@ -31,7 +31,7 @@ namespace ProjectProgress.Data.Repository
             }
         }
 
-        public async Task<IEnumerable<TEntity>> FIND_ASYNC(Expression<Func<TEntity, bool>> expression)
+        public async Task<IEnumerable<TEntity>> FIND_ASYNC(Expression<Func<TEntity, bool>> expression = null)
         {
             try
             {
@@ -88,32 +88,6 @@ namespace ProjectProgress.Data.Repository
             try
             {
                 await Task.Run(() => { _context.Set<TEntity>().UpdateRange(entities); });
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
-        public async Task DELETE_ASYNC(TEntity entity)
-        {
-            try
-            {
-                await Task.Run(() => { _context.Set<TEntity>().Remove(entity); });
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
-        public async Task DELETES_ASYNC(IEnumerable<TEntity> entities)
-        {
-            try
-            {
-                await Task.Run(() => { _context.Set<TEntity>().RemoveRange(entities); });
             }
             catch (Exception ex)
             {

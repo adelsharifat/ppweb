@@ -22,7 +22,7 @@ export class TokenService {
     window.sessionStorage.setItem(TOKEN_KEY, token);
   }
 
-  public getToken(): string | null {
+  public getToken(): string | null | undefined {
     return window.sessionStorage.getItem(TOKEN_KEY);
   }
 
@@ -31,22 +31,8 @@ export class TokenService {
     window.sessionStorage.setItem(REFRESHTOKEN_KEY, token);
   }
 
-  public getRefreshToken(): string | null {
+  public getRefreshToken(): string | null | undefined {
     return window.sessionStorage.getItem(REFRESHTOKEN_KEY);
   }
-
-  public saveUser(user: any): void {
-    window.sessionStorage.removeItem(USER_KEY);
-    window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
-  }
-
-  // public getUser(): any {
-  //   const user = window.sessionStorage.getItem(USER_KEY);
-  //   if (user) {
-  //     return JSON.parse(user);
-  //   }
-
-  //   return {};
-  // }
 
 }

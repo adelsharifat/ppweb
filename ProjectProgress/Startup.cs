@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 using ProjectProgress.Data;
 using ProjectProgress.Data.Interface;
 using ProjectProgress.Data.Repository;
+using ProjectProgress.Domain.DTO.Shared;
 using ProjectProgress.Service.Interface;
 using ProjectProgress.Service.Service;
 
@@ -34,6 +35,8 @@ namespace ProjectProgress
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<JwtOptions>(Configuration.GetSection(nameof(JwtOptions)));
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddDbContext<AppDbContext>(options => {
@@ -42,6 +45,7 @@ namespace ProjectProgress
             });
 
             var key = Encoding.ASCII.GetBytes(Configuration["JwtOptions:SecKey"]);
+            var clockSckew = Convert.ToInt32(Configuration["JwtOptions:ClockSkew"]);
 
             var tokenValidationParameters = new TokenValidationParameters
             {
@@ -50,30 +54,37 @@ namespace ProjectProgress
                 ValidateIssuer = false,
                 ValidateAudience = false,
                 ValidateLifetime = true,
-                RequireExpirationTime = false,
-                ClockSkew = TimeSpan.Zero
+                RequireExpirationTime = false,                
+                ClockSkew = TimeSpan.FromSeconds(clockSckew)
             };
 
 
-            services.AddAuthentication(options => {
+            services.AddAuthentication(options =>
+            {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-            .AddJwtBearer(jwt => {
+            .AddJwtBearer(jwt =>
+            {
                 jwt.SaveToken = true;
                 jwt.TokenValidationParameters = tokenValidationParameters;
             });
+
+            services.AddSingleton(tokenValidationParameters);
+
+
+
 
             services.AddAuthorization();
 
 
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserManager, UserManager>();
             services.AddScoped<ITokenService, TokenService>();
 
-            services.AddSingleton(tokenValidationParameters);
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -15,7 +15,7 @@ namespace ProjectProgress.Controllers
     public class AdminController : ControllerBase
     {
         [HttpGet]
-        [Authorize(Roles = "test")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Index()
         {
             try

@@ -181,81 +181,42 @@ namespace ProjectProgress.Controllers
                 var expDate = UnixTimeStampToDateTime(utcExpiryDate);
 
                 if (expDate > DateTime.UtcNow)
-                {
-                    return new AuthResult()
-                    {
-                        Errors = new List<string>() { "We cannot refresh this since the token has not expired" },
-                        Success = false
-                    };
-                }
+                    throw new Exception("We cannot refresh this since the token has not expired");
 
                 var storedRefreshToken = await _tokenService.GetTokenAsync(x => x.Token == tokenRequest.RefreshToken);
 
                 if (storedRefreshToken == null)
-                {
-                    return new AuthResult()
-                    {
-                        Errors = new List<string>() { "refresh token doesnt exist" },
-                        Success = false
-                    };
-                }
+                    throw new Exception("refresh token doesnt exist");
 
                 if (DateTime.UtcNow > storedRefreshToken.ExpiryDate)
-                {
-                    return new AuthResult()
-                    {
-                        Errors = new List<string>() { "token has expired, user needs to relogin" },
-                        Success = false
-                    };
-                }
+                    throw new Exception("token has expired, user needs to relogin");
 
                 if (storedRefreshToken.IsUsed)
-                {
-                    return new AuthResult()
-                    {
-                        Errors = new List<string>() { "token has been used" },
-                        Success = false
-                    };
-                }
+                    throw new Exception("token has been used");
 
-                if (storedRefreshToken.IsActive)
-                {
-                    return new AuthResult()
-                    {
-                        Errors = new List<string>() { "token has been revoked" },
-                        Success = false
-                    };
-                }
+                if (!storedRefreshToken.IsActive)
+                    throw new Exception("token has been revoked");
 
                 // we are getting here the jwt token id
                 var jti = principal.Claims.SingleOrDefault(x => x.Type == JwtRegisteredClaimNames.Jti).Value;
+                var userId = Convert.ToInt32(principal.Claims.SingleOrDefault(x => x.Type == "Id").Value);
 
                 // check the id that the recieved token has against the id saved in the db
                 if (storedRefreshToken.JwtId != jti)
-                {
-                    return new AuthResult()
-                    {
-                        Errors = new List<string>() { "the token doenst mateched the saved token" },
-                        Success = false
-                    };
-                }
+                    throw new Exception("the token doenst mateched the saved token");
 
                 storedRefreshToken.IsUsed = true;
                 var updateResult = await _tokenService.UpdateTokenAsync(storedRefreshToken);
 
-                if(!updateResult.Successed)
-                    return new AuthResult()
-                    {
-                        Errors = new List<string>() { "update refresh token faild in the server!" },
-                        Success = false
-                    };
+                if (!updateResult.Successed)
+                    throw new Exception("update refresh token faild in the server!");
 
-                var dbUser = await _userManager.FindUserAsync(x=>x.CreatedBy == storedRefreshToken.CreatedBy);
+                var dbUser = await _userManager.FindUserAsync(x=>x.Id == userId);
                 return await GenerateJwtTokenAsync(dbUser);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return null;
+                return new AuthResult (){ Errors = new List<string> { ex.Message },Success=false };
             }
         }
         private DateTime UnixTimeStampToDateTime(double unixTimeStamp)

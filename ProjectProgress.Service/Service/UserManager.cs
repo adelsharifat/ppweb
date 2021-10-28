@@ -40,7 +40,6 @@ namespace ProjectProgress.Service.Service
             {
                 await _uw.UserRepo.CREATE_ASYNC(user);
                 var result =  await _uw.Commit();
-                _uw.Dispose();
                 if (result > 0)
                     return new MutationResult(true);
                
@@ -58,9 +57,9 @@ namespace ProjectProgress.Service.Service
             {
                 var user = await _uw.UserRepo.GET_ASYNC(x => x.Id == id);
                 if (user == null) throw new Exception("User not found!");
-                await _uw.UserRepo.DELETE_ASYNC(user);
+                await _uw.UserRepo.UPDATE_ASYNC(user);
                 var result = await _uw.Commit();
-                _uw.Dispose();
+
                 if (result > 0)
                     return new MutationResult(true);
                 return new MutationResult(false, "Deleted user faild");
@@ -76,9 +75,9 @@ namespace ProjectProgress.Service.Service
             try
             {
                 if (user == null) throw new Exception("User not found!");
-                await _uw.UserRepo.DELETE_ASYNC(user);
+                await _uw.UserRepo.UPDATE_ASYNC(user);
                 var result = await _uw.Commit();
-                _uw.Dispose();
+
                 if (result > 0)
                     return new MutationResult(true);
 
@@ -97,7 +96,7 @@ namespace ProjectProgress.Service.Service
                 if (user == null) throw new Exception("User not found!");
                 await _uw.UserRepo.UPDATE_ASYNC(user);
                 var result = await _uw.Commit();
-                _uw.Dispose();
+
                 if (result > 0) return new MutationResult(true);
                 return new MutationResult(false, "Update user faild!");
             }
@@ -119,7 +118,7 @@ namespace ProjectProgress.Service.Service
                 }
                 await _uw.UserRepo.UPDATE_ASYNC(user);
                 var result = await _uw.Commit();
-                _uw.Dispose();
+
             }
             catch (Exception ex)
             {

@@ -1,19 +1,17 @@
 import { HTTP_INTERCEPTORS, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
-
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
 import { TokenService } from './../../data/service/token.service';
 import { AuthService } from './../../data/service/auth.service';
 
-const TOKEN_HEADER_KEY = 'Authorization';  // for asp.net core
-//const TOKEN_HEADER_KEY = 'x-access-token';    // for Node.js Express back-end
+const TOKEN_HEADER_KEY = 'Authorization';        // for Spring Boot back-end
+//const TOKEN_HEADER_KEY = 'x-access-token';          // for Node.js Express back-end
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   private isRefreshing = false;
-  private tokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor(private tokenService: TokenService, private authService: AuthService) { }
@@ -23,11 +21,10 @@ export class AuthInterceptor implements HttpInterceptor {
     const token = this.tokenService.getToken();
     if (token != null) {
       authReq = this.addTokenHeader(req, token);
-
     }
-    return next.handle(authReq).pipe(catchError(error => {
-      if (error instanceof HttpErrorResponse && !authReq.url.includes('auth/login') && error.status === 401) {
 
+    return next.handle(authReq).pipe(catchError(error => {
+      if (error instanceof HttpErrorResponse && !authReq.url.includes('login') && error.status === 401) {
         return this.handle401Error(authReq, next);
       }
 
@@ -37,33 +34,29 @@ export class AuthInterceptor implements HttpInterceptor {
 
   private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
     if (!this.isRefreshing) {
-
       this.isRefreshing = true;
-      this.tokenSubject.next(null);
       this.refreshTokenSubject.next(null);
 
       const token = this.tokenService.getToken();
       const refreshToken = this.tokenService.getRefreshToken();
 
-      if (token && refreshToken)
+      if (token)
         return this.authService.refreshToken(token,refreshToken).pipe(
           switchMap((token: any) => {
             this.isRefreshing = false;
 
-            this.tokenService.saveToken(token.payload.token);
-            this.tokenService.saveRefreshToken(token.payload.refreshToken);
-            this.tokenSubject.next(token.payload.token);
-            this.refreshTokenSubject.next(token.payload.refreshToken);
+            this.tokenService.saveToken(token.accessToken);
+            this.refreshTokenSubject.next(token.accessToken);
 
             return next.handle(this.addTokenHeader(request, token.accessToken));
           }),
           catchError((err) => {
             this.isRefreshing = false;
+
             this.tokenService.signOut();
             return throwError(err);
           })
         );
-        this.tokenService.signOut();
     }
 
     return this.refreshTokenSubject.pipe(
@@ -85,3 +78,5 @@ export class AuthInterceptor implements HttpInterceptor {
 export const AuthInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
 ];
+
+

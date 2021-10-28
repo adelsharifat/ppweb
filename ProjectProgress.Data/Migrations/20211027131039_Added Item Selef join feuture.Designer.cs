@@ -10,8 +10,8 @@ using ProjectProgress.Data;
 namespace ProjectProgress.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211025102233_Change TokenTable Name and Refresh Token ")]
-    partial class ChangeTokenTableNameandRefreshToken
+    [Migration("20211027131039_Added Item Selef join feuture")]
+    partial class AddedItemSelefjoinfeuture
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,8 +46,8 @@ namespace ProjectProgress.Data.Migrations
                     b.ToTable("AppRole");
 
                     b.HasData(
-                        new { Id = 1, CreatedDate = new DateTime(2021, 10, 25, 13, 52, 33, 229, DateTimeKind.Local), Name = "admin" },
-                        new { Id = 2, CreatedDate = new DateTime(2021, 10, 25, 13, 52, 33, 231, DateTimeKind.Local), Name = "user" }
+                        new { Id = 1, CreatedDate = new DateTime(2021, 10, 27, 16, 40, 38, 983, DateTimeKind.Local), Name = "admin" },
+                        new { Id = 2, CreatedDate = new DateTime(2021, 10, 27, 16, 40, 38, 985, DateTimeKind.Local), Name = "user" }
                     );
                 });
 
@@ -90,8 +90,84 @@ namespace ProjectProgress.Data.Migrations
                     b.ToTable("AppUser");
 
                     b.HasData(
-                        new { Id = 1, CreatedDate = new DateTime(2021, 10, 25, 13, 52, 33, 238, DateTimeKind.Local), Password = "yFr8S8rHALVVetTuWXWBVKGXQZxnWsd6AaMOaF+/EUll6MDMsTvxFLxGryZsFMueY593xPd1vNoXNV+umiBGslghvfE2Lw==", Salt = "/zo0ZfGtBATvfi3uTd8nbV0hbqD/LiXq4LTJw8umur54eo4FRRujZsRp2RgCeVzMgR6f7B+TGY+524P+YI/5tTwvzo4ySA==", UserName = "admin" }
+                        new { Id = 1, CreatedDate = new DateTime(2021, 10, 27, 16, 40, 38, 992, DateTimeKind.Local), Password = "Va/jFczuGtDUE5L02MAqwO9rfZXpoEzhjOPfFZLb/6U7bywDfGofPU2ZpfvN0Y50EsUU/b3OxNvRNPvxUBPhv4TcLcrJxA==", Salt = "EywpaG7PB9N3KR20Ha/elnbW9bGOfFpPrRirs7HVLXDof+Wpc3RZVc4PKpu1EvL1RCTSm2QnN1NVoj1AL3E6Hzzaabsixg==", UserName = "admin" }
                     );
+                });
+
+            modelBuilder.Entity("ProjectProgress.Domain.Attachment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CreatedBy");
+
+                    b.Property<DateTime?>("CreatedDate");
+
+                    b.Property<int?>("DeletedBy");
+
+                    b.Property<DateTime?>("DeletedDate");
+
+                    b.Property<string>("FileName");
+
+                    b.Property<string>("FileType");
+
+                    b.Property<bool>("IsDelete");
+
+                    b.Property<int?>("ObjectId");
+
+                    b.Property<string>("Remark");
+
+                    b.Property<Guid>("StreamId");
+
+                    b.Property<int?>("UpdatedBy");
+
+                    b.Property<DateTime?>("UpdatedDate");
+
+                    b.Property<int?>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ObjectId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Attachment");
+                });
+
+            modelBuilder.Entity("ProjectProgress.Domain.Item", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CreatedBy");
+
+                    b.Property<DateTime?>("CreatedDate");
+
+                    b.Property<int?>("DeletedBy");
+
+                    b.Property<DateTime?>("DeletedDate");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<int?>("ParentId");
+
+                    b.Property<int?>("UpdatedBy");
+
+                    b.Property<DateTime?>("UpdatedDate");
+
+                    b.Property<int?>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Item");
                 });
 
             modelBuilder.Entity("ProjectProgress.Domain.RefreshToken", b =>
@@ -149,6 +225,28 @@ namespace ProjectProgress.Data.Migrations
                         new { UserId = 1, RoleId = 1 },
                         new { UserId = 1, RoleId = 2 }
                     );
+                });
+
+            modelBuilder.Entity("ProjectProgress.Domain.Attachment", b =>
+                {
+                    b.HasOne("ProjectProgress.Domain.Item", "Item")
+                        .WithMany("Attachments")
+                        .HasForeignKey("ObjectId");
+
+                    b.HasOne("ProjectProgress.Domain.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("ProjectProgress.Domain.Item", b =>
+                {
+                    b.HasOne("ProjectProgress.Domain.Item", "GetItem")
+                        .WithMany("Items")
+                        .HasForeignKey("ParentId");
+
+                    b.HasOne("ProjectProgress.Domain.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("ProjectProgress.Domain.RefreshToken", b =>

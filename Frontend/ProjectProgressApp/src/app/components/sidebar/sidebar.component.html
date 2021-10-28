@@ -1,0 +1,12 @@
+<div class="sidebar-wrapper" [class.backdrop-hide] = "!getSidebarState()" [class.backdrop-show] = "getSidebarState()" (click)="closeSidebar()"></div>
+<div class="sidebar-nav" [class.nav-expand] = "getSidebarState()">
+  <div class="avatar-wrapper">
+    <ngx-avatar class="avatar"  src="assets/img/avatar.jpg" name="Haithem Mosbahi" size="100" [round]="true">
+</ngx-avatar>
+  </div>
+  <ul class="sidebar-nav-item-wrapper">
+    <li class="sidebar-nav-item"><a routerLink="manage-items" class="pointer"><i class="fas fa-tasks"></i>Manage Items</a></li>
+    <li class="sidebar-nav-item"><a class="pointer"><i class="fas fa-users"></i>Users</a></li>
+    <li class="sidebar-nav-item"><a class="pointer" (click)="signout()"><i class="fas fa-sign-out-alt"></i>Signout</a></li>
+  </ul>
+</div>

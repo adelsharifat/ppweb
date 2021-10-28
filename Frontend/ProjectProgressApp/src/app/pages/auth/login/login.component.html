@@ -1,13 +1,21 @@
-  <div>
+  <div class="loginWrapper p-relative">
+    <div class="loginContent">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-          <label for="userName">user</label>
-          <input type="text" formControlName="userName" required><br/>
-          <label for="password">password</label>
-          <input type="password" formControlName="password" required><br/>
+        <div class="formControl loginControl">
+          <label for="userName">USER</label>
+          <input class="formInput" type="text" id="userName" formControlName="userName" required>
+        </div>
+        <div class="formControl">
+          <label for="password">PASSWORD</label>
+          <input class="formInput" type="password" id="password" formControlName="password" required>
+        </div>
+        <div class="formCheckBox mt-2">
+          <input class="chboxInput" id="isRemember" type="checkbox" formControlName="isRemember">
           <label for="isRemember">Remember Me</label>
-          <input type="checkbox" formControlName="isRemember"><br/>
-          <button type="submit" [disabled]="!loginForm.valid">
-              Login
-          </button>
-      </form>
+        </div>
+        <button class="btn-login mt-5" type="submit" [disabled]="!loginForm.valid">
+            Login
+        </button>
+    </form>
+    </div>
   </div>

@@ -15,12 +15,12 @@ using System.Threading.Tasks;
 
 namespace ProjectProgress.Service.Service
 {
-    public class TokenService:ITokenService
+    public class TokenService : ITokenService
     {
         private readonly JwtOptions _jwtOptions;
         private readonly IUnitOfWork _unitOfWork;
 
-        public TokenService(IOptionsMonitor<JwtOptions> jwtOptions,IUnitOfWork unitOfWork)
+        public TokenService(IOptionsMonitor<JwtOptions> jwtOptions, IUnitOfWork unitOfWork)
         {
             _jwtOptions = jwtOptions.CurrentValue;
             _unitOfWork = unitOfWork;
@@ -32,14 +32,13 @@ namespace ProjectProgress.Service.Service
             {
                 await _unitOfWork.TokenRepo.CREATE_ASYNC(token);
                 var result = await _unitOfWork.Commit();
-                _unitOfWork.Dispose();
 
                 if (result > 0) return new MutationResult(true);
                 return new MutationResult(false, "Add token to server faild");
             }
             catch (Exception ex)
             {
-                return new MutationResult(false,ex.Message);
+                return new MutationResult(false, ex.Message);
             }
         }
 
@@ -92,7 +91,7 @@ namespace ProjectProgress.Service.Service
         {
             try
             {
-                return await _unitOfWork.TokenRepo.GET_ASYNC(expressions);                
+                return await _unitOfWork.TokenRepo.GET_ASYNC(expressions);
             }
             catch (Exception ex)
             {
@@ -107,10 +106,9 @@ namespace ProjectProgress.Service.Service
             {
                 await _unitOfWork.TokenRepo.UPDATE_ASYNC(token);
                 var result = await _unitOfWork.Commit();
-                _unitOfWork.Dispose();
 
                 if (result > 0) return new MutationResult(true);
-                return new MutationResult(false, "Update token to server faild");                 
+                return new MutationResult(false, "Update token to server faild");
             }
             catch (Exception ex)
             {

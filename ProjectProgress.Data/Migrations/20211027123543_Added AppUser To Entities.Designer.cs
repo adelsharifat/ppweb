@@ -10,8 +10,8 @@ using ProjectProgress.Data;
 namespace ProjectProgress.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211025101924_Inital Migration")]
-    partial class InitalMigration
+    [Migration("20211027123543_Added AppUser To Entities")]
+    partial class AddedAppUserToEntities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,9 +27,9 @@ namespace ProjectProgress.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CreatedBy");
+                    b.Property<int?>("CreatedBy");
 
-                    b.Property<DateTime>("CreatedDate");
+                    b.Property<DateTime?>("CreatedDate");
 
                     b.Property<int?>("DeletedBy");
 
@@ -44,11 +44,6 @@ namespace ProjectProgress.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppRole");
-
-                    b.HasData(
-                        new { Id = 1, CreatedBy = 0, CreatedDate = new DateTime(2021, 10, 25, 13, 49, 24, 251, DateTimeKind.Local), Name = "admin" },
-                        new { Id = 2, CreatedBy = 0, CreatedDate = new DateTime(2021, 10, 25, 13, 49, 24, 253, DateTimeKind.Local), Name = "user" }
-                    );
                 });
 
             modelBuilder.Entity("ProjectProgress.Domain.AppUser", b =>
@@ -59,9 +54,9 @@ namespace ProjectProgress.Data.Migrations
 
                     b.Property<string>("Avatar");
 
-                    b.Property<int>("CreatedBy");
+                    b.Property<int?>("CreatedBy");
 
-                    b.Property<DateTime>("CreatedDate");
+                    b.Property<DateTime?>("CreatedDate");
 
                     b.Property<int?>("DeletedBy");
 
@@ -88,10 +83,80 @@ namespace ProjectProgress.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppUser");
+                });
 
-                    b.HasData(
-                        new { Id = 1, CreatedBy = 0, CreatedDate = new DateTime(2021, 10, 25, 13, 49, 24, 261, DateTimeKind.Local), Password = "6oKNDQgVmE9dnNLTQlKsWNAHPJPeyq2RkqfJIpWiM3HQvMv1mm50wigOewHZ0098PWh4yDF8NHcO+sgeoir5eIKkuLA94g==", Salt = "sUSRpGdnw62mgaR4xgW0+T+cm9iaQS3nMxo22dUo+WDSxwezDMijQCrM2HIQYQ7hDFub40gdy31aGjQ/bWN9GRuLNDd38A==", UserName = "admin" }
-                    );
+            modelBuilder.Entity("ProjectProgress.Domain.Attachment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CreatedBy");
+
+                    b.Property<DateTime?>("CreatedDate");
+
+                    b.Property<int?>("DeletedBy");
+
+                    b.Property<DateTime?>("DeletedDate");
+
+                    b.Property<string>("FileName");
+
+                    b.Property<string>("FileType");
+
+                    b.Property<bool>("IsDelete");
+
+                    b.Property<int?>("ObjectId");
+
+                    b.Property<string>("Remark");
+
+                    b.Property<Guid>("StreamId");
+
+                    b.Property<int?>("UpdatedBy");
+
+                    b.Property<DateTime?>("UpdatedDate");
+
+                    b.Property<int?>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ObjectId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Attachment");
+                });
+
+            modelBuilder.Entity("ProjectProgress.Domain.Item", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CreatedBy");
+
+                    b.Property<DateTime?>("CreatedDate");
+
+                    b.Property<int?>("DeletedBy");
+
+                    b.Property<DateTime?>("DeletedDate");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<int?>("ParentId");
+
+                    b.Property<int?>("UpdatedBy");
+
+                    b.Property<DateTime?>("UpdatedDate");
+
+                    b.Property<int?>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Item");
                 });
 
             modelBuilder.Entity("ProjectProgress.Domain.RefreshToken", b =>
@@ -100,11 +165,11 @@ namespace ProjectProgress.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CreatedBy");
+                    b.Property<int?>("CreatedBy");
 
                     b.Property<string>("CreatedByIp");
 
-                    b.Property<DateTime>("CreatedDate");
+                    b.Property<DateTime?>("CreatedDate");
 
                     b.Property<int?>("DeletedBy");
 
@@ -130,7 +195,7 @@ namespace ProjectProgress.Data.Migrations
 
                     b.HasIndex("CreatedBy");
 
-                    b.ToTable("Token");
+                    b.ToTable("RefreshToken");
                 });
 
             modelBuilder.Entity("ProjectProgress.Domain.UserRole", b =>
@@ -146,12 +211,29 @@ namespace ProjectProgress.Data.Migrations
                     b.ToTable("UserRole");
                 });
 
+            modelBuilder.Entity("ProjectProgress.Domain.Attachment", b =>
+                {
+                    b.HasOne("ProjectProgress.Domain.Item", "Item")
+                        .WithMany("Attachments")
+                        .HasForeignKey("ObjectId");
+
+                    b.HasOne("ProjectProgress.Domain.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("ProjectProgress.Domain.Item", b =>
+                {
+                    b.HasOne("ProjectProgress.Domain.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("ProjectProgress.Domain.RefreshToken", b =>
                 {
                     b.HasOne("ProjectProgress.Domain.AppUser", "User")
                         .WithMany("RefreshTokens")
-                        .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CreatedBy");
                 });
 
             modelBuilder.Entity("ProjectProgress.Domain.UserRole", b =>

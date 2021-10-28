@@ -1,0 +1,65 @@
+<div class="page-wrapper">
+  <div class="header">
+    <app-nav pageTitle="{{itemName}}"></app-nav>
+  </div>
+  <div class="content">
+    <mat-spinner *ngIf="loading"></mat-spinner>
+    <div class="tilesWrapper" *ngIf="!loading">
+      <div class="itemMapWrapper">
+        <button>item1</button>
+        <mat-icon class="arrow">chevron_right</mat-icon>
+        <button>item1</button>
+        <mat-icon class="arrow">chevron_right</mat-icon>
+        <button>item1</button>
+        <mat-icon class="arrow">chevron_right</mat-icon>
+        <button>item1</button>
+        <mat-icon class="arrow">chevron_right</mat-icon>
+        <button>item1</button>
+        <mat-icon class="arrow">chevron_right</mat-icon>
+        <button>item1</button>
+        <mat-icon class="arrow">chevron_right</mat-icon>
+        <button>item1</button>
+        <mat-icon class="arrow">chevron_right</mat-icon>
+        <button>item1</button>
+        <mat-icon class="arrow">chevron_right</mat-icon>
+        <button>item1</button>
+        <mat-icon class="arrow">chevron_right</mat-icon>
+        <button>item1</button>
+        <mat-icon class="arrow">chevron_right</mat-icon>
+        <button>item1</button>
+        <mat-icon class="arrow">chevron_right</mat-icon>
+        <button>item1</button>
+        <mat-icon class="arrow">chevron_right</mat-icon>
+        <button>item1</button>
+        <mat-icon class="arrow">chevron_right</mat-icon>
+        <button>item1</button>
+        <mat-icon class="arrow">chevron_right</mat-icon>
+        <button>item1</button>
+        <mat-icon class="arrow">chevron_right</mat-icon>
+        <button>item1</button>
+        <mat-icon class="arrow">chevron_right</mat-icon>
+        <button>item1</button>
+        <mat-icon class="arrow">chevron_right</mat-icon>
+        <button>item1</button>
+        <mat-icon class="arrow">chevron_right</mat-icon>
+        <button>item1</button>
+        <mat-icon class="arrow">chevron_right</mat-icon>
+        <button>item1</button>
+        <mat-icon class="arrow">chevron_right</mat-icon>
+        <button>item1</button>
+        <mat-icon class="arrow">chevron_right</mat-icon>
+        <button>item1</button>
+        <mat-icon class="arrow">chevron_right</mat-icon>
+
+      </div>
+      <div class="tile blue" (click)="openAddItemPage()">
+        <div><mat-icon class="icon">apps</mat-icon></div>
+        <div >Add Item</div>
+      </div>
+      <div class="tile yellow" (click)="openAddAttachmentPage()">
+        <div><mat-icon  class="icon">attachment</mat-icon></div>
+        <div >Add Attachment</div>
+      </div>
+    </div>
+  </div>
+</div>

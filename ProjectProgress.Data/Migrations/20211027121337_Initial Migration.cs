@@ -4,18 +4,21 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProjectProgress.Data.Migrations
 {
-    public partial class InitalMigration : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.Sql("CREATE TABLE DocumentStore AS FILETABLE WITH (FileTable_Directory = 'DocumentStore', FileTable_Collate_Filename = database_default);");
+
+
             migrationBuilder.CreateTable(
                 name: "AppRole",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreatedBy = table.Column<int>(nullable: false),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<int>(nullable: true),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
                     UpdatedBy = table.Column<int>(nullable: true),
                     UpdatedDate = table.Column<DateTime>(nullable: true),
                     DeletedBy = table.Column<int>(nullable: true),
@@ -33,8 +36,8 @@ namespace ProjectProgress.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreatedBy = table.Column<int>(nullable: false),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<int>(nullable: true),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
                     UpdatedBy = table.Column<int>(nullable: true),
                     UpdatedDate = table.Column<DateTime>(nullable: true),
                     DeletedBy = table.Column<int>(nullable: true),
@@ -52,13 +55,33 @@ namespace ProjectProgress.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Token",
+                name: "Item",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreatedBy = table.Column<int>(nullable: false),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<int>(nullable: true),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    UpdatedBy = table.Column<int>(nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: true),
+                    DeletedBy = table.Column<int>(nullable: true),
+                    DeletedDate = table.Column<DateTime>(nullable: true),
+                    Name = table.Column<string>(maxLength: 100, nullable: false),
+                    ParentId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Item", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RefreshToken",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreatedBy = table.Column<int>(nullable: true),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
                     UpdatedBy = table.Column<int>(nullable: true),
                     UpdatedDate = table.Column<DateTime>(nullable: true),
                     DeletedBy = table.Column<int>(nullable: true),
@@ -73,13 +96,13 @@ namespace ProjectProgress.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Token", x => x.Id);
+                    table.PrimaryKey("PK_RefreshToken", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Token_AppUser_CreatedBy",
+                        name: "FK_RefreshToken_AppUser_CreatedBy",
                         column: x => x.CreatedBy,
                         principalTable: "AppUser",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -106,24 +129,69 @@ namespace ProjectProgress.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "AppRole",
-                columns: new[] { "Id", "CreatedBy", "CreatedDate", "DeletedBy", "DeletedDate", "Name", "UpdatedBy", "UpdatedDate" },
-                values: new object[] { 1, 0, new DateTime(2021, 10, 25, 13, 49, 24, 251, DateTimeKind.Local), null, null, "admin", null, null });
+            migrationBuilder.CreateTable(
+                name: "Attachment",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreatedBy = table.Column<int>(nullable: true),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    UpdatedBy = table.Column<int>(nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: true),
+                    DeletedBy = table.Column<int>(nullable: true),
+                    DeletedDate = table.Column<DateTime>(nullable: true),
+                    FileName = table.Column<string>(nullable: true),
+                    ObjectId = table.Column<int>(nullable: true),
+                    StreamId = table.Column<string>(nullable: true),
+                    IsDelete = table.Column<bool>(nullable: false),
+                    FileType = table.Column<string>(nullable: true),
+                    Remark = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Attachment", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Attachment_Item_ObjectId",
+                        column: x => x.ObjectId,
+                        principalTable: "Item",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
 
             migrationBuilder.InsertData(
                 table: "AppRole",
                 columns: new[] { "Id", "CreatedBy", "CreatedDate", "DeletedBy", "DeletedDate", "Name", "UpdatedBy", "UpdatedDate" },
-                values: new object[] { 2, 0, new DateTime(2021, 10, 25, 13, 49, 24, 253, DateTimeKind.Local), null, null, "user", null, null });
+                values: new object[] { 1, null, new DateTime(2021, 10, 27, 15, 43, 37, 449, DateTimeKind.Local), null, null, "admin", null, null });
+
+            migrationBuilder.InsertData(
+                table: "AppRole",
+                columns: new[] { "Id", "CreatedBy", "CreatedDate", "DeletedBy", "DeletedDate", "Name", "UpdatedBy", "UpdatedDate" },
+                values: new object[] { 2, null, new DateTime(2021, 10, 27, 15, 43, 37, 451, DateTimeKind.Local), null, null, "user", null, null });
 
             migrationBuilder.InsertData(
                 table: "AppUser",
                 columns: new[] { "Id", "Avatar", "CreatedBy", "CreatedDate", "DeletedBy", "DeletedDate", "FirstName", "LastName", "Password", "Salt", "UpdatedBy", "UpdatedDate", "UserName" },
-                values: new object[] { 1, null, 0, new DateTime(2021, 10, 25, 13, 49, 24, 261, DateTimeKind.Local), null, null, null, null, "6oKNDQgVmE9dnNLTQlKsWNAHPJPeyq2RkqfJIpWiM3HQvMv1mm50wigOewHZ0098PWh4yDF8NHcO+sgeoir5eIKkuLA94g==", "sUSRpGdnw62mgaR4xgW0+T+cm9iaQS3nMxo22dUo+WDSxwezDMijQCrM2HIQYQ7hDFub40gdy31aGjQ/bWN9GRuLNDd38A==", null, null, "admin" });
+                values: new object[] { 1, null, null, new DateTime(2021, 10, 27, 15, 43, 37, 461, DateTimeKind.Local), null, null, null, null, "YGiiWc7FTrrY8Kr8nLJ6DCVXbsGnAzpP6F0+84T+Jn0h7c6T2S5aIedS1MYSHoU8Sgyr5eVtxzDPLe1k6/Pw6FCteXv1dQ==", "RwcG0+iyE3HSNNT8LSbdREt8TQamv404f2h0A0hIzp3x0YdqcVHetWk5IgleJAgtPHh++hFtQIC9++9bnNMWiXDOZIYRHw==", null, null, "admin" });
+
+            migrationBuilder.InsertData(
+                table: "UserRole",
+                columns: new[] { "UserId", "RoleId" },
+                values: new object[] { 1, 1 });
+
+            migrationBuilder.InsertData(
+                table: "UserRole",
+                columns: new[] { "UserId", "RoleId" },
+                values: new object[] { 1, 2 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Token_CreatedBy",
-                table: "Token",
+                name: "IX_Attachment_ObjectId",
+                table: "Attachment",
+                column: "ObjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RefreshToken_CreatedBy",
+                table: "RefreshToken",
                 column: "CreatedBy");
 
             migrationBuilder.CreateIndex(
@@ -135,10 +203,16 @@ namespace ProjectProgress.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Token");
+                name: "Attachment");
+
+            migrationBuilder.DropTable(
+                name: "RefreshToken");
 
             migrationBuilder.DropTable(
                 name: "UserRole");
+
+            migrationBuilder.DropTable(
+                name: "Item");
 
             migrationBuilder.DropTable(
                 name: "AppRole");

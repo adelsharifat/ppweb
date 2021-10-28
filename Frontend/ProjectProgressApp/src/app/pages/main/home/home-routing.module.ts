@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { HomeComponent } from './homecomponent';
+import { AuthGuard } from 'src/app/middleware/auth/auth.guard';
 
 
 const routes:Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component:HomeComponent
+    component:HomeComponent,
+    //canActivate:[AuthGuard],
   }
 ]
 
@@ -20,6 +22,7 @@ const routes:Routes = [
     RouterModule.forChild(routes),
     CommonModule
   ],
-  exports:[RouterModule]
+  exports:[RouterModule],
+  providers:[AuthGuard]
 })
 export class MainRoutingModule { }
