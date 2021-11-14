@@ -72,7 +72,7 @@ namespace ProjectProgress
             });
 
             services.AddSingleton(tokenValidationParameters);
-
+            services.AddSingleton<DapperContext>();
 
 
 

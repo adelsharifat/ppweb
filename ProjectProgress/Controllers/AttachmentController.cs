@@ -66,18 +66,18 @@ namespace ProjectProgress.Controllers
         {
             try
             {
-                var fileExtention = Path.GetExtension(attachmentRequest.FileName);
-                var fileName = Guid.NewGuid().ToString() + fileExtention;
-                var streamId = Guid.NewGuid();
-                var model = new Attachment()
-                {
-                    FileName = fileName,
-                    ObjectId = attachmentRequest.ItemId,
-                    IsDelete = false,
-                    FileType = fileExtention,
-                    StreamId = streamId,
-                    Remark = attachmentRequest.Remark
-                };
+
+                Attachment model = new Attachment();
+                model.FileName = attachmentRequest.FileName;
+                
+                var insertedAttachment = await _attachmentService.SaveAttachment(model,attachmentRequest.FileStream);
+                model.StreamId =(Guid)insertedAttachment["stream_id"];
+                model.FileName = insertedAttachment["name"].ToString();
+                model.ObjectId = attachmentRequest.ItemId;
+                model.FileType = insertedAttachment["file_type"].ToString();
+                model.Remark = attachmentRequest.Remark;
+                model.CreatedBy = attachmentRequest.CreatedBy;
+                model.CreatedDate = DateTime.Now;
                 await _attachmentService.ADD_ASYNC(model);
                 return Ok(new ApiResponse(StatusCodes.Status201Created, model));
             }

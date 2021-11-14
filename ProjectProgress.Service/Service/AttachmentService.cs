@@ -1,9 +1,15 @@
-﻿using ProjectProgress.Data.Interface;
+﻿using Dapper;
+using ProjectProgress.Data;
+using ProjectProgress.Data.Interface;
 using ProjectProgress.Domain;
 using ProjectProgress.Domain.DTO.Shared;
 using ProjectProgress.Service.Interface;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,9 +19,12 @@ namespace ProjectProgress.Service.Service
     public class AttachmentService : IAttachmentService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public AttachmentService(IUnitOfWork unitOfWork)
+        private readonly DapperContext _dapperContext;
+
+        public AttachmentService(IUnitOfWork unitOfWork,DapperContext dapperContext)
         {
             _unitOfWork = unitOfWork;
+            _dapperContext = dapperContext;
         }
         public async Task<IEnumerable<Attachment>> GETALL_ASYNC()
         {
@@ -82,6 +91,13 @@ namespace ProjectProgress.Service.Service
             {
                 return new MutationResult(false, ex.Message);
             }
+        }
+
+        public async Task<DataRow> SaveAttachment(Attachment attachment,byte[] content)
+        {
+            var db = _dapperContext.CreateConnection();
+            DataRow insertedAttachment =(await db.QueryAsync("SaveAttachment", new {FileStream = content,FileName = attachment.FileName})).Single();
+            return insertedAttachment;
         }
     }
 }

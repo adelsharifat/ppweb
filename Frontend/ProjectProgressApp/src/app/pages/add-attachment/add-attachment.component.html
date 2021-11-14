@@ -5,8 +5,10 @@
   <div class="content">
     <mat-spinner *ngIf="loading"></mat-spinner>
     <div class="attachment">
-      <input type="text" readonly>
-      <button>Browse</button>
+        <div class="searchWrapper">
+          <input type="text" readonly>
+          <button>Browse</button>
+        </div>
     </div>
     <div class="uploadBtnWrapper border-bottom">
       <button class="uploadBtn primary">

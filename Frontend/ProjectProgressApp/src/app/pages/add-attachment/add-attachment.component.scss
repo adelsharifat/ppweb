@@ -18,30 +18,39 @@
       display: flex;
       align-items: flex-end;
       flex:1;
-      max-width: 800px;
       margin:auto;
       margin-top: 2px;
       background: rgb(179,255,248);
       background: linear-gradient(90deg, rgba(179,255,248,1) 0%, rgba(220,158,255,1) 100%);
-      input{
-        flex:1;
-        border-radius: 3px;
-        border-top-right-radius: 0px;
-        border-bottom-right-radius: 0px;
-        border:1px solid #d8d8d8;
-        padding:5px;
+
+      .searchWrapper{
+        max-width: 700px;
+        margin: auto;
+        display: flex;
+        flex: 1;
+        input{
+          flex:1;
+          border-radius: 3px;
+          border-top-right-radius: 0px;
+          border-bottom-right-radius: 0px;
+          border:1px solid #d8d8d8;
+          padding:5px;
+        }
+
+        button{
+          cursor: pointer;
+          border:1px solid #d8d8d8;
+          border-left:none;
+          border-top-right-radius:3px;
+          border-bottom-right-radius: 3px;
+          background: #eee;
+          color: #333;
+          padding:5px;
+        }
       }
 
-      button{
-        cursor: pointer;
-        border:1px solid #d8d8d8;
-        border-left:none;
-        border-top-right-radius:3px;
-        border-bottom-right-radius: 3px;
-        background: #eee;
-        color: #333;
-        padding:5px;
-      }
+
+
     }
 
     .uploadBtnWrapper{
