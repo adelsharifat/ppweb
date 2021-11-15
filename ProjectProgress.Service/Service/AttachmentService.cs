@@ -93,11 +93,10 @@ namespace ProjectProgress.Service.Service
             }
         }
 
-        public async Task<DataRow> SaveAttachment(Attachment attachment,byte[] content)
+        public async Task SaveAttachments(List<Attachment> attachments)
         {
             var db = _dapperContext.CreateConnection();
-            DataRow insertedAttachment =(await db.QueryAsync("SaveAttachment", new {FileStream = content,FileName = attachment.FileName})).Single();
-            return insertedAttachment;
+            await db.QueryAsync("SaveAttachment", new { Attachments = attachments });
         }
     }
 }

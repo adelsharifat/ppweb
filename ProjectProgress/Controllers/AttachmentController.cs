@@ -23,7 +23,8 @@ namespace ProjectProgress.Controllers
             _attachmentService = attachmentService;
         }
 
-
+        [HttpPost]
+        [Route("GetAll")]
         public async Task<IActionResult> GetAll()
         {
             try
@@ -36,7 +37,8 @@ namespace ProjectProgress.Controllers
             }
         }
 
-
+        [HttpPost]
+        [Route("GetById")]
         public async Task<IActionResult> GetById(int Id)
         {
             try
@@ -49,7 +51,8 @@ namespace ProjectProgress.Controllers
             }
         }
 
-
+        [HttpPost]
+        [Route("GetByName")]
         public async Task<IActionResult> GetByName(string name)
         {
             try
@@ -62,64 +65,32 @@ namespace ProjectProgress.Controllers
             }
         }
 
-        public async Task<IActionResult> AddAttachment([FromBody] AttachmentRequest attachmentRequest)
+        [HttpPost]
+        [Route("SaveAttachments")]
+        public async Task<IActionResult> SaveAttachments([FromBody] AttachmentRequest attachmentRequest)
         {
             try
             {
+                List<Attachment> modelList = new List<Attachment>();
 
-                Attachment model = new Attachment();
-                model.FileName = attachmentRequest.FileName;
-                
-                var insertedAttachment = await _attachmentService.SaveAttachment(model,attachmentRequest.FileStream);
-                model.StreamId =(Guid)insertedAttachment["stream_id"];
-                model.FileName = insertedAttachment["name"].ToString();
-                model.ObjectId = attachmentRequest.ItemId;
-                model.FileType = insertedAttachment["file_type"].ToString();
-                model.Remark = attachmentRequest.Remark;
-                model.CreatedBy = attachmentRequest.CreatedBy;
-                model.CreatedDate = DateTime.Now;
-                await _attachmentService.ADD_ASYNC(model);
-                return Ok(new ApiResponse(StatusCodes.Status201Created, model));
-            }
-            catch (Exception ex)
-            {
-                return Ok(new ApiResponse(StatusCodes.Status500InternalServerError, ex.Message));
-            }
-        }
-
-
-        public async Task<IActionResult> UpdateAttachment([FromBody] AttachmentRequest attachmentRequest)
-        {
-            try
-            {
-                var fileExtention = Path.GetExtension(attachmentRequest.FileName);
-                var fileName = Guid.NewGuid().ToString() + fileExtention;
-                var streamId = Guid.NewGuid();
-                var model = new Attachment()
+                foreach (var file in attachmentRequest.Files)
                 {
-                    FileName = fileName,
-                    ObjectId = attachmentRequest.ItemId,
-                    IsDelete = false,
-                    FileType = fileExtention,
-                    StreamId = streamId,
-                    Remark = attachmentRequest.Remark
-                };
-                await _attachmentService.ADD_ASYNC(model);
-                return Ok(new ApiResponse(StatusCodes.Status201Created, model));
+                    Attachment model = new Attachment();
+                    model.FileName = file.FileName;
+                    model.File = file.FileStream;
+                    model.Remark = attachmentRequest.Remark;
+                    model.CreatedBy = attachmentRequest.CreatedBy;
+                    modelList.Add(model);
+                }
+
+                await _attachmentService.SaveAttachments(modelList);
+
+                return Ok(new ApiResponse(StatusCodes.Status201Created, modelList));
             }
             catch (Exception ex)
             {
                 return Ok(new ApiResponse(StatusCodes.Status500InternalServerError, ex.Message));
             }
         }
-
-
-
-
-
-
-
-
-
     }
 }

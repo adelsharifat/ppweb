@@ -19,7 +19,7 @@ namespace ProjectProgress.Service.Service
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<Item>> GETALL_ASYNC()
+        public async Task<IEnumerable<Item>> GetAllAsync()
         {
             try
             {
@@ -31,11 +31,12 @@ namespace ProjectProgress.Service.Service
             }
         }
 
-        public async Task<Item> GET_ASYNC(Expression<Func<Item, bool>> expression)
+        public async Task<Item> GetAsync(Expression<Func<Item, bool>> expression)
         {
             try
             {
-                return await _unitOfWork.ItemRepo.GET_ASYNC(expression);
+                var a = await _unitOfWork.ItemRepo.GET_ASYNC(expression);
+                return a;
             }
             catch (Exception ex)
             {
@@ -43,7 +44,7 @@ namespace ProjectProgress.Service.Service
             }
         }
 
-        public async Task<MutationResult> ADD_ASYNC(Item item)
+        public async Task<MutationResult> AddAsync(Item item)
         {
             try
             {
@@ -58,7 +59,7 @@ namespace ProjectProgress.Service.Service
             }
         }
 
-        public async Task<MutationResult> UPDATE_ASYNC(Item item)
+        public async Task<MutationResult> UpdateAsync(Item item)
         {
             try
             {
@@ -73,7 +74,7 @@ namespace ProjectProgress.Service.Service
             }
         }
 
-        public async Task<MutationResult> DELETE_ASYNC(Item item)
+        public async Task<MutationResult> DeleteAsync(Item item)
         {
             try
             {

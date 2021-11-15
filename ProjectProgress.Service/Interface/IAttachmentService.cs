@@ -3,6 +3,7 @@ using ProjectProgress.Domain.DTO.Shared;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,6 @@ namespace ProjectProgress.Service.Interface
         Task<MutationResult> ADD_ASYNC(Attachment attachment);
         Task<MutationResult> UPDATE_ASYNC(Attachment attachment);
         Task<MutationResult> DELETE_ASYNC(Attachment attachment);
-        Task<DataRow> SaveAttachment(Attachment attachment,byte[] content);
+        Task SaveAttachments(List<Attachment> attachments);
     }
 }

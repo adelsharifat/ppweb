@@ -6,6 +6,8 @@ export const environment = {
   production: false,
   AUTH_API: 'https://localhost:5001/api/auth/',
   ADMIN_API: 'https://localhost:5001/api/admin/',
+  ATTACHMENT_API: 'https://localhost:5001/api/attachment/',
+  ITEM_API: 'https://localhost:5001/api/item/',
 };
 
 /*

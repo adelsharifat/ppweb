@@ -4,20 +4,27 @@
   </div>
   <div class="content">
     <mat-spinner *ngIf="loading"></mat-spinner>
+
     <div class="attachment">
         <div class="searchWrapper">
-          <input type="text" readonly>
-          <button>Browse</button>
+          <ngx-dropzone (change)="onSelect($event)">
+            <ngx-dropzone-label>Drop it!</ngx-dropzone-label>
+            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove($event)">
+              <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+            </ngx-dropzone-preview>
+          </ngx-dropzone>
+          <p><label for="remark">Remark</label></p>
+          <textarea class="remark" id="remark" [(ngModel)]="remark"></textarea>
         </div>
     </div>
     <div class="uploadBtnWrapper border-bottom">
-      <button class="uploadBtn primary">
-        <mat-icon class="icon">cloud_upload</mat-icon>
-        <div>Upload</div>
+      <button mat-raised-button color="primary"  mat-button (click)= "upload()">
+        <mat-icon *ngIf="uploadPreloading"><mat-spinner diameter="30" color="primary"></mat-spinner></mat-icon>
+        Upload
       </button>
-      <button class="uploadBtn light">
-        <mat-icon class="icon">restart_alt</mat-icon>
-        <div>Reset</div>
+      <button  mat-raised-button mat-button (click)="reset()">
+        <mat-icon *ngIf="resetPreloading"><mat-spinner diameter="30"></mat-spinner></mat-icon>
+        Reset
       </button>
     </div>
 
