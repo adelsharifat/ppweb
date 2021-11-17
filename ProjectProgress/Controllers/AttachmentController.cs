@@ -12,7 +12,7 @@ using ProjectProgress.Service.Interface;
 
 namespace ProjectProgress.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class AttachmentController : ControllerBase
     {
@@ -66,26 +66,23 @@ namespace ProjectProgress.Controllers
         }
 
         [HttpPost]
-        [Route("SaveAttachments")]
-        public async Task<IActionResult> SaveAttachments([FromBody] AttachmentRequest attachmentRequest)
+        public async Task<IActionResult> SaveAttachments(AttachmentRequest attachmentRequest)
         {
             try
             {
                 List<Attachment> modelList = new List<Attachment>();
-
-                foreach (var file in attachmentRequest.Files)
+                foreach (var file in attachmentRequest.attachments)
                 {
                     Attachment model = new Attachment();
                     model.FileName = file.FileName;
                     model.File = file.FileStream;
-                    model.Remark = attachmentRequest.Remark;
-                    model.CreatedBy = attachmentRequest.CreatedBy;
+                    model.Remark = file.Remark;
+                    model.CreatedBy = file.CreatedBy;
                     modelList.Add(model);
                 }
 
                 await _attachmentService.SaveAttachments(modelList);
-
-                return Ok(new ApiResponse(StatusCodes.Status201Created, modelList));
+                return Ok(new ApiResponse(StatusCodes.Status201Created, "Endpoint Worked"));
             }
             catch (Exception ex)
             {

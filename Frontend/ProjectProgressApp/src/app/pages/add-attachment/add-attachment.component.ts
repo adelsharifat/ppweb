@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IAttachmentRequest } from 'src/app/data/interface/request/IAttachmentRequest';
 import { AttachmentService } from './../../data/service/attachment.service';
 import { AuthService } from './../../data/service/auth.service';
 import { BehaviorSubject } from 'rxjs';
 import { ItemService } from './../../data/service/item.service';
+import { IAttachment, IAttachmentRequest } from 'src/app/data/interface/request/IAttachmentRequest';
 
 @Component({
   selector: 'app-add-attachment',
@@ -15,6 +15,9 @@ export class AddAttachmentComponent implements OnInit {
 
   loading = false;
   item = new BehaviorSubject<any>(null)
+  fileContentArrray = new BehaviorSubject<any>(null)
+
+
   itemName :string | null = null;
   constructor(private itemService:ItemService,private authService:AuthService,private attchmentService:AttachmentService,private route:ActivatedRoute,private router:Router) { }
 
@@ -43,35 +46,26 @@ export class AddAttachmentComponent implements OnInit {
 
   upload()
   {
+    var attachments:IAttachmentRequest;
     this.itemService.getItemById(1).subscribe(res=>{
       this.item.next(res.payload)
-
     },err=>console.log(err)).add(()=>{
-
-      var attachments:IAttachmentRequest[] =[];
       this.files.forEach((file)=>{
-        this.fileToBase64(file)
-        var attachment:IAttachmentRequest = {
+        file.stream().getReader().read().then(x=>console.log(x.value))
+        var attachment:IAttachment = {
           fileName:file.name,
-          fileStream:file.arrayBuffer,
+          fileStream:file.stream().getReader().read().then(x=>x.value) ,
           remark:this.remark,
           createdBy: 1,
           itemId:this.item.value.id
         }
-        attachments.push(attachment)
-        console.log(attachments)
+        attachments.attachments.push(attachment)
+
       })
+
       this.attchmentService.saveAttachments(attachments).subscribe(res=>console.log(res),err=>console.log(err));
     })
   }
-
-
-  fileToBase64 = (file:File):Promise<Int8Array> => {
-    return new Promise<Int8Array> ((resolve,reject)=> {
-         const reader = new FileReader();
-         reader.readAsArrayBuffer(file);
-     })
-    }
 
   makeGuid(length:Number)
   {

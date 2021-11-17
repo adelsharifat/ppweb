@@ -7,15 +7,17 @@ import { SidebarComponent } from './../../../components/sidebar/sidebar.componen
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { AvatarModule } from 'ngx-avatar';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [HomeComponent,ToolbarComponent,SidebarComponent],
   imports: [
-    CommonModule,
+  CommonModule,
     MainRoutingModule,
     MatToolbarModule,
     MatIconModule,
-    AvatarModule
+    AvatarModule,
+    MatButtonModule
   ],
 })
 export class HomeModule { }

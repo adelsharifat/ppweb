@@ -22,8 +22,8 @@ export class AttachmentService {
 
   constructor(private http:HttpClient) { }
 
-  saveAttachments(attachmentRequest:IAttachmentRequest[]):Observable<IApiResponse>{
-    return this.http.post<IApiResponse>(environment.ATTACHMENT_API + 'saveattachments', attachmentRequest, httpOptions)
+  saveAttachments(attachments:IAttachmentRequest):Observable<IApiResponse>{
+    return this.http.post<IApiResponse>(environment.ATTACHMENT_API + 'SaveAttachments',attachments, httpOptions)
   }
 
 }
