@@ -10,9 +10,26 @@
       <button mat-button mat-raised-button>Search</button>
     </div>
     <div class="tiles-wrapper">
-      <div class="tile"><div class="tile-body"><span class="item-title">akdhs,d asld kasld jalskdj asdd</span></div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
+      <div class="tile">
+        <div class="tile-body blue">
+          <mat-icon class="more_vert">more_vert</mat-icon>
+          <div class="item-title">Item Name</div>
+
+        </div>
+      </div>
+      <div class="tile">
+        <div class="tile-body red" [class.load_tile_body] = "load_tile_body">
+          <mat-icon class="more_vert">more_vert</mat-icon>
+          <div class="item-title">Item Name</div>
+        </div>
+      </div>
+      <div class="tile">
+        <div class="tile-body teal">
+          <mat-icon class="more_vert">more_vert</mat-icon>
+          <div class="item-title">Item Name</div>
+
+        </div>
+      </div>
       <div class="tile"><div class="tile-body">TEST</div></div>
       <div class="tile"><div class="tile-body">TEST</div></div>
       <div class="tile"><div class="tile-body">TEST</div></div>

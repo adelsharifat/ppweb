@@ -22,49 +22,37 @@ export class AddAttachmentComponent implements OnInit {
   constructor(private itemService:ItemService,private authService:AuthService,private attchmentService:AttachmentService,private route:ActivatedRoute,private router:Router) { }
 
 
-  files: File[] = [];
+  fileInputValue:any;
+  fileInput:any;
   remark = '';
 
   uploadPreloading =true;
   resetPreloading =true;
 
 
-  onSelect(event:any) {
-    console.log(event);
-    this.files.push(...event.addedFiles);
-  }
 
-  onRemove(event:any) {
-    console.log(event);
-    this.files.splice(this.files.indexOf(event), 1);
-  }
+
+
 
   reset(){
-    this.files = [];
+    this.fileInputValue = null;
+    this.fileInput = null;
     this.remark = '';
   }
 
+  onChangeFileInput(event:any)
+  {
+    this.fileInput = <File>event.target.files[0];
+    console.log(event.target.files[0].name)
+  }
+
+
   upload()
   {
-    var attachments:IAttachmentRequest;
-    this.itemService.getItemById(1).subscribe(res=>{
-      this.item.next(res.payload)
-    },err=>console.log(err)).add(()=>{
-      this.files.forEach((file)=>{
-        file.stream().getReader().read().then(x=>console.log(x.value))
-        var attachment:IAttachment = {
-          fileName:file.name,
-          fileStream:file.stream().getReader().read().then(x=>x.value) ,
-          remark:this.remark,
-          createdBy: 1,
-          itemId:this.item.value.id
-        }
-        attachments.attachments.push(attachment)
-
-      })
-
-      this.attchmentService.saveAttachments(attachments).subscribe(res=>console.log(res),err=>console.log(err));
-    })
+    var formData = new FormData();
+    formData.append(this.fileInputValue,this.fileInput,this.fileInputValue)
+    console.log(this.fileInput)
+    this.attchmentService.saveAttachments().subscribe(res=>console.log(res),err=>console.log(err))
   }
 
   makeGuid(length:Number)

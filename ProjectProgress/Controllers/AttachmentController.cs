@@ -66,22 +66,17 @@ namespace ProjectProgress.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveAttachments(AttachmentRequest attachmentRequest)
+        public async Task<IActionResult> SaveAttachments([FromBody] AttachmentRequest attachmentRequest)
         {
             try
             {
-                List<Attachment> modelList = new List<Attachment>();
-                foreach (var file in attachmentRequest.attachments)
-                {
-                    Attachment model = new Attachment();
-                    model.FileName = file.FileName;
-                    model.File = file.FileStream;
-                    model.Remark = file.Remark;
-                    model.CreatedBy = file.CreatedBy;
-                    modelList.Add(model);
-                }
-
-                await _attachmentService.SaveAttachments(modelList);
+                Attachment model = new Attachment();
+                model.FileName = attachmentRequest.FileName;
+                model.File = attachmentRequest.FileStream;
+                model.Remark = file.Remark;
+                model.CreatedBy = file.CreatedBy;
+                modelList.Add(model);
+                //await _attachmentService.SaveAttachments(modelList);
                 return Ok(new ApiResponse(StatusCodes.Status201Created, "Endpoint Worked"));
             }
             catch (Exception ex)

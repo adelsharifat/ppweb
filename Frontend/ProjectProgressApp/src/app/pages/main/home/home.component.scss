@@ -58,32 +58,161 @@
       overflow-y: scroll;
       height: calc(100vh - 140px);
       .tile{
-        min-width: calc(100vw);
+        min-width: calc(100vw / 2);
+        max-width: calc(100vw / 2);
+        min-height: calc(100vw / 2);
+        max-height: calc(100vw / 2);
+        width: 100%;
+        height: 100%;
+        padding: 5px;
+        display: flex;
+        align-items: stretch;
+        justify-content: stretch;
+
         .tile-body{
-          padding:3px;
-          display: flex;
-          align-items: flex-start;
-          justify-content: flex-start;
-          border-radius: 3px;
-          border-bottom: 1px solid rgba(0,0,0,0.1);
-          background-color: white;
-          min-height: 64px;
+          //position: relative;
+          padding:0px;
+          // display: flex;
+          // flex-direction: column;
+          // flex: 1;
+          // align-items: stretch;
+          // justify-content: flex-start;
+          border-radius: 15px;
+          box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.25);
+          width: 100%;
+          transform: scale(0.5);
+          transition: all 300ms ease;
+
+
 
           .item-title{
-            background-color: #0059ff;
             color: white;
             border-radius: 3px;
-            padding: 3px;
+            padding: 10px;
           }
-
-
 
         }
       }
     }
 
   }
-
-
-
 }
+
+.load_tile_body{
+  transform: scale(1);
+}
+
+.more_vert{
+  width: 100%;
+  text-align: right;
+  padding:10px;
+}
+
+
+.blue{
+  color: white;
+  background-color: dodgerblue;
+}
+
+.red{
+  color: white;
+  background-color: rgb(228, 13, 67);
+}
+
+
+.blue{
+  color: white;
+  background-color: dodgerblue;
+}
+
+
+
+.teal{
+  color: white;
+  background-color: rgb(17, 146, 97);
+}
+
+
+.blue{
+  color: white;
+  background-color: dodgerblue;
+}
+
+
+.blue{
+  color: white;
+  background-color: dodgerblue;
+}
+
+
+.blue{
+  color: white;
+  background-color: dodgerblue;
+}
+
+
+.blue{
+  color: white;
+  background-color: dodgerblue;
+}
+
+
+.blue{
+  color: white;
+  background-color: dodgerblue;
+}
+
+
+.blue{
+  color: white;
+  background-color: dodgerblue;
+}
+
+
+.blue{
+  color: white;
+  background-color: dodgerblue;
+}
+
+
+.blue{
+  color: white;
+  background-color: dodgerblue;
+}
+
+
+.blue{
+  color: white;
+  background-color: dodgerblue;
+}
+
+.blue{
+  color: white;
+  background-color: dodgerblue;
+}
+
+
+.blue{
+  color: white;
+  background-color: dodgerblue;
+}
+
+
+.blue{
+  color: white;
+  background-color: dodgerblue;
+}
+
+.blue{
+  color: white;
+  background-color: dodgerblue;
+}
+
+.blue{
+  color: white;
+  background-color: dodgerblue;
+}
+
+
+
+
