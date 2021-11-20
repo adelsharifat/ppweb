@@ -13,7 +13,12 @@ export class ItemService {
 
   constructor(private http:HttpClient) { }
 
-  getItemById(itemId:Number):Observable<IApiResponse>
+
+  getItems(){
+    return this.http.get<IApiResponse>(environment.ITEM_API+'getItems');
+  }
+
+  getItemById(itemId:string|null):Observable<IApiResponse>
   {
     return this.http.get<IApiResponse>(environment.ITEM_API+'getitembyid/'+itemId)
   }

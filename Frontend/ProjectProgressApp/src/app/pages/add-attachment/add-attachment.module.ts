@@ -10,7 +10,8 @@ import { NavModule } from './../../components/nav/nav.module';
 import { AddAttachmentComponent } from './add-attachment.component';
 import { AddAttachmentRoutingModule } from './add-attachment-routing.module';
 import { NgxDropzoneModule } from 'ngx-dropzone';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 
@@ -24,10 +25,13 @@ import { FormsModule } from '@angular/forms';
     MatTreeModule,
     MatButtonModule,
     MatTreeModule,
-    MatProgressSpinnerModule,
     NavModule,
     NgxDropzoneModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule
+
   ],
   providers:[CdkTreeNode]
 })

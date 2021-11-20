@@ -13,10 +13,11 @@ namespace ProjectProgress.Service.Interface
     public interface IAttachmentService
     {
         Task<IEnumerable<Attachment>> GETALL_ASYNC();
+        Task<IEnumerable<Attachment>> Find_ASYNC(Expression<Func<Attachment, bool>> expression);
         Task<Attachment> GET_ASYNC(Expression<Func<Attachment, bool>> expression);
         Task<MutationResult> ADD_ASYNC(Attachment attachment);
         Task<MutationResult> UPDATE_ASYNC(Attachment attachment);
         Task<MutationResult> DELETE_ASYNC(Attachment attachment);
-        Task SaveAttachments(List<Attachment> attachments);
+        Task SaveAttachment(Attachment attachment);
     }
 }

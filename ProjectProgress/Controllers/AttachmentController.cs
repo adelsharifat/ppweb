@@ -12,7 +12,7 @@ using ProjectProgress.Service.Interface;
 
 namespace ProjectProgress.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]/")]
     [ApiController]
     public class AttachmentController : ControllerBase
     {
@@ -23,23 +23,23 @@ namespace ProjectProgress.Controllers
             _attachmentService = attachmentService;
         }
 
-        [HttpPost]
-        [Route("GetAll")]
-        public async Task<IActionResult> GetAll()
+        [HttpGet]
+        [Route("FindAll/{objectId}")]
+        public async Task<IActionResult> FinByAsync(int objectId)
         {
             try
             {
-                return Ok(new ApiResponse(StatusCodes.Status200OK, await _attachmentService.GETALL_ASYNC()));
+                return Ok(new ApiResponse(StatusCodes.Status200OK, (await _attachmentService.Find_ASYNC(x=>x.Item.Id == objectId)).OrderByDescending(x=>x.Id)));
             }
             catch (Exception ex)
             {            
-                return Ok(new ApiResponse(StatusCodes.Status500InternalServerError,ex.Message));
+                return BadRequest(new ApiResponse(StatusCodes.Status500InternalServerError,ex.Message));
             }
         }
 
         [HttpPost]
         [Route("GetById")]
-        public async Task<IActionResult> GetById(int Id)
+        public async Task<IActionResult> GetByIdAsync(int Id)
         {
             try
             {
@@ -47,13 +47,13 @@ namespace ProjectProgress.Controllers
             }
             catch (Exception ex)
             {
-                return Ok(new ApiResponse(StatusCodes.Status500InternalServerError, ex.Message));
+                return BadRequest(new ApiResponse(StatusCodes.Status500InternalServerError, ex.Message));
             }
         }
 
         [HttpPost]
         [Route("GetByName")]
-        public async Task<IActionResult> GetByName(string name)
+        public async Task<IActionResult> GetByNameAsync(string name)
         {
             try
             {
@@ -61,27 +61,38 @@ namespace ProjectProgress.Controllers
             }
             catch (Exception ex)
             {
-                return Ok(new ApiResponse(StatusCodes.Status500InternalServerError, ex.Message));
+                return BadRequest(new ApiResponse(StatusCodes.Status500InternalServerError, ex.Message));
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> SaveAttachments([FromBody] AttachmentRequest attachmentRequest)
+        [HttpPost,DisableRequestSizeLimit]
+        [Route("SaveAttachments")]
+        public async Task<IActionResult> SaveAttachmentsAsync([FromForm] AttachmentRequest attachmentrequest)
         {
             try
             {
+                byte[] fileBytes = null;
+                var file= attachmentrequest.File;
+                using (var ms = new MemoryStream())
+                {
+                    file.CopyTo(ms);
+                    fileBytes = ms.ToArray();
+                    string s = Convert.ToBase64String(fileBytes);
+                }
+
                 Attachment model = new Attachment();
-                model.FileName = attachmentRequest.FileName;
-                model.File = attachmentRequest.FileStream;
-                model.Remark = file.Remark;
-                model.CreatedBy = file.CreatedBy;
-                modelList.Add(model);
-                //await _attachmentService.SaveAttachments(modelList);
+                model.ObjectId = attachmentrequest.ItemId;
+                model.FileName = Guid.NewGuid().ToString("N")+attachmentrequest.FileName;
+                model.File = fileBytes;
+                model.Remark = attachmentrequest.Remark;
+                model.CreatedBy = attachmentrequest.CreatedBy;
+
+                await _attachmentService.SaveAttachment(model);
                 return Ok(new ApiResponse(StatusCodes.Status201Created, "Endpoint Worked"));
             }
             catch (Exception ex)
             {
-                return Ok(new ApiResponse(StatusCodes.Status500InternalServerError, ex.Message));
+                return BadRequest(new ApiResponse(StatusCodes.Status500InternalServerError, ex.Message));
             }
         }
     }

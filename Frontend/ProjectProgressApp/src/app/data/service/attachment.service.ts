@@ -5,16 +5,6 @@ import { environment } from './../../../environments/environment';
 import { IAttachmentRequest } from './../interface/request/IAttachmentRequest';
 import { Observable } from 'rxjs';
 
-
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
-
-
-
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -22,8 +12,17 @@ export class AttachmentService {
 
   constructor(private http:HttpClient) { }
 
-  saveAttachments():Observable<IApiResponse>{
-    return this.http.post<IApiResponse>(environment.ATTACHMENT_API + 'SaveAttachments', httpOptions)
+
+  findAttachmentByObjectId(objectId:number){
+    return this.http.get<any>(environment.ATTACHMENT_API + 'FindAll/'+objectId);
+  }
+
+
+  saveAttachments(formData:any):Observable<any>{
+    return this.http.post<any>(environment.ATTACHMENT_API + 'SaveAttachments',formData, {
+      reportProgress: true,
+      observe: 'events'
+    })
   }
 
 }

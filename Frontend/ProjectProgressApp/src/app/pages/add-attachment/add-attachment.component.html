@@ -1,35 +1,45 @@
 <div class="page-wrapper">
   <div class="header">
-    <app-nav pageTitle="{{itemName}}"></app-nav>
+    <app-nav pageTitle="{{item.value.name}}"></app-nav>
   </div>
   <div class="content">
     <mat-spinner *ngIf="loading"></mat-spinner>
 
-    <div class="attachment">
-        <div class="searchWrapper">
-          <p><label>File</label></p>
-          <input hidden type="file" #fileInput [(ngModel)] = "fileInputValue" (change)="onChangeFileInput($event)">
-          <input type="text" class="fileAddressInput" [(ngModel)]="fileInputValue" readonly/>
-          <p><label for="remark">Remark</label></p>
-          <textarea class="remark" id="remark" [(ngModel)]="remark"></textarea>
-        </div>
-    </div>
-    <div class="uploadBtnWrapper border-bottom">
-      <button mat-stroked-button color="primary" mat-button (click)="fileInput.click()">Choose File</button>
-      <button mat-raised-button color="primary"  mat-button (click)= "upload()">
-        <mat-icon *ngIf="uploadPreloading"><mat-spinner diameter="30" color="primary"></mat-spinner></mat-icon>
-        Upload
-      </button>
-      <button  mat-stroked-button color="primary" mat-button (click)="reset()">
-        <mat-icon *ngIf="resetPreloading" ><mat-spinner diameter="30"></mat-spinner></mat-icon>
-        Reset
-      </button>
-    </div>
+    <form [formGroup]="fg" enctype='multipart/form-data'>
+      <div class="attachment">
+          <div class="searchWrapper">
+            <p><label>File</label></p>
+            <input hidden type="file" #fileInput formControlName="file" (change)="onChangeFileInput($event)">
+            <input type="text" formControlName="fileAddressInput" class="fileAddressInput"  readonly/>
+            <p><label for="remark">Remark</label></p>
+            <textarea class="remark" formControlName="remark"></textarea>
+            <mat-progress-bar *ngIf="progress>0"
+              class="example-margin"
+              [color]="color"
+              [mode]="mode"
+              [value]="progress"
+              [bufferValue]="bufferValue">
+            </mat-progress-bar>
+          </div>
+
+      </div>
+      <div class="uploadBtnWrapper border-bottom">
+        <button type="button" mat-stroked-button color="primary" mat-button (click)="fileInput.click()">Choose File</button>
+        <button type="button" mat-raised-button color="primary"  mat-button (click)= "upload()">
+          <mat-icon *ngIf="uploadPreloading"><mat-spinner diameter="30" color="primary"></mat-spinner></mat-icon>
+          Upload
+        </button>
+        <button type="button"  mat-stroked-button color="primary" mat-button (click)="reset()">
+          Reset
+        </button>
+      </div>
+    </form>
 
     <div class="attachmentWrapper">
-      <div class="itemAttachment">
+      <div class="bodypreloading"><mat-icon *ngIf="bodyPreloading"><mat-spinner diameter="30" color="primary"></mat-spinner></mat-icon></div>
+      <div class="itemAttachment" *ngFor="let attachment of attachmentData.value">
         <div class="itemData">
-          <div class="fileName">asdkasdlashdlaksdjlasdasdaslkd.jpg</div>
+          <div class="fileName">{{attachment.fileName}}</div>
           <div class="fileInfo">
             <div class="createdDate">1365/06/03</div>
             <div class="createdBy">Nima Ahamdi</div>
@@ -37,248 +47,6 @@
         </div>
         <div><button mat-button>Action</button></div>
       </div>
-      <div class="itemAttachment">
-        <div class="itemData">
-          <div class="fileName">asdkasdlashdlaksdjlasdasdaslkd.jpg</div>
-          <div class="fileInfo">
-            <div class="createdDate">1365/06/03</div>
-            <div class="createdBy">Nima Ahamdi</div>
-          </div>
-        </div>
-        <div><button mat-button>Action</button></div>
-      </div>
-      <div class="itemAttachment">
-        <div class="itemData">
-          <div class="fileName">asdkasdlashdlaksdjlasdasdaslkd.jpg</div>
-          <div class="fileInfo">
-            <div class="createdDate">1365/06/03</div>
-            <div class="createdBy">Nima Ahamdi</div>
-          </div>
-        </div>
-        <div><button mat-button>Action</button></div>
-      </div>
-      <div class="itemAttachment">
-        <div class="itemData">
-          <div class="fileName">asdkasdlashdlaksdjlasdasdaslkd.jpg</div>
-          <div class="fileInfo">
-            <div class="createdDate">1365/06/03</div>
-            <div class="createdBy">Nima Ahamdi</div>
-          </div>
-        </div>
-        <div><button mat-button>Action</button></div>
-      </div>
-      <div class="itemAttachment">
-        <div class="itemData">
-          <div class="fileName">asdkasdlashdlaksdjlasdasdaslkd.jpg</div>
-          <div class="fileInfo">
-            <div class="createdDate">1365/06/03</div>
-            <div class="createdBy">Nima Ahamdi</div>
-          </div>
-        </div>
-        <div><button mat-button>Action</button></div>
-      </div>
-      <div class="itemAttachment">
-        <div class="itemData">
-          <div class="fileName">asdkasdlashdlaksdjlasdasdaslkd.jpg</div>
-          <div class="fileInfo">
-            <div class="createdDate">1365/06/03</div>
-            <div class="createdBy">Nima Ahamdi</div>
-          </div>
-        </div>
-        <div><button mat-button>Action</button></div>
-      </div>
-      <div class="itemAttachment">
-        <div class="itemData">
-          <div class="fileName">asdkasdlashdlaksdjlasdasdaslkd.jpg</div>
-          <div class="fileInfo">
-            <div class="createdDate">1365/06/03</div>
-            <div class="createdBy">Nima Ahamdi</div>
-          </div>
-        </div>
-        <div><button mat-button>Action</button></div>
-      </div>
-      <div class="itemAttachment">
-        <div class="itemData">
-          <div class="fileName">asdkasdlashdlaksdjlasdasdaslkd.jpg</div>
-          <div class="fileInfo">
-            <div class="createdDate">1365/06/03</div>
-            <div class="createdBy">Nima Ahamdi</div>
-          </div>
-        </div>
-        <div><button mat-button>Action</button></div>
-      </div>
-      <div class="itemAttachment">
-        <div class="itemData">
-          <div class="fileName">asdkasdlashdlaksdjlasdasdaslkd.jpg</div>
-          <div class="fileInfo">
-            <div class="createdDate">1365/06/03</div>
-            <div class="createdBy">Nima Ahamdi</div>
-          </div>
-        </div>
-        <div><button mat-button>Action</button></div>
-      </div>
-      <div class="itemAttachment">
-        <div class="itemData">
-          <div class="fileName">asdkasdlashdlaksdjlasdasdaslkd.jpg</div>
-          <div class="fileInfo">
-            <div class="createdDate">1365/06/03</div>
-            <div class="createdBy">Nima Ahamdi</div>
-          </div>
-        </div>
-        <div><button mat-button>Action</button></div>
-      </div>
-      <div class="itemAttachment">
-        <div class="itemData">
-          <div class="fileName">asdkasdlashdlaksdjlasdasdaslkd.jpg</div>
-          <div class="fileInfo">
-            <div class="createdDate">1365/06/03</div>
-            <div class="createdBy">Nima Ahamdi</div>
-          </div>
-        </div>
-        <div><button mat-button>Action</button></div>
-      </div>
-      <div class="itemAttachment">
-        <div class="itemData">
-          <div class="fileName">asdkasdlashdlaksdjlasdasdaslkd.jpg</div>
-          <div class="fileInfo">
-            <div class="createdDate">1365/06/03</div>
-            <div class="createdBy">Nima Ahamdi</div>
-          </div>
-        </div>
-        <div><button mat-button>Action</button></div>
-      </div>
-      <div class="itemAttachment">
-        <div class="itemData">
-          <div class="fileName">asdkasdlashdlaksdjlasdasdaslkd.jpg</div>
-          <div class="fileInfo">
-            <div class="createdDate">1365/06/03</div>
-            <div class="createdBy">Nima Ahamdi</div>
-          </div>
-        </div>
-        <div><button mat-button>Action</button></div>
-      </div>
-      <div class="itemAttachment">
-        <div class="itemData">
-          <div class="fileName">asdkasdlashdlaksdjlasdasdaslkd.jpg</div>
-          <div class="fileInfo">
-            <div class="createdDate">1365/06/03</div>
-            <div class="createdBy">Nima Ahamdi</div>
-          </div>
-        </div>
-        <div><button mat-button>Action</button></div>
-      </div>
-      <div class="itemAttachment">
-        <div class="itemData">
-          <div class="fileName">asdkasdlashdlaksdjlasdasdaslkd.jpg</div>
-          <div class="fileInfo">
-            <div class="createdDate">1365/06/03</div>
-            <div class="createdBy">Nima Ahamdi</div>
-          </div>
-        </div>
-        <div><button mat-button>Action</button></div>
-      </div>
-      <div class="itemAttachment">
-        <div class="itemData">
-          <div class="fileName">asdkasdlashdlaksdjlasdasdaslkd.jpg</div>
-          <div class="fileInfo">
-            <div class="createdDate">1365/06/03</div>
-            <div class="createdBy">Nima Ahamdi</div>
-          </div>
-        </div>
-        <div><button mat-button>Action</button></div>
-      </div>
-      <div class="itemAttachment">
-        <div class="itemData">
-          <div class="fileName">asdkasdlashdlaksdjlasdasdaslkd.jpg</div>
-          <div class="fileInfo">
-            <div class="createdDate">1365/06/03</div>
-            <div class="createdBy">Nima Ahamdi</div>
-          </div>
-        </div>
-        <div><button mat-button>Action</button></div>
-      </div>
-      <div class="itemAttachment">
-        <div class="itemData">
-          <div class="fileName">asdkasdlashdlaksdjlasdasdaslkd.jpg</div>
-          <div class="fileInfo">
-            <div class="createdDate">1365/06/03</div>
-            <div class="createdBy">Nima Ahamdi</div>
-          </div>
-        </div>
-        <div><button mat-button>Action</button></div>
-      </div>
-      <div class="itemAttachment">
-        <div class="itemData">
-          <div class="fileName">asdkasdlashdlaksdjlasdasdaslkd.jpg</div>
-          <div class="fileInfo">
-            <div class="createdDate">1365/06/03</div>
-            <div class="createdBy">Nima Ahamdi</div>
-          </div>
-        </div>
-        <div><button mat-button>Action</button></div>
-      </div>
-      <div class="itemAttachment">
-        <div class="itemData">
-          <div class="fileName">asdkasdlashdlaksdjlasdasdaslkd.jpg</div>
-          <div class="fileInfo">
-            <div class="createdDate">1365/06/03</div>
-            <div class="createdBy">Nima Ahamdi</div>
-          </div>
-        </div>
-        <div><button mat-button>Action</button></div>
-      </div>
-      <div class="itemAttachment">
-        <div class="itemData">
-          <div class="fileName">asdkasdlashdlaksdjlasdasdaslkd.jpg</div>
-          <div class="fileInfo">
-            <div class="createdDate">1365/06/03</div>
-            <div class="createdBy">Nima Ahamdi</div>
-          </div>
-        </div>
-        <div><button mat-button>Action</button></div>
-      </div>
-      <div class="itemAttachment">
-        <div class="itemData">
-          <div class="fileName">asdkasdlashdlaksdjlasdasdaslkd.jpg</div>
-          <div class="fileInfo">
-            <div class="createdDate">1365/06/03</div>
-            <div class="createdBy">Nima Ahamdi</div>
-          </div>
-        </div>
-        <div><button mat-button>Action</button></div>
-      </div>
-      <div class="itemAttachment">
-        <div class="itemData">
-          <div class="fileName">asdkasdlashdlaksdjlasdasdaslkd.jpg</div>
-          <div class="fileInfo">
-            <div class="createdDate">1365/06/03</div>
-            <div class="createdBy">Nima Ahamdi</div>
-          </div>
-        </div>
-        <div><button mat-button>Action</button></div>
-      </div>
-      <div class="itemAttachment">
-        <div class="itemData">
-          <div class="fileName">asdkasdlashdlaksdjlasdasdaslkd.jpg</div>
-          <div class="fileInfo">
-            <div class="createdDate">1365/06/03</div>
-            <div class="createdBy">Nima Ahamdi</div>
-          </div>
-        </div>
-        <div><button mat-button>Action</button></div>
-      </div>
-      <div class="itemAttachment">
-        <div class="itemData">
-          <div class="fileName">asdkasdlashdlaksdjlasdasdaslkd.jpg</div>
-          <div class="fileInfo">
-            <div class="createdDate">1365/06/03</div>
-            <div class="createdBy">Nima Ahamdi</div>
-          </div>
-        </div>
-        <div><button mat-button>Action</button></div>
-      </div>
-
-
     </div>
   </div>
 </div>

@@ -2,9 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AttachmentService } from './../../data/service/attachment.service';
 import { AuthService } from './../../data/service/auth.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, throwError } from 'rxjs';
 import { ItemService } from './../../data/service/item.service';
 import { IAttachment, IAttachmentRequest } from 'src/app/data/interface/request/IAttachmentRequest';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpEventType, HttpResponse, HttpClient } from '@angular/common/http';
+import { map, catchError } from 'rxjs/operators';
+import {ThemePalette} from '@angular/material/core';
+import {ProgressBarMode} from '@angular/material/progress-bar';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-add-attachment',
@@ -12,47 +18,86 @@ import { IAttachment, IAttachmentRequest } from 'src/app/data/interface/request/
   styleUrls: ['./add-attachment.component.scss']
 })
 export class AddAttachmentComponent implements OnInit {
+  progress:number = 0;
+
+  color: ThemePalette = 'primary';
+  mode: ProgressBarMode = 'determinate';
+  value = 50;
+  bufferValue = 75;
 
   loading = false;
   item = new BehaviorSubject<any>(null)
-  fileContentArrray = new BehaviorSubject<any>(null)
+  file:string|Blob|any='';
+
+  attachmentData = new BehaviorSubject<any>(null);
+
+  constructor(private itemService:ItemService,
+    private authService:AuthService,
+    private attchmentService:AttachmentService,
+    private fb:FormBuilder,
+    private route:ActivatedRoute,
+    private router:Router) { }
 
 
-  itemName :string | null = null;
-  constructor(private itemService:ItemService,private authService:AuthService,private attchmentService:AttachmentService,private route:ActivatedRoute,private router:Router) { }
+  fg = this.fb.group({
+    file:[null,Validators.required],
+    fileAddressInput:[null],
+    remark:[null]
+  });
 
-
-  fileInputValue:any;
-  fileInput:any;
-  remark = '';
-
-  uploadPreloading =true;
-  resetPreloading =true;
-
-
-
-
-
+  uploadPreloading =false;
+  bodyPreloading =false;
 
   reset(){
-    this.fileInputValue = null;
-    this.fileInput = null;
-    this.remark = '';
+    this.fg.reset();
+    this.progress = 0;
   }
 
   onChangeFileInput(event:any)
   {
-    this.fileInput = <File>event.target.files[0];
-    console.log(event.target.files[0].name)
+    this.fg.controls['fileAddressInput'].setValue(event.target.files[0].name)
+    this.file = event.target.files[0]
   }
 
 
+  findAllAttachmentByObjectId(objectId:number){
+    this.bodyPreloading = true;
+    this.attchmentService.findAttachmentByObjectId(objectId).subscribe(
+      res=>{
+        this.attachmentData.next(res.payload);
+        this.bodyPreloading = false;
+        console.log(res);
+      },
+      err=>{
+        console.log(err);
+      }
+    )
+  }
+
   upload()
   {
+    this.uploadPreloading = true;
     var formData = new FormData();
-    formData.append(this.fileInputValue,this.fileInput,this.fileInputValue)
-    console.log(this.fileInput)
-    this.attchmentService.saveAttachments().subscribe(res=>console.log(res),err=>console.log(err))
+    formData.append('createdBy','1');
+    formData.append('itemId','1');
+    formData.append('fileName',this.file.name);
+    formData.append('file',this.file);
+    formData.append('remark',this.fg.value.remark);
+    this.attchmentService.saveAttachments(formData)
+    .subscribe( (event) => {
+      if (event.type === HttpEventType.UploadProgress) {
+        this.progress = Math.round(100 * event.loaded / event.total);
+      } else if (event instanceof HttpResponse) {
+        this.progress = 0;
+        this.uploadPreloading = false;
+        this.findAllAttachmentByObjectId(1);
+      }
+    }, (error) => {
+      console.error(error)
+      this.progress = 0;
+      this.uploadPreloading = false;
+    });
+
   }
 
   makeGuid(length:Number)
@@ -68,8 +113,17 @@ export class AddAttachmentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.itemName = this.route.snapshot.paramMap.get('id');
-    console.log(this.makeGuid(35));
+
+    this.itemService.getItemById(this.route.snapshot.paramMap.get('id')).subscribe(
+      res=>{
+        this.item.next(res.payload);
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+
+    this.findAllAttachmentByObjectId(1)
   }
 
 }

@@ -22,6 +22,22 @@ namespace ProjectProgress.Controllers
         }
 
         [HttpGet]
+        [Route("GetItems")]
+        public async Task<IActionResult> GetItems()
+        {
+            try
+            {
+                var data = await _itemService.GetAllAsync();
+                if(data == null) return BadRequest(new ApiResponse { StatusCode = StatusCodes.Status200OK, Error = new List<string> { "empty data" } });
+                return Ok(new ApiResponse { Payload = data, StatusCode = StatusCodes.Status200OK });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponse { StatusCode = StatusCodes.Status200OK,Error = new List<string> { ex.Message } });                
+            }
+        }
+
+        [HttpGet]
         [Route("GetItemById/{itemId}")]
         public async Task<IActionResult> GetItemById(int itemId)
         {

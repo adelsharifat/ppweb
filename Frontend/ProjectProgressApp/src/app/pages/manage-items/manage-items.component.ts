@@ -2,39 +2,43 @@ import { Component, OnInit, Injectable } from '@angular/core';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import { Router } from '@angular/router';
+import { ItemService } from './../../data/service/item.service';
+import { BehaviorSubject } from 'rxjs';
 
 interface Node {
+  id:number;
+  parentId:number;
   name: string;
   children?: Node[];
 }
 
-const TREE_DATA: Node[] = [
-  {
-    name: 'Fruit',
-    children: [
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Fruit loops'},
-    ]
-  }, {
-    name: 'Vegetables',
-    children: [
-      {
-        name: 'Green',
-        children: [
-          {name: 'Broccoli'},
-          {name: 'Brussels sprouts'},
-        ]
-      }, {
-        name: 'Orange',
-        children: [
-          {name: 'Pumpkins'},
-          {name: 'Carrots'},
-        ]
-      },
-    ]
-  },
-];
+// const TREE_DATA: Node[] = [
+//   {
+//     name: 'Fruit',
+//     children: [
+//       {name: 'Apple'},
+//       {name: 'Banana'},
+//       {name: 'Fruit loops'},
+//     ]
+//   }, {
+//     name: 'Vegetables',
+//     children: [
+//       {
+//         name: 'Green',
+//         children: [
+//           {name: 'Broccoli'},
+//           {name: 'Brussels sprouts'},
+//         ]
+//       }, {
+//         name: 'Orange',
+//         children: [
+//           {name: 'Pumpkins'},
+//           {name: 'Carrots'},
+//         ]
+//       },
+//     ]
+//   },
+// ];
 
 interface FlatNode {
   expandable: boolean;
@@ -52,12 +56,14 @@ export class ManageItemsComponent implements OnInit {
 
   loading=false;
 
+  itemData = new BehaviorSubject<Node[]>([]);
 
-  constructor(private router:Router) {
-    this.dataSource.data = TREE_DATA;
+  constructor(private itemService:ItemService,private router:Router) {
+    this.getItems();
   }
 
   ngOnInit(): void {
+    this.dataSource.data = this.itemData.value;
   }
 
   private _transformer = (node: Node, level: number) => {
@@ -83,6 +89,19 @@ export class ManageItemsComponent implements OnInit {
 
   openItem(item:any){
     this.router.navigate(['manage-items/'+item])
+  }
+
+  getItems(){
+    this.itemService.getItems().subscribe(
+        res=>{
+          this.itemData.next(res.payload);
+          console.log(res.payload)
+        },
+        err=>{
+          console.log(err);
+        }
+      );
+
   }
 
 

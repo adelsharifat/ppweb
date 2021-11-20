@@ -80,10 +80,6 @@
           border-radius: 15px;
           box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.25);
           width: 100%;
-          transform: scale(0.5);
-          transition: all 300ms ease;
-
-
 
           .item-title{
             color: white;
@@ -98,9 +94,13 @@
   }
 }
 
-.load_tile_body{
-  transform: scale(1);
+
+.bodypreloading{
+  width: 100%;
+  text-align: center;
+  background: red;
 }
+
 
 .more_vert{
   width: 100%;
