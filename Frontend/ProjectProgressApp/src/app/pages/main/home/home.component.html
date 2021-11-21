@@ -4,58 +4,19 @@
     <app-toolbar></app-toolbar>
   </div>
   <div class="content">
-    <div class="content-header"></div>
-    <div class="content-searchbar">
+    <div class="searchWrapper">
       <input type="text"/>
-      <button mat-button mat-raised-button>Search</button>
+      <button><mat-icon>search</mat-icon></button>
     </div>
-    <div class="tiles-wrapper">
-      <div class="tile">
-        <div class="tile-body blue">
-          <mat-icon class="more_vert">more_vert</mat-icon>
-          <div class="item-title">Item Name</div>
 
-        </div>
+    <div class="cardWraper">
+      <div class="card" *ngFor="let item of itemData">
+        <div class="circle1"></div>
+        <div class="circle2"></div>
+        <div class="vertSeperator"></div>
+        <div class="attachmentIcon"><mat-icon>attachment</mat-icon></div>
+        <div class="attachmentDescription">{{item.name}}</div>
       </div>
-      <div class="tile">
-        <div class="tile-body red" [class.load_tile_body] = "load_tile_body">
-          <mat-icon class="more_vert">more_vert</mat-icon>
-          <div class="item-title">Item Name</div>
-        </div>
-      </div>
-      <div class="tile">
-        <div class="tile-body teal">
-          <mat-icon class="more_vert">more_vert</mat-icon>
-          <div class="item-title">Item Name</div>
-
-        </div>
-      </div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
-      <div class="tile"><div class="tile-body">TEST</div></div>
     </div>
   </div>
 </div>

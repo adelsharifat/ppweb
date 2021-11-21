@@ -10,8 +10,8 @@ using ProjectProgress.Data;
 namespace ProjectProgress.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211120071036_Update database and change and set File property to Not Mapped")]
-    partial class UpdatedatabaseandchangeandsetFilepropertytoNotMapped
+    [Migration("20211121092901_change and remove fluent in item table ++")]
+    partial class changeandremovefluentinitemtable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,8 +46,8 @@ namespace ProjectProgress.Data.Migrations
                     b.ToTable("AppRole");
 
                     b.HasData(
-                        new { Id = 1, CreatedDate = new DateTime(2021, 11, 20, 10, 40, 35, 826, DateTimeKind.Local), Name = "admin" },
-                        new { Id = 2, CreatedDate = new DateTime(2021, 11, 20, 10, 40, 35, 828, DateTimeKind.Local), Name = "user" }
+                        new { Id = 1, CreatedDate = new DateTime(2021, 11, 21, 12, 59, 1, 595, DateTimeKind.Local), Name = "admin" },
+                        new { Id = 2, CreatedDate = new DateTime(2021, 11, 21, 12, 59, 1, 597, DateTimeKind.Local), Name = "user" }
                     );
                 });
 
@@ -90,7 +90,7 @@ namespace ProjectProgress.Data.Migrations
                     b.ToTable("AppUser");
 
                     b.HasData(
-                        new { Id = 1, CreatedDate = new DateTime(2021, 11, 20, 10, 40, 35, 835, DateTimeKind.Local), Password = "7hP4gAqqPea2LO4A3+h58i5StcxngEzmyFLG114+sIOhcvFx3Nwz05non/zNlFqxdF9AjRGyvWPY9H9evN3m+se+DM2K5A==", Salt = "vd9DKB6oDIQv4JV+7iY5Kv3fx4eEWycpV2jYFVKSu0/MswNaH4fLWF2hf9N7uGC7BXl3JzbgCzxQtG6H8rknwX7Zb+qIPA==", UserName = "admin" }
+                        new { Id = 1, CreatedDate = new DateTime(2021, 11, 21, 12, 59, 1, 604, DateTimeKind.Local), Password = "/9wFZ8EuH+p14X6esQNzX+6PyTaoRAnFClaINmAirMtCy9lTq8LThEz5T3YBSO0qCXWVLK3ANHl6mH8uGZtzxzqaWj+/BA==", Salt = "jZCHkrgMqKyI3CN8h+5HM8N5R75Qdy/hQPpuqalvWSdQPCPGvdcyVDj5BAOii1qmfdJwMIRF157gxBUepW1ukKujoLXbXg==", UserName = "admin" }
                     );
                 });
 
@@ -145,6 +145,8 @@ namespace ProjectProgress.Data.Migrations
 
                     b.Property<DateTime?>("DeletedDate");
 
+                    b.Property<bool>("IsDelete");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100);
@@ -155,13 +157,9 @@ namespace ProjectProgress.Data.Migrations
 
                     b.Property<DateTime?>("UpdatedDate");
 
-                    b.Property<int?>("UserId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ParentId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Item");
                 });
@@ -236,10 +234,6 @@ namespace ProjectProgress.Data.Migrations
                     b.HasOne("ProjectProgress.Domain.Item", "GetItem")
                         .WithMany("Items")
                         .HasForeignKey("ParentId");
-
-                    b.HasOne("ProjectProgress.Domain.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("ProjectProgress.Domain.RefreshToken", b =>

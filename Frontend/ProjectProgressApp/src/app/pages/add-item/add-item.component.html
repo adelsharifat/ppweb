@@ -1,10 +1,18 @@
 <div class="page-wrapper">
   <div class="header">
-    <app-nav pageTitle="{{itemName}}"></app-nav>
+    <app-nav pageTitle="{{itemData?.name}}"></app-nav>
   </div>
   <div class="content">
     <mat-spinner *ngIf="loading"></mat-spinner>
-
+    <div class="formAddItem">''
+      <label for="itemName">Item Name</label>
+      <input id="itemName" type="text" #itemName />
+      <div>
+        <button mat-raised-button mat-button (click)="addItem(itemName?.value)">Save</button>
+        <button mat-raised-button mat-button color="accent" (click)="delete()">Delete Item</button>
+      </div>
+      <p class="message" *ngIf="message!==''" [class.error]="operationResultStatus==0" [class.success]="operationResultStatus==1">{{message}}</p>
+    </div>
 
   </div>
 </div>

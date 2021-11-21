@@ -35,7 +35,8 @@ namespace ProjectProgress.Data.Repository
         {
             try
             {
-                return await _context.Set<TEntity>().ToListAsync();
+                if (expression == null) return await _context.Set<TEntity>().ToListAsync();
+                return await _context.Set<TEntity>().Where(expression).ToListAsync();
             }
             catch (Exception ex)
             {

@@ -10,8 +10,8 @@ using ProjectProgress.Data;
 namespace ProjectProgress.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211027131039_Added Item Selef join feuture")]
-    partial class AddedItemSelefjoinfeuture
+    [Migration("20211121104232_add fluent attachment to user")]
+    partial class addfluentattachmenttouser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,8 +46,8 @@ namespace ProjectProgress.Data.Migrations
                     b.ToTable("AppRole");
 
                     b.HasData(
-                        new { Id = 1, CreatedDate = new DateTime(2021, 10, 27, 16, 40, 38, 983, DateTimeKind.Local), Name = "admin" },
-                        new { Id = 2, CreatedDate = new DateTime(2021, 10, 27, 16, 40, 38, 985, DateTimeKind.Local), Name = "user" }
+                        new { Id = 1, CreatedDate = new DateTime(2021, 11, 21, 14, 12, 31, 865, DateTimeKind.Local), Name = "admin" },
+                        new { Id = 2, CreatedDate = new DateTime(2021, 11, 21, 14, 12, 31, 866, DateTimeKind.Local), Name = "user" }
                     );
                 });
 
@@ -90,7 +90,7 @@ namespace ProjectProgress.Data.Migrations
                     b.ToTable("AppUser");
 
                     b.HasData(
-                        new { Id = 1, CreatedDate = new DateTime(2021, 10, 27, 16, 40, 38, 992, DateTimeKind.Local), Password = "Va/jFczuGtDUE5L02MAqwO9rfZXpoEzhjOPfFZLb/6U7bywDfGofPU2ZpfvN0Y50EsUU/b3OxNvRNPvxUBPhv4TcLcrJxA==", Salt = "EywpaG7PB9N3KR20Ha/elnbW9bGOfFpPrRirs7HVLXDof+Wpc3RZVc4PKpu1EvL1RCTSm2QnN1NVoj1AL3E6Hzzaabsixg==", UserName = "admin" }
+                        new { Id = 1, CreatedDate = new DateTime(2021, 11, 21, 14, 12, 31, 874, DateTimeKind.Local), Password = "YkF1TAncTWxd7jONvEg++uEh16klehZ5fnF4HfVXzHvTGnHuC7Pq4j5J2XsBzzyqTxKXV6pEit0P8zFaVJjqe533qvu5pw==", Salt = "F8iH+l5xfIJ50Wgk58rQI92UrxdmfgdPlc/HkeH80el4j8HiCh436Y9Y20GOgWYiWzOPXdp6V4PI6EexfzSITw5x29yh/A==", UserName = "admin" }
                     );
                 });
 
@@ -114,7 +114,7 @@ namespace ProjectProgress.Data.Migrations
 
                     b.Property<bool>("IsDelete");
 
-                    b.Property<int?>("ObjectId");
+                    b.Property<int>("ObjectId");
 
                     b.Property<string>("Remark");
 
@@ -124,13 +124,11 @@ namespace ProjectProgress.Data.Migrations
 
                     b.Property<DateTime?>("UpdatedDate");
 
-                    b.Property<int?>("UserId");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ObjectId");
+                    b.HasIndex("CreatedBy");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ObjectId");
 
                     b.ToTable("Attachment");
                 });
@@ -149,6 +147,8 @@ namespace ProjectProgress.Data.Migrations
 
                     b.Property<DateTime?>("DeletedDate");
 
+                    b.Property<bool>("IsDelete");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100);
@@ -159,13 +159,9 @@ namespace ProjectProgress.Data.Migrations
 
                     b.Property<DateTime?>("UpdatedDate");
 
-                    b.Property<int?>("UserId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ParentId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Item");
                 });
@@ -229,13 +225,14 @@ namespace ProjectProgress.Data.Migrations
 
             modelBuilder.Entity("ProjectProgress.Domain.Attachment", b =>
                 {
+                    b.HasOne("ProjectProgress.Domain.AppUser", "User")
+                        .WithMany("Attachments")
+                        .HasForeignKey("CreatedBy");
+
                     b.HasOne("ProjectProgress.Domain.Item", "Item")
                         .WithMany("Attachments")
-                        .HasForeignKey("ObjectId");
-
-                    b.HasOne("ProjectProgress.Domain.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("ObjectId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ProjectProgress.Domain.Item", b =>
@@ -243,10 +240,6 @@ namespace ProjectProgress.Data.Migrations
                     b.HasOne("ProjectProgress.Domain.Item", "GetItem")
                         .WithMany("Items")
                         .HasForeignKey("ParentId");
-
-                    b.HasOne("ProjectProgress.Domain.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("ProjectProgress.Domain.RefreshToken", b =>

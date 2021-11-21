@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IApiResponse } from './../interface/response/IApiResponse';
 import { Observable } from 'rxjs';
 import { environment } from './../../../environments/environment';
+import { IItemAddRequest } from './../interface/request/IItemAddRequest';
 
 
 
@@ -21,6 +22,14 @@ export class ItemService {
   getItemById(itemId:string|null):Observable<IApiResponse>
   {
     return this.http.get<IApiResponse>(environment.ITEM_API+'getitembyid/'+itemId)
+  }
+
+  addItem(itemAddRequest:IItemAddRequest){
+    return this.http.post<IApiResponse>(environment.ITEM_API+'additem',itemAddRequest)
+  }
+
+  deleteItem(itemId:string|null){
+    return this.http.get<IApiResponse>(environment.ITEM_API+'deleteitem/'+itemId)
   }
 
 }

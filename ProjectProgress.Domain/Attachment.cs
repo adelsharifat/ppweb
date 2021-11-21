@@ -18,9 +18,8 @@ namespace ProjectProgress.Domain
         public string FileType { get; set; }
         public bool IsDelete { get; set; }
 
-        [NotMapped]
+
         public virtual Item Item { get; set; }
-        [NotMapped]
         public virtual AppUser User { get; set; }
 
     }

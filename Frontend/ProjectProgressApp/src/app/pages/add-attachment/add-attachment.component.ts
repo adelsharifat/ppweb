@@ -11,6 +11,7 @@ import { map, catchError } from 'rxjs/operators';
 import {ThemePalette} from '@angular/material/core';
 import {ProgressBarMode} from '@angular/material/progress-bar';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { LEADING_TRIVIA_CHARS } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'app-add-attachment',
@@ -26,7 +27,9 @@ export class AddAttachmentComponent implements OnInit {
   bufferValue = 75;
 
   loading = false;
-  item = new BehaviorSubject<any>(null)
+  itemId:string|null = null;
+  item:BehaviorSubject<any> = new BehaviorSubject<any>(null)
+  itemData:any = [];
   file:string|Blob|any='';
 
   attachmentData = new BehaviorSubject<any>(null);
@@ -36,7 +39,11 @@ export class AddAttachmentComponent implements OnInit {
     private attchmentService:AttachmentService,
     private fb:FormBuilder,
     private route:ActivatedRoute,
-    private router:Router) { }
+    private router:Router) {
+
+
+      this.itemId = this.route.snapshot.paramMap.get('id')
+     }
 
 
   fg = this.fb.group({
@@ -60,7 +67,7 @@ export class AddAttachmentComponent implements OnInit {
   }
 
 
-  findAllAttachmentByObjectId(objectId:number){
+  findAllAttachmentByObjectId(objectId:string | null){
     this.bodyPreloading = true;
     this.attchmentService.findAttachmentByObjectId(objectId).subscribe(
       res=>{
@@ -77,9 +84,10 @@ export class AddAttachmentComponent implements OnInit {
   upload()
   {
     this.uploadPreloading = true;
+    const objectId:any = this.itemId?.toString();
     var formData = new FormData();
     formData.append('createdBy','1');
-    formData.append('itemId','1');
+    formData.append('itemId', objectId);
     formData.append('fileName',this.file.name);
     formData.append('file',this.file);
     formData.append('remark',this.fg.value.remark);
@@ -90,12 +98,16 @@ export class AddAttachmentComponent implements OnInit {
       } else if (event instanceof HttpResponse) {
         this.progress = 0;
         this.uploadPreloading = false;
-        this.findAllAttachmentByObjectId(1);
       }
     }, (error) => {
       console.error(error)
       this.progress = 0;
       this.uploadPreloading = false;
+    }).add(()=>{
+      this.reset();
+      this.progress = 0;
+      this.uploadPreloading = false;
+      this.findAllAttachmentByObjectId(this.itemId)
     });
 
   }
@@ -113,17 +125,21 @@ export class AddAttachmentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.itemService.getItemById(this.route.snapshot.paramMap.get('id')).subscribe(
+    this.item.next(null);
+    this.itemData = [];
+    this.itemService.getItemById(this.itemId).subscribe(
       res=>{
         this.item.next(res.payload);
       },
       err=>{
         console.log(err)
       }
-    )
+    ).add(()=>{
+      this.itemData = this.item.value;
+      this.findAllAttachmentByObjectId(this.itemId)
+    })
 
-    this.findAllAttachmentByObjectId(1)
+
   }
 
 }

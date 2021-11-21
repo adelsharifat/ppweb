@@ -4,11 +4,12 @@
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: rgba(0,0,0,0.2);
+  background-color: rgba(0,0,0,0.7);
   display: none;
 
   &.backdrop-show{
     display: block;
+    z-index: 198;
   }
 
   &.backdrop-hide{
@@ -29,9 +30,13 @@
   width: 80vw;
   max-width: 300px;
   height: 100%;
+  z-index: 199;
   box-shadow: 1px 0 10px 0 rgba(0,0,0,0.1);
   transform: translateX(-150%);
   transition: transform 300ms ease;
+
+
+
   &.nav-expand{
     transform: translateX(0%);
 
@@ -39,13 +44,14 @@
 
 
   .avatar-wrapper{
-    background: url('../../../assets/img/sidebarMenuBgAvatar.jpg');
+    //background: url('../../../assets/img/sidebarMenuBgAvatar.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     height: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #1670d1;
 
     .avatar{
       border: 2px solid white;

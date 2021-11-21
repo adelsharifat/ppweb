@@ -1,6 +1,6 @@
 <div class="page-wrapper">
   <div class="header">
-    <app-nav pageTitle="{{item.value.name}}"></app-nav>
+    <app-nav pageTitle="{{itemData.name}}"></app-nav>
   </div>
   <div class="content">
     <mat-spinner *ngIf="loading"></mat-spinner>
@@ -39,10 +39,11 @@
       <div class="bodypreloading"><mat-icon *ngIf="bodyPreloading"><mat-spinner diameter="30" color="primary"></mat-spinner></mat-icon></div>
       <div class="itemAttachment" *ngFor="let attachment of attachmentData.value">
         <div class="itemData">
-          <div class="fileName">{{attachment.fileName}}</div>
+          <div class="remark">{{attachment.remark}}</div>
           <div class="fileInfo">
-            <div class="createdDate">1365/06/03</div>
-            <div class="createdBy">Nima Ahamdi</div>
+            <div class="createdDate">{{attachment.createdDate}}</div>
+            <span>|</span>
+            <div class="createdBy">{{attachment.user.firstName + ' ' + attachment.user.lastName}}</div>
           </div>
         </div>
         <div><button mat-button>Action</button></div>

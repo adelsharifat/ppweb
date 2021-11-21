@@ -23,6 +23,7 @@ namespace ProjectProgress.Data
             modelBuilder.Entity<UserRole>().HasOne<AppUser>(x => x.User).WithMany(x => x.UserRoles).HasForeignKey(x => x.UserId);
             modelBuilder.Entity<UserRole>().HasOne<AppRole>(x => x.Role).WithMany(x => x.UserRoles).HasForeignKey(x => x.RoleId);
             modelBuilder.Entity<AppUser>().HasMany(x => x.RefreshTokens).WithOne(x => x.User).HasForeignKey(x => x.CreatedBy);
+            modelBuilder.Entity<AppUser>().HasMany(x => x.Attachments).WithOne(x => x.User).HasForeignKey(x => x.CreatedBy);
             modelBuilder.Entity<Item>().HasMany(x => x.Attachments).WithOne(x => x.Item).HasForeignKey(x => x.ObjectId);
             modelBuilder.Entity<Item>().HasMany(x => x.Items).WithOne(x => x.GetItem).HasForeignKey(x => x.ParentId);
             modelBuilder.Entity<AppRole>().HasData(

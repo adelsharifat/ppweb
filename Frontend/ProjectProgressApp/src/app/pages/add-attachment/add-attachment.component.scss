@@ -97,17 +97,24 @@
             margin-bottom: 5px;
           }
 
+          .remark{
+            background-color: rgba(0, 191, 255, 0.294);
+            border-radius: 3px;
+            padding: 5px;
+            margin-bottom: 3px;
+          }
+
           .fileInfo{
             display: flex;
             flex-wrap: wrap;
             font-size: 0.7rem;
 
             .createdDate{
-              margin-right: 2px;
+              margin-right: 5px;
               color: #999;
             }
             .createdBy{
-              margin-right: 2px;
+              margin-left: 5px;
               color: #999;
             }
           }

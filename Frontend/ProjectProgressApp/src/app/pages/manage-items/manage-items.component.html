@@ -3,6 +3,12 @@
     <app-nav pageTitle="Manage Items"></app-nav>
   </div>
   <div class="content" *ngIf="!loading">
+
+    <button mat-fab class="mini-fab" (click)="onFabClick()"><mat-icon class="mat-icon-search">add</mat-icon></button>
+
+
+
+
     <mat-spinner *ngIf="loading"></mat-spinner>
     <div class="searchInputWrapper">
       <div class="searchInput">
@@ -17,10 +23,10 @@
             <!-- use a disabled button to provide padding for tree leaf -->
             <button mat-icon-button disabled></button>
             <div>
-              {{node.name}}
+              {{node.name}}<span class="badge-blue" *ngIf="node.count>0">{{node.count}}</span>
             </div>
             <div class="action spacer">
-              <button mat-button class="launchIconButton" (click)="openItem(node.name)">
+              <button mat-button class="launchIconButton" (click)="openItem(node.id)">
                 <mat-icon>launch</mat-icon>
               </button>
             </div>
@@ -34,10 +40,10 @@
               </mat-icon>
             </button>
             <div>
-              {{node.name}}
+              {{node.name}}<span class="badge-danger" *ngIf="node.itemCount>0">{{node.itemCount}}</span> <span class="badge-blue" *ngIf="node.count>0">{{node.count}}</span>
             </div>
             <div class="action spacer">
-              <button mat-button class="launchIconButton" (click)="openItem(node.name)">
+              <button mat-button class="launchIconButton" (click)="openItem(node.id)">
                 <mat-icon >launch</mat-icon>
               </button>
             </div>

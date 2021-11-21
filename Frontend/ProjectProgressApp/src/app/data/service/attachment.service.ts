@@ -13,7 +13,7 @@ export class AttachmentService {
   constructor(private http:HttpClient) { }
 
 
-  findAttachmentByObjectId(objectId:number){
+  findAttachmentByObjectId(objectId:string|null){
     return this.http.get<any>(environment.ATTACHMENT_API + 'FindAll/'+objectId);
   }
 

@@ -24,5 +24,6 @@ namespace ProjectProgress.Domain
 
         public virtual ICollection<UserRole> UserRoles { get; set; }
         public virtual ICollection<RefreshToken> RefreshTokens { get; set; }
+        public virtual ICollection<Attachment> Attachments { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProjectProgress.Data.Migrations
 {
-    public partial class AddedItemSelefjoinfeuture : Migration
+    public partial class addfluentattachmenttouser : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,32 +12,32 @@ namespace ProjectProgress.Data.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedDate",
-                value: new DateTime(2021, 10, 27, 16, 40, 38, 983, DateTimeKind.Local));
+                value: new DateTime(2021, 11, 21, 14, 12, 31, 865, DateTimeKind.Local));
 
             migrationBuilder.UpdateData(
                 table: "AppRole",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedDate",
-                value: new DateTime(2021, 10, 27, 16, 40, 38, 985, DateTimeKind.Local));
+                value: new DateTime(2021, 11, 21, 14, 12, 31, 866, DateTimeKind.Local));
 
             migrationBuilder.UpdateData(
                 table: "AppUser",
                 keyColumn: "Id",
                 keyValue: 1,
                 columns: new[] { "CreatedDate", "Password", "Salt" },
-                values: new object[] { new DateTime(2021, 10, 27, 16, 40, 38, 992, DateTimeKind.Local), "Va/jFczuGtDUE5L02MAqwO9rfZXpoEzhjOPfFZLb/6U7bywDfGofPU2ZpfvN0Y50EsUU/b3OxNvRNPvxUBPhv4TcLcrJxA==", "EywpaG7PB9N3KR20Ha/elnbW9bGOfFpPrRirs7HVLXDof+Wpc3RZVc4PKpu1EvL1RCTSm2QnN1NVoj1AL3E6Hzzaabsixg==" });
+                values: new object[] { new DateTime(2021, 11, 21, 14, 12, 31, 874, DateTimeKind.Local), "YkF1TAncTWxd7jONvEg++uEh16klehZ5fnF4HfVXzHvTGnHuC7Pq4j5J2XsBzzyqTxKXV6pEit0P8zFaVJjqe533qvu5pw==", "F8iH+l5xfIJ50Wgk58rQI92UrxdmfgdPlc/HkeH80el4j8HiCh436Y9Y20GOgWYiWzOPXdp6V4PI6EexfzSITw5x29yh/A==" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Item_ParentId",
-                table: "Item",
-                column: "ParentId");
+                name: "IX_Attachment_CreatedBy",
+                table: "Attachment",
+                column: "CreatedBy");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Item_Item_ParentId",
-                table: "Item",
-                column: "ParentId",
-                principalTable: "Item",
+                name: "FK_Attachment_AppUser_CreatedBy",
+                table: "Attachment",
+                column: "CreatedBy",
+                principalTable: "AppUser",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
         }
@@ -45,33 +45,33 @@ namespace ProjectProgress.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Item_Item_ParentId",
-                table: "Item");
+                name: "FK_Attachment_AppUser_CreatedBy",
+                table: "Attachment");
 
             migrationBuilder.DropIndex(
-                name: "IX_Item_ParentId",
-                table: "Item");
+                name: "IX_Attachment_CreatedBy",
+                table: "Attachment");
 
             migrationBuilder.UpdateData(
                 table: "AppRole",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedDate",
-                value: new DateTime(2021, 10, 27, 16, 13, 1, 928, DateTimeKind.Local));
+                value: new DateTime(2021, 11, 21, 12, 59, 1, 595, DateTimeKind.Local));
 
             migrationBuilder.UpdateData(
                 table: "AppRole",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedDate",
-                value: new DateTime(2021, 10, 27, 16, 13, 1, 929, DateTimeKind.Local));
+                value: new DateTime(2021, 11, 21, 12, 59, 1, 597, DateTimeKind.Local));
 
             migrationBuilder.UpdateData(
                 table: "AppUser",
                 keyColumn: "Id",
                 keyValue: 1,
                 columns: new[] { "CreatedDate", "Password", "Salt" },
-                values: new object[] { new DateTime(2021, 10, 27, 16, 13, 1, 937, DateTimeKind.Local), "figwXMBSv4L7ZViuIxZJHZzxAxhBk0bXsnTkoSSs2SAFue1WuQONnn3K0Z6PEiTIp1iGutFtAYu44Aphp94i3KY5ZEf0oA==", "HtvxPsPydkDbq5sM8xvo4Z6hCgpw3SjNzP8PGR6Wfkwwvs45rtMf1wTennSHHQc1xBvaKKhM8eN1M5CWzR4fC03cn4UiOA==" });
+                values: new object[] { new DateTime(2021, 11, 21, 12, 59, 1, 604, DateTimeKind.Local), "/9wFZ8EuH+p14X6esQNzX+6PyTaoRAnFClaINmAirMtCy9lTq8LThEz5T3YBSO0qCXWVLK3ANHl6mH8uGZtzxzqaWj+/BA==", "jZCHkrgMqKyI3CN8h+5HM8N5R75Qdy/hQPpuqalvWSdQPCPGvdcyVDj5BAOii1qmfdJwMIRF157gxBUepW1ukKujoLXbXg==" });
         }
     }
 }

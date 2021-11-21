@@ -4,13 +4,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProjectProgress.Data.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class changeandremovefluentinitemtable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("CREATE TABLE DocumentStore AS FILETABLE WITH (FileTable_Directory = 'DocumentStore', FileTable_Collate_Filename = database_default);");
-
-
             migrationBuilder.CreateTable(
                 name: "AppRole",
                 columns: table => new
@@ -67,11 +64,18 @@ namespace ProjectProgress.Data.Migrations
                     DeletedBy = table.Column<int>(nullable: true),
                     DeletedDate = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(maxLength: 100, nullable: false),
-                    ParentId = table.Column<int>(nullable: true)
+                    ParentId = table.Column<int>(nullable: true),
+                    IsDelete = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Item", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Item_Item_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Item",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -142,11 +146,11 @@ namespace ProjectProgress.Data.Migrations
                     DeletedBy = table.Column<int>(nullable: true),
                     DeletedDate = table.Column<DateTime>(nullable: true),
                     FileName = table.Column<string>(nullable: true),
-                    ObjectId = table.Column<int>(nullable: true),
-                    StreamId = table.Column<string>(nullable: true),
-                    IsDelete = table.Column<bool>(nullable: false),
+                    Remark = table.Column<string>(nullable: true),
+                    ObjectId = table.Column<int>(nullable: false),
+                    StreamId = table.Column<Guid>(nullable: false),
                     FileType = table.Column<string>(nullable: true),
-                    Remark = table.Column<string>(nullable: true)
+                    IsDelete = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -156,23 +160,23 @@ namespace ProjectProgress.Data.Migrations
                         column: x => x.ObjectId,
                         principalTable: "Item",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
                 table: "AppRole",
                 columns: new[] { "Id", "CreatedBy", "CreatedDate", "DeletedBy", "DeletedDate", "Name", "UpdatedBy", "UpdatedDate" },
-                values: new object[] { 1, null, new DateTime(2021, 10, 27, 15, 43, 37, 449, DateTimeKind.Local), null, null, "admin", null, null });
+                values: new object[] { 1, null, new DateTime(2021, 11, 21, 12, 59, 1, 595, DateTimeKind.Local), null, null, "admin", null, null });
 
             migrationBuilder.InsertData(
                 table: "AppRole",
                 columns: new[] { "Id", "CreatedBy", "CreatedDate", "DeletedBy", "DeletedDate", "Name", "UpdatedBy", "UpdatedDate" },
-                values: new object[] { 2, null, new DateTime(2021, 10, 27, 15, 43, 37, 451, DateTimeKind.Local), null, null, "user", null, null });
+                values: new object[] { 2, null, new DateTime(2021, 11, 21, 12, 59, 1, 597, DateTimeKind.Local), null, null, "user", null, null });
 
             migrationBuilder.InsertData(
                 table: "AppUser",
                 columns: new[] { "Id", "Avatar", "CreatedBy", "CreatedDate", "DeletedBy", "DeletedDate", "FirstName", "LastName", "Password", "Salt", "UpdatedBy", "UpdatedDate", "UserName" },
-                values: new object[] { 1, null, null, new DateTime(2021, 10, 27, 15, 43, 37, 461, DateTimeKind.Local), null, null, null, null, "YGiiWc7FTrrY8Kr8nLJ6DCVXbsGnAzpP6F0+84T+Jn0h7c6T2S5aIedS1MYSHoU8Sgyr5eVtxzDPLe1k6/Pw6FCteXv1dQ==", "RwcG0+iyE3HSNNT8LSbdREt8TQamv404f2h0A0hIzp3x0YdqcVHetWk5IgleJAgtPHh++hFtQIC9++9bnNMWiXDOZIYRHw==", null, null, "admin" });
+                values: new object[] { 1, null, null, new DateTime(2021, 11, 21, 12, 59, 1, 604, DateTimeKind.Local), null, null, null, null, "/9wFZ8EuH+p14X6esQNzX+6PyTaoRAnFClaINmAirMtCy9lTq8LThEz5T3YBSO0qCXWVLK3ANHl6mH8uGZtzxzqaWj+/BA==", "jZCHkrgMqKyI3CN8h+5HM8N5R75Qdy/hQPpuqalvWSdQPCPGvdcyVDj5BAOii1qmfdJwMIRF157gxBUepW1ukKujoLXbXg==", null, null, "admin" });
 
             migrationBuilder.InsertData(
                 table: "UserRole",
@@ -188,6 +192,11 @@ namespace ProjectProgress.Data.Migrations
                 name: "IX_Attachment_ObjectId",
                 table: "Attachment",
                 column: "ObjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Item_ParentId",
+                table: "Item",
+                column: "ParentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RefreshToken_CreatedBy",

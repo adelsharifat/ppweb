@@ -44,8 +44,8 @@ namespace ProjectProgress.Data.Migrations
                     b.ToTable("AppRole");
 
                     b.HasData(
-                        new { Id = 1, CreatedDate = new DateTime(2021, 11, 20, 10, 40, 35, 826, DateTimeKind.Local), Name = "admin" },
-                        new { Id = 2, CreatedDate = new DateTime(2021, 11, 20, 10, 40, 35, 828, DateTimeKind.Local), Name = "user" }
+                        new { Id = 1, CreatedDate = new DateTime(2021, 11, 21, 14, 12, 31, 865, DateTimeKind.Local), Name = "admin" },
+                        new { Id = 2, CreatedDate = new DateTime(2021, 11, 21, 14, 12, 31, 866, DateTimeKind.Local), Name = "user" }
                     );
                 });
 
@@ -88,7 +88,7 @@ namespace ProjectProgress.Data.Migrations
                     b.ToTable("AppUser");
 
                     b.HasData(
-                        new { Id = 1, CreatedDate = new DateTime(2021, 11, 20, 10, 40, 35, 835, DateTimeKind.Local), Password = "7hP4gAqqPea2LO4A3+h58i5StcxngEzmyFLG114+sIOhcvFx3Nwz05non/zNlFqxdF9AjRGyvWPY9H9evN3m+se+DM2K5A==", Salt = "vd9DKB6oDIQv4JV+7iY5Kv3fx4eEWycpV2jYFVKSu0/MswNaH4fLWF2hf9N7uGC7BXl3JzbgCzxQtG6H8rknwX7Zb+qIPA==", UserName = "admin" }
+                        new { Id = 1, CreatedDate = new DateTime(2021, 11, 21, 14, 12, 31, 874, DateTimeKind.Local), Password = "YkF1TAncTWxd7jONvEg++uEh16klehZ5fnF4HfVXzHvTGnHuC7Pq4j5J2XsBzzyqTxKXV6pEit0P8zFaVJjqe533qvu5pw==", Salt = "F8iH+l5xfIJ50Wgk58rQI92UrxdmfgdPlc/HkeH80el4j8HiCh436Y9Y20GOgWYiWzOPXdp6V4PI6EexfzSITw5x29yh/A==", UserName = "admin" }
                     );
                 });
 
@@ -124,6 +124,8 @@ namespace ProjectProgress.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CreatedBy");
+
                     b.HasIndex("ObjectId");
 
                     b.ToTable("Attachment");
@@ -143,6 +145,8 @@ namespace ProjectProgress.Data.Migrations
 
                     b.Property<DateTime?>("DeletedDate");
 
+                    b.Property<bool>("IsDelete");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100);
@@ -153,13 +157,9 @@ namespace ProjectProgress.Data.Migrations
 
                     b.Property<DateTime?>("UpdatedDate");
 
-                    b.Property<int?>("UserId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ParentId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Item");
                 });
@@ -223,6 +223,10 @@ namespace ProjectProgress.Data.Migrations
 
             modelBuilder.Entity("ProjectProgress.Domain.Attachment", b =>
                 {
+                    b.HasOne("ProjectProgress.Domain.AppUser", "User")
+                        .WithMany("Attachments")
+                        .HasForeignKey("CreatedBy");
+
                     b.HasOne("ProjectProgress.Domain.Item", "Item")
                         .WithMany("Attachments")
                         .HasForeignKey("ObjectId")
@@ -234,10 +238,6 @@ namespace ProjectProgress.Data.Migrations
                     b.HasOne("ProjectProgress.Domain.Item", "GetItem")
                         .WithMany("Items")
                         .HasForeignKey("ParentId");
-
-                    b.HasOne("ProjectProgress.Domain.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("ProjectProgress.Domain.RefreshToken", b =>
