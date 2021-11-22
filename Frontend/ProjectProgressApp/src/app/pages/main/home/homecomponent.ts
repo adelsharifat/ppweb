@@ -16,9 +16,7 @@ export class HomeComponent implements OnInit {
   load_tile_body = false;
   itemData:any = [];
 
-  constructor(private itemService:ItemService,private attachmentService:AttachmentService,private adminService:AdminService) {
-    this.getItems();
-  }
+  constructor(private adminService:AdminService) {}
 
   makeGuid(length:Number)
   {
@@ -32,17 +30,7 @@ export class HomeComponent implements OnInit {
     return result;
   }
 
-  getItems(){
-    this.itemService.getItems().subscribe(
-        res=>{
-          this.itemData = res.payload
-        },
-        err=>{
-          console.log(err);
-        }
-      );
 
-  }
 
 
 

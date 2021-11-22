@@ -51,7 +51,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #1670d1;
+    background: rgb(79,255,255);
+    background: linear-gradient(90deg, rgba(79,255,255,1) 0%, rgba(28,211,255,1) 50%, rgba(240,128,255,1) 100%);
 
     .avatar{
       border: 2px solid white;

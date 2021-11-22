@@ -9,11 +9,13 @@ import { TokenService } from './data/service/token.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorProviders } from './middleware/auth/auth.interceptor';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     FormsModule,
@@ -21,6 +23,12 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },JwtHelperService,AuthService,TokenService,AuthInterceptorProviders],
   bootstrap: [AppComponent]

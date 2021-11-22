@@ -1,13 +1,14 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
+const basePath =  "https://localhost:5001";
 
 export const environment = {
   production: false,
-  AUTH_API: 'https://localhost:5001/api/auth/',
-  ADMIN_API: 'https://localhost:5001/api/admin/',
-  ATTACHMENT_API: 'https://localhost:5001/api/attachment/',
-  ITEM_API: 'https://localhost:5001/api/item/',
+  AUTH_API: basePath+'/api/auth/',
+  ADMIN_API:  basePath+'/api/admin/',
+  ATTACHMENT_API:  basePath+'/api/attachment/',
+  ITEM_API:  basePath+'/api/item/',
 };
 
 /*

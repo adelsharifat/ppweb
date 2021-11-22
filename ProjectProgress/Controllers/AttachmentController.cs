@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -65,6 +66,19 @@ namespace ProjectProgress.Controllers
             }
         }
 
+
+        [HttpGet]
+        [Route("DownloadAttachment/{id}")]
+        public async Task<IActionResult> DownloadAttachment(string id)
+        {
+            if (id == null) return BadRequest(new ApiResponse(StatusCodes.Status400BadRequest, "null request input"));
+            var data = await _attachmentService.DownloadAttachment(id);
+            if (data == null)
+                return NotFound();
+            return Ok(new ApiResponse(StatusCodes.Status200OK, data));
+
+        }
+
         [HttpPost,DisableRequestSizeLimit]
         [Route("SaveAttachments")]
         public async Task<IActionResult> SaveAttachmentsAsync([FromForm] AttachmentRequest attachmentrequest)
@@ -95,5 +109,9 @@ namespace ProjectProgress.Controllers
                 return BadRequest(new ApiResponse(StatusCodes.Status500InternalServerError, ex.Message));
             }
         }
+
+
+        
+
     }
 }

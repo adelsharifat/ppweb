@@ -14,6 +14,9 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using ProjectProgress.Domain.DTO.Request;
+using System.IO;
+using ProjectProgress.Domain.DTO.Response;
 
 namespace ProjectProgress.Service.Service
 {
@@ -116,6 +119,25 @@ namespace ProjectProgress.Service.Service
                 FileContent = attachment.File,
                 Remark = attachment.Remark
             },commandType: CommandType.StoredProcedure);
-        }        
+        }
+
+
+        public async Task<AttachResponse> DownloadAttachment(string id)
+        {
+            try
+            {
+                var db = _dapperContext.CreateConnection();
+                var a = (await db.QueryAsync("DownloadAttachment", new { StreamId = id }, commandType: CommandType.StoredProcedure)).Single();
+                if (a !=null)
+                    return new AttachResponse { FileStream = a.FileStream,FileName= a.FileName,Extention = a.Extention };
+                else
+                    return null;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

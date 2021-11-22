@@ -1,0 +1,122 @@
+.searchWrapper{
+  width: 100%;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  margin-top:80px;
+
+  input{
+    flex:1;
+    padding: 8px 15px;
+    border: 1px solid rgba($color: #000000, $alpha: 0.05);
+    border-radius: 50px;
+    background: rgba($color: #fff, $alpha: 0.3);
+    transition: all 300ms ease;
+    font-size: 1rem;
+
+    &:focus{
+      background-color: white;
+    }
+
+  }
+
+  button{
+    position: absolute;
+    right: 25px;
+    background: none;
+    border: none;
+    color: #333;
+  }
+}
+
+
+.cardWraper{
+  width: 100%;
+  height: calc(100vh - 208px);
+  //background-color: rgb(255, 209, 209);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 20px;
+  overflow-y: scroll;
+
+  .card{
+    position: relative;
+    min-height: 96px;
+    min-width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 1px 2px 0 rgba($color: #000000, $alpha: 0.1);
+    overflow: hidden;
+    margin-bottom: 15px;
+    background-color: white;
+
+    // &:nth-child(1){
+    //   background: #8ddfffcc;
+    // }
+
+    // &:nth-child(2){
+    //   background: #c7a5ffcc;
+    // }
+
+    // &:nth-child(3){
+    //   background: #ff84ef99;
+    // }
+
+    // &:nth-child(4){
+    //   background: #d1ffb399;
+    // }
+
+
+    .circle1{
+      position: absolute;
+      top:-50px;
+      right: -25px;
+      width: 100px;
+      height: 100px;
+      background-color: rgba($color: #fff, $alpha: 0.2);
+      border-radius: 50%;
+    }
+
+    .circle2{
+      position: absolute;
+      bottom:-100px;
+      left: -25px;
+      width: 200px;
+      height: 200px;
+      background-color: rgba($color: #fff, $alpha: 0.1);
+      border-radius: 50%;
+    }
+
+    .vertSeperator{
+      position: absolute;
+      right: 58px;
+      height: 90%;
+      width: 1px;
+      margin-top: 5px;
+      background-color: rgba($color: #000000, $alpha: 0.1);
+    }
+
+    .attachmentIcon{
+      color: black;
+      font-size: 3rem;
+      position: absolute;
+      top: 16px;
+      right: 16px;
+    }
+
+    .attachmentDescription{
+      font-size: 1.2rem;
+      max-width: 100%;
+      height:100%;
+      display: flex;
+      padding: 20px 15px;
+      line-height: 1.2rem;
+      padding-left: 15px;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}

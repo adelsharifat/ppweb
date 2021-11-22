@@ -1,4 +1,6 @@
 ﻿using ProjectProgress.Domain;
+using ProjectProgress.Domain.DTO.Request;
+using ProjectProgress.Domain.DTO.Response;
 using ProjectProgress.Domain.DTO.Shared;
 using System;
 using System.Collections.Generic;
@@ -19,5 +21,6 @@ namespace ProjectProgress.Service.Interface
         Task<MutationResult> UPDATE_ASYNC(Attachment attachment);
         Task<MutationResult> DELETE_ASYNC(Attachment attachment);
         Task SaveAttachment(Attachment attachment);
+        Task<AttachResponse> DownloadAttachment(string id);
     }
 }

@@ -2,21 +2,12 @@
   <app-sidebar></app-sidebar>
   <div class="header">
     <app-toolbar></app-toolbar>
+    <div class="avatarWrapper">
+      <ngx-avatar name="Saeed Zarei" bgColor="#ffffff55" borderColor="#ffffff22"></ngx-avatar>
+      <h4 class="userFullName">TEST TEST</h4>
+    </div>
   </div>
   <div class="content">
-    <div class="searchWrapper">
-      <input type="text"/>
-      <button><mat-icon>search</mat-icon></button>
-    </div>
-
-    <div class="cardWraper">
-      <div class="card" *ngFor="let item of itemData">
-        <div class="circle1"></div>
-        <div class="circle2"></div>
-        <div class="vertSeperator"></div>
-        <div class="attachmentIcon"><mat-icon>attachment</mat-icon></div>
-        <div class="attachmentDescription">{{item.name}}</div>
-      </div>
-    </div>
+    <router-outlet></router-outlet>
   </div>
 </div>

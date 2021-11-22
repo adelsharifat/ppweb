@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
-
 const routes:Routes = [
   {
     path: '',
@@ -29,9 +28,11 @@ const routes:Routes = [
     path: 'add-attachment/:id',
     loadChildren: () => import('./pages/add-attachment/add-attachment.module').then(_=>_.AddAttachmentModule),
   },
+  {
+    path: 'item/:id',
+    loadChildren: () => import('./pages/item/item.module').then(_=>_.ItemModule),
+  },
 ]
-
-
 
 @NgModule({
   declarations: [],
