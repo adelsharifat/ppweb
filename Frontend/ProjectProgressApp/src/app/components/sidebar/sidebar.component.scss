@@ -22,7 +22,7 @@
   align-items: stretch;
   justify-content: flex-start;
   flex-direction: column;
-  background-color: white;
+  background-color: rgb(238, 238, 221);
   position: absolute;
   top: 0;
   left: 0;
@@ -44,15 +44,15 @@
 
 
   .avatar-wrapper{
-    //background: url('../../../assets/img/sidebarMenuBgAvatar.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
     height: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgb(79,255,255);
-    background: linear-gradient(90deg, rgba(79,255,255,1) 0%, rgba(28,211,255,1) 50%, rgba(240,128,255,1) 100%);
+    background-image: url('../../../assets/svg/sideBarBanner.png');
+    background-position: top;
+    background-size: cover;
+    border-bottom: 1px solid #dbd9d3;
+
 
     .avatar{
       border: 2px solid white;

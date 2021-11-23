@@ -31,4 +31,16 @@ export class HomeItemsComponent implements OnInit {
 
   }
 
+
+  getIconByItemName(itemName:any){
+    if(itemName === 'AG')
+      return 'assets/img/icons/AG.png'
+    if(itemName === 'UG')
+      return 'assets/img/icons/UG.png'
+    if(itemName === 'CONCRETE')
+      return 'assets/img/icons/concrete.png'
+
+    return '';
+  }
+
 }

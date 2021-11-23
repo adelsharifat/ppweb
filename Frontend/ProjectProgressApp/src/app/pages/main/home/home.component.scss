@@ -1,9 +1,9 @@
 .home-wrapper{
   flex: 1;
   height: 100vh;
-  background: url('../../../../assets/svg/homeBg.png');
+  background: url('../../../../assets/svg/homeBgLight.png');
   background-repeat: no-repeat;
-  background-size:100%;
+  background-size:cover;
   background-position-y: 0px;
   background-color: #e9edf1;
   //background: linear-gradient(52deg, rgba(247,255,255,1) 0%, rgba(0,246,242,1) 21%, rgba(240,128,255,1) 44%, rgba(0,187,255,1) 79%, rgba(240,128,255,1) 100%);
@@ -21,7 +21,7 @@
 
       .userFullName{
         padding: 10px;
-        color: white;
+        color: black;
         font-weight: 400;
       }
     }

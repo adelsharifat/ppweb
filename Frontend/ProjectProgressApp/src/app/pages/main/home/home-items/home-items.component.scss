@@ -1,102 +1,135 @@
-.searchWrapper{
-  width: 100%;
-  height: 64px;
+.managementReportSection{
+  height:130px;
+  padding: 0px 15px;
+  padding-bottom: 15px;
+  margin-top:60px;
+  border-bottom: 1px solid rgba($color: #000, $alpha: 0.2);
   display: flex;
-  align-items: center;
+  align-items: stre;
   justify-content: center;
-  padding: 20px;
-  margin-top:80px;
 
-  input{
-    flex:1;
-    padding: 8px 15px;
-    border: 1px solid rgba($color: #000000, $alpha: 0.05);
-    border-radius: 50px;
-    background: rgba($color: #fff, $alpha: 0.3);
-    transition: all 300ms ease;
-    font-size: 1rem;
 
-    &:focus{
-      background-color: white;
+  .managementBody{
+    background: rgb(255,255,255);
+    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgb(236, 234, 225) 100%);
+    flex: 1;
+    border-radius:15px;
+    box-shadow: 0 2px 5px 0 rgba($color: #000, $alpha: 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 5px;
+    padding-top: 0px;
+
+    .titleHeader{
+      position: relative;
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 0.85rem;
+      height:32px;
+      color: rgba($color: #000, $alpha: 0.7);
+      border-bottom: 1px solid rgba($color: #000, $alpha: 0.05);
+      .fl-left{
+        position: absolute;
+        left: 10px;
+      }
     }
 
-  }
+    .iconManagementBody{
+      display: flex;
+      width: 100%;
+      height: 100%;
+      overflow-x: scroll;
 
-  button{
-    position: absolute;
-    right: 25px;
-    background: none;
-    border: none;
-    color: #333;
+      .card{
+        padding: 5px;
+        height: 100%;
+        margin: 1px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .card-body{
+          width: 38px;
+          height: 38px;
+          border-radius: 45%;
+          font-size: 0.8rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 2px 2px 0 rgba($color: #000, $alpha: 0.5);
+
+        }
+
+        .title{
+          color: black;
+          margin-top: 5px;
+          font-size: 0.75rem;
+          width: 100%;
+          text-align: center;
+          white-space: nowrap;
+        }
+
+
+
+      }
+    }
   }
 }
 
-
 .cardWraper{
   width: 100%;
-  height: calc(100vh - 208px);
+  height: calc(100vh - 258px);
   //background-color: rgb(255, 209, 209);
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
   justify-content: flex-start;
   padding: 20px;
   overflow-y: scroll;
+  border-top: 1px solid rgba($color: #fff, $alpha: 0.9);
 
   .card{
     position: relative;
-    min-height: 96px;
-    min-width: 100%;
-    border-radius: 15px;
-    box-shadow: 0 1px 2px 0 rgba($color: #000000, $alpha: 0.1);
-    overflow: hidden;
-    margin-bottom: 15px;
-    background-color: white;
-
-    // &:nth-child(1){
-    //   background: #8ddfffcc;
-    // }
-
-    // &:nth-child(2){
-    //   background: #c7a5ffcc;
-    // }
-
-    // &:nth-child(3){
-    //   background: #ff84ef99;
-    // }
-
-    // &:nth-child(4){
-    //   background: #d1ffb399;
-    // }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: calc((100vw - 40px) / 3);
+    height: calc((100vw - 40px) / 3);
 
 
-    .circle1{
-      position: absolute;
-      top:-50px;
-      right: -25px;
-      width: 100px;
-      height: 100px;
-      background-color: rgba($color: #fff, $alpha: 0.2);
-      border-radius: 50%;
+    .card-body{
+      width: 70%;
+      height: 70%;
+      border-radius: 45%;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 2px 0 rgba($color: #000, $alpha: 0.5);
+
+      img{
+        width: 48px;
+      }
+
     }
 
-    .circle2{
-      position: absolute;
-      bottom:-100px;
-      left: -25px;
-      width: 200px;
-      height: 200px;
-      background-color: rgba($color: #fff, $alpha: 0.1);
-      border-radius: 50%;
-    }
-
-    .vertSeperator{
-      position: absolute;
-      right: 58px;
-      height: 90%;
-      width: 1px;
+    .title{
+      display: block;
+      text-decoration: none;
+      color: black;
       margin-top: 5px;
-      background-color: rgba($color: #000000, $alpha: 0.1);
+      font-size: 0.75rem;
+      width: 100%;
+      text-align: center;
     }
 
     .attachmentIcon{
@@ -109,7 +142,7 @@
 
     .attachmentDescription{
       font-size: 1.2rem;
-      max-width: 100%;
+      max-width: 85%;
       height:100%;
       display: flex;
       padding: 20px 15px;
@@ -120,3 +153,80 @@
     }
   }
 }
+
+
+.mgmt{
+  background-image: url('../../../../../assets/img/icons/reportIcon.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px;
+  background-color: #00ffff;
+}
+
+
+.AG{
+  background-image: url('../../../../../assets/img/icons/AG.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 32px;
+  background-color: rgb(0, 183, 255);
+}
+
+.UG{
+  background-image: url('../../../../../assets/img/icons/UG.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 32px;
+  background-color: rgb(94, 255, 134);
+}
+
+.CONCRETE{
+  background-image: url('../../../../../assets/img/icons/concrete.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 32px;
+  background-color: rgb(255, 210, 7);
+}
+
+.PI-SUP{
+  background-image: url('../../../../../assets/img/icons/Support.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 32px;
+  background-color: rgb(43, 255, 220);
+}
+
+.S-STR{
+  background-image: url('../../../../../assets/img/icons/ST-STR.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 32px;
+  background-color: rgb(222, 113, 255);
+}
+
+.EL{
+  background-image: url('../../../../../assets/img/icons/EL.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 32px;
+  background-color: rgb(255, 0, 34);
+}
+
+.EQ{
+  background-image: url('../../../../../assets/img/icons/EQ.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 32px;
+  background-color: rgb(196, 200, 235);
+}
+
+
+.IN{
+  background-image: url('../../../../../assets/img/icons/EL.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 32px;
+  background-color: rgb(255, 99, 60);
+}
+
+

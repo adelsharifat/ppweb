@@ -1,14 +1,22 @@
-<div class="searchWrapper">
-  <input type="text"/>
-  <button><mat-icon>search</mat-icon></button>
+<div class="managementReportSection">
+  <div class="managementBody">
+    <div class="titleHeader">
+      <div class="fl-left"><img src="./assets/img/icons/reportIcon.png" alt=""></div>
+      <div>Abadan Refinery Upgarede Project</div>
+    </div>
+    <div class="iconManagementBody">
+      <div class="card" *ngFor="let item of itemData">
+        <div class="card-body mgmt"  [routerLink]="['item/'+item.id]"></div>
+        <div class="title" [routerLink]="['item/'+item.id]">{{item.name}}</div>
+      </div>
+    </div>
+  </div>
 </div>
-
 <div class="cardWraper">
   <div class="card" *ngFor="let item of itemData">
-    <!-- <div class="circle1"></div>
-    <div class="circle2"></div> -->
-    <div class="vertSeperator"></div>
-    <a class="attachmentIcon" [routerLink]="['item/'+item.id]"><mat-icon  >attachment</mat-icon></a>
-    <a class="attachmentDescription" >{{item.name}}</a>
+    <div class="card-body {{item.name}}"  [routerLink]="['item/'+item.id]">
+    </div>
+    <p><a class="title" [routerLink]="['item/'+item.id]">{{item.name}}</a></p>
   </div>
+
 </div>
