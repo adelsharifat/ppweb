@@ -1,0 +1,16 @@
+.spacer {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+}
+
+.toolbar {
+  background: none !important;
+  color: black !important;
+}
+
+.title {
+  font-weight: 500;
+  color: black;
+}
+/*# sourceMappingURL=toolbar.component.css.map */

@@ -1,0 +1,296 @@
+.managementReportSection {
+  height: 130px;
+  padding: 0px 15px;
+  padding-bottom: 15px;
+  margin-top: 60px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: stre;
+      -ms-flex-align: stre;
+          align-items: stre;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.managementReportSection .managementBody {
+  background: white;
+  background: -webkit-gradient(linear, left top, left bottom, from(white), to(#eceae1));
+  background: linear-gradient(180deg, white 0%, #eceae1 100%);
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  border-radius: 15px;
+  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
+          box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  overflow: hidden;
+  padding: 5px;
+  padding-top: 0px;
+}
+
+.managementReportSection .managementBody .titleHeader {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  font-size: 0.85rem;
+  height: 32px;
+  color: rgba(0, 0, 0, 0.7);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.managementReportSection .managementBody .titleHeader .fl-left {
+  position: absolute;
+  left: 10px;
+}
+
+.managementReportSection .managementBody .iconManagementBody {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow-x: scroll;
+}
+
+.managementReportSection .managementBody .iconManagementBody .card {
+  padding: 5px;
+  height: 100%;
+  margin: 1px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.managementReportSection .managementBody .iconManagementBody .card .card-body {
+  width: 38px;
+  height: 38px;
+  border-radius: 45%;
+  font-size: 0.8rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.5);
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+.managementReportSection .managementBody .iconManagementBody .card .title {
+  color: black;
+  margin-top: 5px;
+  font-size: 0.75rem;
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.cardWraper {
+  width: 100%;
+  height: calc(100vh - 258px);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  padding: 20px;
+  overflow-y: scroll;
+  border-top: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+.cardWraper .card {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: calc((100vw - 40px) / 3);
+  height: calc((100vw - 40px) / 3);
+}
+
+.cardWraper .card .card-body {
+  width: 70%;
+  height: 70%;
+  border-radius: 45%;
+  font-size: 0.8rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.5);
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+.cardWraper .card .card-body img {
+  width: 48px;
+}
+
+.cardWraper .card .title {
+  display: block;
+  text-decoration: none;
+  color: black;
+  margin-top: 5px;
+  font-size: 0.75rem;
+  width: 100%;
+  text-align: center;
+}
+
+.cardWraper .card .attachmentIcon {
+  color: black;
+  font-size: 3rem;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.cardWraper .card .attachmentDescription {
+  font-size: 1.2rem;
+  max-width: 85%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 20px 15px;
+  line-height: 1.2rem;
+  padding-left: 15px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.mgmt {
+  background-image: url("../../../../../assets/img/icons/reportIcon.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px;
+  background-color: #59d8ff;
+}
+
+.AG {
+  background-image: url("../../../../../assets/img/icons/AG.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 32px;
+  background-color: #4a9eff;
+}
+
+.UG {
+  background-image: url("../../../../../assets/img/icons/UG.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 32px;
+  background-color: #f07f4a;
+}
+
+.CONCRETE {
+  background-image: url("../../../../../assets/img/icons/concrete.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 32px;
+  background-color: #ffd207;
+}
+
+.PI-SUP {
+  background-image: url("../../../../../assets/img/icons/Support.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 32px;
+  background-color: #47d4bd;
+}
+
+.S-STR {
+  background-image: url("../../../../../assets/img/icons/ST-STR.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 32px;
+  background-color: #e0e95a;
+}
+
+.EL {
+  background-image: url("../../../../../assets/img/icons/EL.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 32px;
+  background-color: #ff4b63;
+}
+
+.EQ {
+  background-image: url("../../../../../assets/img/icons/EQ.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 32px;
+  background-color: #eb53a4;
+}
+
+.IN {
+  background-image: url("../../../../../assets/img/icons/EL.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 32px;
+  background-color: #abb2f0;
+}
+/*# sourceMappingURL=home-items.component.css.map */

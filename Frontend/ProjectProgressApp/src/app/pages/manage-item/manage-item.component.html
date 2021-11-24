@@ -5,12 +5,12 @@
   <div class="content">
     <mat-spinner *ngIf="loading"></mat-spinner>
     <div class="tilesWrapper" *ngIf="!loading">
-      <div class="itemMapWrapper">
+      <!-- <div class="itemMapWrapper">
         <div *ngFor="let item of this.itemData?.items">
           <button>{{item?.name}}</button>
           <mat-icon class="arrow">chevron_right</mat-icon>
         </div>
-      </div>
+      </div> -->
       <div class="tile blue" (click)="openAddItemPage()">
         <div><mat-icon class="icon">apps</mat-icon></div>
         <div >Manage Item</div>

@@ -44,8 +44,8 @@ namespace ProjectProgress.Data.Migrations
                     b.ToTable("AppRole");
 
                     b.HasData(
-                        new { Id = 1, CreatedDate = new DateTime(2021, 11, 21, 14, 12, 31, 865, DateTimeKind.Local), Name = "admin" },
-                        new { Id = 2, CreatedDate = new DateTime(2021, 11, 21, 14, 12, 31, 866, DateTimeKind.Local), Name = "user" }
+                        new { Id = 1, CreatedDate = new DateTime(2021, 11, 24, 13, 32, 27, 656, DateTimeKind.Local), Name = "admin" },
+                        new { Id = 2, CreatedDate = new DateTime(2021, 11, 24, 13, 32, 27, 658, DateTimeKind.Local), Name = "user" }
                     );
                 });
 
@@ -88,7 +88,7 @@ namespace ProjectProgress.Data.Migrations
                     b.ToTable("AppUser");
 
                     b.HasData(
-                        new { Id = 1, CreatedDate = new DateTime(2021, 11, 21, 14, 12, 31, 874, DateTimeKind.Local), Password = "YkF1TAncTWxd7jONvEg++uEh16klehZ5fnF4HfVXzHvTGnHuC7Pq4j5J2XsBzzyqTxKXV6pEit0P8zFaVJjqe533qvu5pw==", Salt = "F8iH+l5xfIJ50Wgk58rQI92UrxdmfgdPlc/HkeH80el4j8HiCh436Y9Y20GOgWYiWzOPXdp6V4PI6EexfzSITw5x29yh/A==", UserName = "admin" }
+                        new { Id = 1, CreatedDate = new DateTime(2021, 11, 24, 13, 32, 27, 671, DateTimeKind.Local), Password = "bTmmJrsDe9n4xbiON0o2e/3D2JtRR3QI3Ip4SxVqb0L5OkX5bySUP+/enFyMPLPfaFG9wFB7/gxOl0mJZjNnyWurszKpnQ==", Salt = "eOryIJVXKDAoTiEHwi00SinTvo4Vtxz/Xh3U+FmaBVQcX5t5fgq8Ldk4Zsg4T8mhj43257j4zftykjNv675Zn5YfwsPRuA==", UserName = "admin" }
                     );
                 });
 
@@ -146,6 +146,8 @@ namespace ProjectProgress.Data.Migrations
                     b.Property<DateTime?>("DeletedDate");
 
                     b.Property<bool>("IsDelete");
+
+                    b.Property<int>("ItemsType");
 
                     b.Property<string>("Name")
                         .IsRequired()

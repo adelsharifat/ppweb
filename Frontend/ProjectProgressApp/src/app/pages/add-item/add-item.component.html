@@ -4,12 +4,18 @@
   </div>
   <div class="content">
     <mat-spinner *ngIf="loading"></mat-spinner>
-    <div class="formAddItem">''
+    <div class="formAddItem">
+      <button class="deleteButton" mat-raised-button mat-button color="accent" (click)="delete()">Delete Item</button>
+
+      <label for="itemName">Item Type</label>
+      <Select class="itemTypeInput" (change)="getItemType($event)">
+        <option value = "0">Control Project Report Item</option>
+        <option value="1">Management Report Item</option>
+      </Select>
       <label for="itemName">Item Name</label>
       <input id="itemName" type="text" #itemName />
       <div>
-        <button mat-raised-button mat-button (click)="addItem(itemName?.value)">Save</button>
-        <button mat-raised-button mat-button color="accent" (click)="delete()">Delete Item</button>
+        <button mat-raised-button mat-button (click)="addItem(itemName?.value)">Save Item</button>
       </div>
       <p class="message" *ngIf="message!==''" [class.error]="operationResultStatus==0" [class.success]="operationResultStatus==1">{{message}}</p>
     </div>

@@ -7,6 +7,7 @@ namespace ProjectProgress.Domain.DTO.Request
     public class ItemAddRequest
     {
         public string Name { get; set; }
+        public int ItemType { get; set; }
         public int? ParentId { get; set; }
         public int UserId { get; set; }
     }

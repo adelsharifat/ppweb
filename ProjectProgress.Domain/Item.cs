@@ -11,6 +11,8 @@ namespace ProjectProgress.Domain
         [Required]
         [MaxLength(100)]
         public string Name { get; set; }
+        [Required]
+        public int ItemsType { get; set; }
         public int? ParentId { get; set; }
         public bool IsDelete { get; set; } = false;
 

@@ -1,0 +1,140 @@
+.page-wrapper {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 auto;
+          flex: 1 auto;
+  height: 100vh;
+}
+
+.page-wrapper .header {
+  margin-bottom: 0;
+  background-color: #fefefe;
+}
+
+.page-wrapper .content {
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+  margin-top: 20px;
+  height: calc(100% - 130px);
+}
+
+.page-wrapper .content .mini-fab {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+}
+
+.page-wrapper .content .treeWrapper {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.page-wrapper .content .searchInputWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 100%;
+  padding: 0px 20px;
+  padding-bottom: 10px;
+}
+
+.page-wrapper .content .searchInputWrapper .searchInput {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 1px;
+  border: 1px solid #ccc;
+  background: #f6f8ff;
+  border-radius: 5px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.page-wrapper .content .searchInputWrapper .searchInput input {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  padding: 6px;
+  background: none;
+  border: none;
+  font-size: 1rem;
+}
+
+.page-wrapper .content .searchInputWrapper .searchInput .mat-icon-search {
+  margin-right: 10px;
+  color: darkblue;
+}
+
+.node-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.spacer {
+  padding-right: 5px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1;
+          flex: 1 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.spacer .launchIconButton {
+  font-size: 0.4rem !important;
+}
+
+.badge-blue {
+  border-radius: 3px;
+  background-color: dodgerblue;
+  color: white;
+  padding: 0px 5px;
+  font-size: 0.75rem;
+  margin-left: 5px;
+}
+
+.badge-warning {
+  border-radius: 3px;
+  background-color: #ffb338;
+  color: white;
+  padding: 0px 5px;
+  font-size: 0.75rem;
+  margin-left: 5px;
+}
+
+.badge-danger {
+  border-radius: 3px;
+  background-color: #c3004b;
+  color: white;
+  padding: 0px 5px;
+  font-size: 0.75rem;
+  margin-left: 5px;
+}
+
+.badge-success {
+  border-radius: 3px;
+  background-color: #262729;
+  color: white;
+  padding: 0px 5px;
+  font-size: 0.75rem;
+  margin-left: 5px;
+}
+/*# sourceMappingURL=manage-items.component.css.map */

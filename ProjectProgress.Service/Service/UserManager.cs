@@ -106,15 +106,15 @@ namespace ProjectProgress.Service.Service
             }
         }
 
-        public async Task AddRoleAsync(AppUser user, params AppRole[] roles)
+        public async Task AddRoleAsync(AppUser user, params int[] roles)
         {
             try
             {
                 if (user == null) throw new Exception("User not found!");
                 if (!roles.Any()) throw new Exception("you don't select any role for add to user!");
-                foreach (AppRole role in roles)
+                foreach (int role in roles)
                 {
-                    user.UserRoles.Add(new UserRole { UserId = user.Id, RoleId = role.Id });
+                    user.UserRoles.Add(new UserRole { UserId = user.Id, RoleId = role });
                 }
                 await _uw.UserRepo.UPDATE_ASYNC(user);
                 var result = await _uw.Commit();

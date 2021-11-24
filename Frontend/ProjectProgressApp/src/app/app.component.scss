@@ -4,3 +4,50 @@
   width: 100vw;
   height: 100vh;
 }
+
+
+
+.install-banner{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 10px;
+  background-color: #fcfcfd;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  box-shadow: 0 5px 15px 0 rgba(0,0,0,.2);
+  z-index: 1999;
+  transform: translateY(-100%);
+  animation: slide-down;
+  animation-delay: 2s;
+  animation-duration: 500ms;
+  animation-direction: normal;
+  animation-play-state: running;
+  animation-fill-mode: forwards;
+
+}
+
+
+.img-banner-install-app
+{
+  max-width: 72px;
+}
+
+.title-banner-install-app
+{
+  font-size: 2.2rem;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+@keyframes slide-down{
+  0%{
+    transform: translateY(-100%);
+  }
+  100%{
+    transform: translateY(0);
+  }
+}

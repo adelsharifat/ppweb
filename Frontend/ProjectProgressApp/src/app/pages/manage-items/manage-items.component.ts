@@ -24,7 +24,7 @@ export class ManageItemsComponent implements OnInit {
   loading=false;
 
   constructor(private itemService:ItemService,private router:Router) {
-    this.getItems();
+    this.getAllItems();
   }
 
   private _transformer = (node: Node | any, level: number) => {
@@ -34,6 +34,7 @@ export class ManageItemsComponent implements OnInit {
       id:node.id,
       count:node.attachments.length,
       itemCount:node.items.length,
+      itemsType:node.itemsType,
       level: level,
     };
   }
@@ -55,10 +56,9 @@ export class ManageItemsComponent implements OnInit {
     this.router.navigate(['manage-items/'+item])
   }
 
-  getItems(){
-    this.itemService.getItems().subscribe(
+  getAllItems(){
+    this.itemService.getAllItems().subscribe(
         res=>{
-          console.log(res.payload)
           this.dataSource.data = res.payload
         },
         err=>{

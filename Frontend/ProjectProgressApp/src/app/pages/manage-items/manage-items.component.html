@@ -5,17 +5,13 @@
   <div class="content" *ngIf="!loading">
 
     <button mat-fab class="mini-fab" (click)="onFabClick()"><mat-icon class="mat-icon-search">add</mat-icon></button>
-
-
-
-
     <mat-spinner *ngIf="loading"></mat-spinner>
-    <div class="searchInputWrapper">
+    <!-- <div class="searchInputWrapper">
       <div class="searchInput">
         <input type="text"/>
         <mat-icon class="mat-icon-search">search</mat-icon>
       </div>
-    </div>
+    </div> -->
     <div class="treeWrapper" *ngIf="!loading">
       <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
           <!-- This is the tree node template for leaf nodes -->
@@ -24,6 +20,8 @@
             <button mat-icon-button disabled></button>
             <div>
               {{node.name}}<span class="badge-blue" *ngIf="node.count>0">{{node.count}}</span>
+              <span class="badge-success" *ngIf="node.itemsType===0">CP</span>
+              <span class="badge-success" *ngIf="node.itemsType===1">MGMT</span>
             </div>
             <div class="action spacer">
               <button mat-button class="launchIconButton" (click)="openItem(node.id)">
@@ -40,7 +38,11 @@
               </mat-icon>
             </button>
             <div>
-              {{node.name}}<span class="badge-danger" *ngIf="node.itemCount>0">{{node.itemCount}}</span> <span class="badge-blue" *ngIf="node.count>0">{{node.count}}</span>
+              {{node.name}}
+              <span class="badge-danger" *ngIf="node.itemCount>0">{{node.itemCount}}</span>
+              <span class="badge-blue" *ngIf="node.count>0">{{node.count}}</span>
+              <span class="badge-danger">{{node.itemsType}}</span>
+
             </div>
             <div class="action spacer">
               <button mat-button class="launchIconButton" (click)="openItem(node.id)">

@@ -10,80 +10,33 @@
   .content{
     width: 100%;
     height: calc(100% - 280px);
-
-    .attachment{
-      padding:5px 10px;
-      display: flex;
-      align-items: flex-end;
-      flex:1;
-      margin:auto;
-      margin-top: 2px;
-      // background: rgb(179,255,248);
-      // background: linear-gradient(90deg, rgba(179,255,248,1) 0%, rgba(220,158,255,1) 100%);
-
-      .searchWrapper{
-        max-width: 780px;
-        margin: auto;
-        flex: 1;
-
-        .fileAddressInput{
-          width: 100%;
-          background-color: aliceblue;
-          border: 1px solid #ccc;
-          border-radius: 3px;
-          flex: 1;
-          font-size: 1rem;
-          margin-top: 5px;
-          margin-bottom: 5px;
-          padding: 5px;
-        }
-
-        .remark{
-          width: 100%;
-          height: 48px;
-          resize: none;
-          color: darkblue;
-          border: 1px solid #ccc;
-          border-radius: 3px;
-          font-size: 1rem;
-        }
-      }
-
-    }
-
-    .uploadBtnWrapper{
-      padding:5px 10px;
-      padding-bottom: 15px;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      border-bottom: 1px solid #f0f0f0;
-      button{
-        margin:10px;
-
-        mat-spinner{
-          margin-top: -10px;
-          margin-left: -10px;
-        }
-      }
+    .bodypreloading{
+      margin: auto;
     }
 
     .attachmentWrapper{
       display: flex;
-      align-items: stretch;
-      justify-content: stretch;
+      align-items: center;
+      justify-content: flex-start;
       flex-direction: column;
       max-width: 800px;
       margin:auto;
       height: calc(100% - 18px);
       overflow-y: scroll;
+      padding: 20px;
 
       .itemAttachment{
         width: 100%;
-        border-bottom: 1px solid #efefef;
         display: flex;
-        align-items: flex-start;
+        align-items: center;
         padding: 5px;
+        background-color: mediumpurple;
+        color: white;
+        border-radius: 10px;
+
+        .downloadBtn{
+          border-left: 1px solid #fff;
+        }
 
         .itemData{
           font-size: 0.8rem;
@@ -93,12 +46,12 @@
           align-items: flex-start;
           justify-content: space-between;
 
+
           .fileName{
             margin-bottom: 5px;
           }
 
           .remark{
-            background-color: rgba(0, 191, 255, 0.294);
             border-radius: 3px;
             padding: 5px;
             margin-bottom: 3px;

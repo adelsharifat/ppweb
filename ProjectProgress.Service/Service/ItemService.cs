@@ -19,11 +19,12 @@ namespace ProjectProgress.Service.Service
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<Item>> GetAllAsync()
+        public async Task<IEnumerable<Item>> GetAllAsync(Expression<Func<Item, bool>> expression = null)
         {
             try
             {
-                return await _unitOfWork.ItemRepo.FIND_ASYNC();
+                if(expression == null) return await _unitOfWork.ItemRepo.FIND_ASYNC();
+                return await _unitOfWork.ItemRepo.FIND_ASYNC(expression);
             }
             catch (Exception ex)
             {

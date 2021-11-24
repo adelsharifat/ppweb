@@ -13,6 +13,14 @@ const routes:Routes = [
     loadChildren: () => import('./pages/auth/login/login.module').then(_=>_.LoginModule)
   },
   {
+    path: 'users',
+    loadChildren: () => import('./pages/users/users.module').then(_=>_.UsersModule)
+  },
+  {
+    path: 'privacy',
+    loadChildren: () => import('./pages/privacy/privacy.module').then(_=>_.PrivacyModule)
+  },
+  {
     path: 'manage-items',
     loadChildren: () => import('./pages/manage-items/manage-items.module').then(_=>_.ManageItemsModule),
   },

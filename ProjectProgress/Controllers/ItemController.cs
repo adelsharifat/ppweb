@@ -23,19 +23,52 @@ namespace ProjectProgress.Controllers
             _itemService = itemService;
         }
 
+
+        [HttpGet]
+        [Route("GetAllItems")]
+        public async Task<IActionResult> GetAllItems()
+        {
+            try
+            {
+                var data = await _itemService.GetAllAsync();
+                if (data == null) return BadRequest(new ApiResponse { StatusCode = StatusCodes.Status200OK, Error = new List<string> { "empty data" } });
+                return Ok(new ApiResponse { Payload = data, StatusCode = StatusCodes.Status200OK });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponse { StatusCode = StatusCodes.Status200OK, Error = new List<string> { ex.Message } });
+            }
+        }
+
         [HttpGet]
         [Route("GetItems")]
         public async Task<IActionResult> GetItems()
         {
             try
             {
-                var data = await _itemService.GetAllAsync();
+                var data = await _itemService.GetAllAsync(x => x.ParentId == null && x.ItemsType == 0);
                 if(data == null) return BadRequest(new ApiResponse { StatusCode = StatusCodes.Status200OK, Error = new List<string> { "empty data" } });
-                return Ok(new ApiResponse { Payload = data.Where(x=>x.ParentId == null), StatusCode = StatusCodes.Status200OK });
+                return Ok(new ApiResponse { Payload = data, StatusCode = StatusCodes.Status200OK });
             }
             catch (Exception ex)
             {
                 return BadRequest(new ApiResponse { StatusCode = StatusCodes.Status200OK,Error = new List<string> { ex.Message } });                
+            }
+        }
+
+        [HttpGet]
+        [Route("GetManagementItems")]
+        public async Task<IActionResult> GetManagementItems()
+        {
+            try
+            {
+                var data = await _itemService.GetAllAsync(x => x.ParentId == null && x.ItemsType == 1);
+                if (data == null) return BadRequest(new ApiResponse { StatusCode = StatusCodes.Status200OK, Error = new List<string> { "empty data" } });
+                return Ok(new ApiResponse { Payload = data, StatusCode = StatusCodes.Status200OK });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponse { StatusCode = StatusCodes.Status200OK, Error = new List<string> { ex.Message } });
             }
         }
 
@@ -68,6 +101,7 @@ namespace ProjectProgress.Controllers
                 Item item = new Item
                 {
                     Name = itemAddRequest.Name,
+                    ItemsType = itemAddRequest.ItemType,
                     ParentId = itemAddRequest.ParentId,
                     CreatedBy = itemAddRequest.UserId,
                     CreatedDate =DateTime.Now,                                       

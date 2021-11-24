@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import { ItemService } from './../../data/service/item.service';
 
 @Component({
@@ -14,6 +15,8 @@ export class AddItemComponent implements OnInit {
   message = '';
   itemId:string|null = null;
   item:BehaviorSubject<any> = new BehaviorSubject<any>(null)
+  itemType:number=0;
+  itemTypeName:string = 'Control Project Report Item';
   itemData:any = [];
   operationResultStatus:number = 1;
   constructor(private itemService:ItemService,private route:ActivatedRoute,private router:Router)
@@ -24,6 +27,11 @@ export class AddItemComponent implements OnInit {
   ngOnInit(): void {
     if(this.itemId !== 'new')
       this.getItemById();
+  }
+
+
+  getItemType(event:any){
+    this.itemType = event.target.value;
   }
 
   getItemById(){
@@ -41,12 +49,9 @@ export class AddItemComponent implements OnInit {
   }
 
   addItem(itemName:any){
+    console.log(itemName,this.itemType)
     const parentId = this.itemId == 'new'?null:this.itemId
-    const newItemObject = {name:itemName,parentId:parentId,userId:1}
-    console.log(newItemObject)
-
-
-
+    const newItemObject = {name:itemName,parentId:parentId,itemType:this.itemType,userId:1}
     this.itemService.addItem(newItemObject).subscribe(
       res=>{
         this.message = 'Opertion Success!';

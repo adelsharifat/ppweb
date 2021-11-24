@@ -5,8 +5,23 @@
 </ngx-avatar>
   </div>
   <ul class="sidebar-nav-item-wrapper">
-    <li class="sidebar-nav-item"><a routerLink="manage-items" class="pointer"><i class="fas fa-tasks"></i>Manage Items</a></li>
-    <li class="sidebar-nav-item"><a class="pointer"><i class="fas fa-users"></i>Users</a></li>
-    <li class="sidebar-nav-item"><a class="pointer" (click)="signout()"><i class="fas fa-sign-out-alt"></i>Signout</a></li>
+    <li class="sidebar-nav-item">
+      <a routerLink="manage-items" class="pointer">
+        <mat-icon>library_books</mat-icon>
+        <div>Manage Items</div>
+      </a>
+    </li>
+    <li class="sidebar-nav-item">
+      <a routerLink="users" class="pointer">
+        <mat-icon>supervisor_account</mat-icon>
+        <div>Users</div>
+      </a>
+    </li>
+    <li class="sidebar-nav-item">
+      <a class="pointer" (click)="signout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <div>Signout</div>
+      </a>
+    </li>
   </ul>
 </div>

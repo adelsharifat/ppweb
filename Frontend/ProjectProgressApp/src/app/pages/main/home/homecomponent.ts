@@ -5,6 +5,7 @@ import { ProgressBarMode } from '@angular/material/progress-bar';
 import { BehaviorSubject } from 'rxjs';
 import { AttachmentService } from './../../../data/service/attachment.service';
 import { ItemService } from 'src/app/data/service/item.service';
+import { ToolbarService } from './../../../data/service/toolbar.service';
 
 @Component({
   selector: 'app-main',
@@ -16,7 +17,9 @@ export class HomeComponent implements OnInit {
   load_tile_body = false;
   itemData:any = [];
 
-  constructor(private adminService:AdminService) {}
+  constructor(private adminService:AdminService,private toolBarService:ToolbarService) {
+    this.toolBarService.sidebarState.next(false)
+  }
 
   makeGuid(length:Number)
   {

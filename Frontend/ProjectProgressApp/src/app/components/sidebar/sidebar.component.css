@@ -1,0 +1,138 @@
+.sidebar-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: none;
+}
+
+.sidebar-wrapper.backdrop-show {
+  display: block;
+  z-index: 198;
+}
+
+.sidebar-wrapper.backdrop-hide {
+  display: none;
+}
+
+.sidebar-nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #eeeedd;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 80vw;
+  max-width: 300px;
+  height: 100%;
+  z-index: 199;
+  -webkit-box-shadow: 1px 0 10px 0 rgba(0, 0, 0, 0.1);
+          box-shadow: 1px 0 10px 0 rgba(0, 0, 0, 0.1);
+  -webkit-transform: translateX(-150%);
+          transform: translateX(-150%);
+  -webkit-transition: -webkit-transform 300ms ease;
+  transition: -webkit-transform 300ms ease;
+  transition: transform 300ms ease;
+  transition: transform 300ms ease, -webkit-transform 300ms ease;
+}
+
+.sidebar-nav.nav-expand {
+  -webkit-transform: translateX(0%);
+          transform: translateX(0%);
+}
+
+.sidebar-nav .avatar-wrapper {
+  height: 150px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-image: url("../../../assets/svg/sideBarBanner.png");
+  background-position: top;
+  background-size: cover;
+  border-bottom: 1px solid #dbd9d3;
+}
+
+.sidebar-nav .avatar-wrapper .avatar {
+  border: 2px solid white;
+  -webkit-box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-nav .sidebar-nav-item-wrapper {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar-nav .sidebar-nav-item-wrapper .sidebar-nav-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: stretch;
+      -ms-flex-pack: stretch;
+          justify-content: stretch;
+  list-style: none;
+}
+
+.sidebar-nav .sidebar-nav-item-wrapper .sidebar-nav-item a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  text-decoration: none;
+  font-size: 1.2rem;
+  padding: 20px;
+  color: #333;
+  -webkit-transition: all 100ms ease;
+  transition: all 100ms ease;
+}
+
+.sidebar-nav .sidebar-nav-item-wrapper .sidebar-nav-item a mat-icon {
+  margin-right: 15px;
+}
+
+.sidebar-nav .sidebar-nav-item-wrapper .sidebar-nav-item a:hover {
+  background-color: #D9D4C1;
+}
+/*# sourceMappingURL=sidebar.component.css.map */

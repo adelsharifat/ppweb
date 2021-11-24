@@ -75,7 +75,8 @@
       justify-content: stretch;
       list-style: none;
       a{
-        display: block;
+        display: flex;
+        align-items: center;
         width: 100%;
         text-decoration: none;
         font-size: 1.2rem;
@@ -83,7 +84,7 @@
         color: #333;
         transition: all 100ms ease;
 
-        i{
+        mat-icon{
           margin-right: 15px;
         }
 

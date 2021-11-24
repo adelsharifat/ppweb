@@ -10,10 +10,12 @@ import { AttachmentService } from './../../../../data/service/attachment.service
 })
 export class HomeItemsComponent implements OnInit {
   itemData:any = [];
+  itemManagementData:any = [];
 
   constructor(private itemService:ItemService,private attachmentService:AttachmentService)
   {
     this.getItems();
+    this.getManagementItems();
   }
 
   ngOnInit(): void {
@@ -23,6 +25,19 @@ export class HomeItemsComponent implements OnInit {
     this.itemService.getItems().subscribe(
         res=>{
           this.itemData = res.payload
+        },
+        err=>{
+          console.log(err);
+        }
+      );
+
+  }
+
+
+  getManagementItems(){
+    this.itemService.getManagementItems().subscribe(
+        res=>{
+          this.itemManagementData = res.payload
         },
         err=>{
           console.log(err);

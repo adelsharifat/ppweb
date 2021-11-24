@@ -15,6 +15,6 @@ namespace ProjectProgress.Service.Interface
         Task<MutationResult> DeleteUserAsync(AppUser user);
         Task<MutationResult> DeleteUserByIdAsync(int id);
         Task<AppUser> FindUserAsync(Expression<Func<AppUser, bool>> expression);
-        Task AddRoleAsync(AppUser user,params AppRole[] roles);
+        Task AddRoleAsync(AppUser user,params int[] roles);
     }
 }

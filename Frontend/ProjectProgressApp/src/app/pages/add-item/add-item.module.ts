@@ -9,6 +9,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NavModule } from './../../components/nav/nav.module';
 import { AddItemComponent } from './add-item.component';
 import { AddItemRoutingModule } from './add-item-routing.module';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [AddItemComponent],
   imports: [
@@ -20,6 +21,7 @@ import { AddItemRoutingModule } from './add-item-routing.module';
     MatButtonModule,
     MatTreeModule,
     MatProgressSpinnerModule,
+    FormsModule,
     NavModule
   ],
   providers:[CdkTreeNode]

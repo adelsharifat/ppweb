@@ -14,9 +14,18 @@ export class ItemService {
 
   constructor(private http:HttpClient) { }
 
+  getAllItems(){
+    return this.http.get<IApiResponse>(environment.ITEM_API+'getAllItems');
+  }
+
 
   getItems(){
     return this.http.get<IApiResponse>(environment.ITEM_API+'getItems');
+  }
+
+
+  getManagementItems(){
+    return this.http.get<IApiResponse>(environment.ITEM_API+'getManagementItems');
   }
 
   getItemById(itemId:string|null):Observable<IApiResponse>

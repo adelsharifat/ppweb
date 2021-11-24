@@ -1,0 +1,81 @@
+.loginWrapper {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.loginWrapper .loginContent {
+  background-image: url("../../../../assets/img/loginImage.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: 0 10px;
+  width: 300px;
+  height: 500px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.loginWrapper .loginContent form {
+  width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-top: 200px;
+}
+
+.loginWrapper .loginContent form .btn-login {
+  padding: 8px;
+  background-color: #004fce;
+  border: 1px solid #0044b3;
+  color: White;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 1px 2px 0 #001638;
+          box-shadow: 0 1px 2px 0 #001638;
+  -webkit-transition: all 300ms ease;
+  transition: all 300ms ease;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+  cursor: pointer;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  font-size: 1rem;
+}
+
+.loginWrapper .loginContent form .btn-login:hover {
+  -webkit-transform: translateY(-1px);
+          transform: translateY(-1px);
+  -webkit-box-shadow: 0 2px 4px 0 #001638;
+          box-shadow: 0 2px 4px 0 #001638;
+}
+
+.loginWrapper .loginContent .loginTitle {
+  top: 50px;
+  left: 38px;
+}
+/*# sourceMappingURL=login.component.css.map */

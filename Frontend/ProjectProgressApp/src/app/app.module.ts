@@ -15,7 +15,7 @@ import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     FormsModule,
@@ -25,9 +25,7 @@ import { environment } from '../environments/environment';
     BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
-      // Register the ServiceWorker as soon as the app is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerWhenStable:1000'
     }),
   ],
   providers: [{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },JwtHelperService,AuthService,TokenService,AuthInterceptorProviders],

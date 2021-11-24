@@ -10,7 +10,7 @@ namespace ProjectProgress.Service.Interface
 {
     public interface IItemService
     {
-        Task<IEnumerable<Item>> GetAllAsync();
+        Task<IEnumerable<Item>> GetAllAsync(Expression<Func<Item, bool>> expression = null);
         Task<Item> GetAsync(Expression<Func<Item, bool>> expression);
         Task<MutationResult> AddAsync(Item item);
         Task<MutationResult> UpdateAsync(Item item);

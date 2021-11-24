@@ -1,3 +1,21 @@
 <div class="app-wrapper">
   <router-outlet #outlet="outlet"></router-outlet>
 </div>
+
+
+<div class="install-banner" *ngIf="showAppInstallerBanner">
+
+  <div class="d-flex align-items-center">
+    <img src="assets/img/icon-192x192.png" class="img-banner-install-app img-fluid w-25 mr-2" alt="">
+    <h1 class="txt-bold title-banner-install-app">ODCC-ARUP</h1>
+  </div>
+  <hr class="w-100">
+  <h3>Welcome!</h3>
+  <div class="d-flex align-items-center justify-content-end">
+    <button (click)="installPrompt()" class="btn btn-primary mr-2">Install ODCC-ARUP</button>
+    <button (click)="showAppInstallerBanner=false" class="btn btn-dark">Close</button>
+  </div>
+</div>
+
+
+

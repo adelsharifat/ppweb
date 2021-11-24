@@ -5,7 +5,7 @@
       <div>Abadan Refinery Upgarede Project</div>
     </div>
     <div class="iconManagementBody">
-      <div class="card" *ngFor="let item of itemData">
+      <div class="card" *ngFor="let item of itemManagementData">
         <div class="card-body mgmt"  [routerLink]="['item/'+item.id]"></div>
         <div class="title" [routerLink]="['item/'+item.id]">{{item.name}}</div>
       </div>

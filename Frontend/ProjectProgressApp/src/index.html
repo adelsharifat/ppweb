@@ -4,26 +4,157 @@
   <meta charset="utf-8">
   <title>ProjectProgressApp</title>
   <base href="/">
-  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,maximum-scale=1,shrink-to-fit=no,user-scalable=no,minimum-scale=1,viewport-fit=cover">
-  <meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
+  <meta
+      name="viewport"
+      content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="format-detection" content="telephone=yes" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <meta name="HandheldFriendly" content="true">
+
   <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/icon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/icon-16x16.png">
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#1976d2">
+
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="ODCC-ARUP">
   <link rel="mask-icon" href="assets/icons/safari.svg" color="red">
+  <link rel="apple-touch-startup-image" href="assets/ios/57">
   <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="assets/icons/touch-icon-ipad.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/touch-icon-iphone-retina.png">
-  <link rel="apple-touch-icon" sizes="167x167" href="assets/icons/touch-icon-ipad-retina.png">
-  <meta name="format-detection" content="telephone=yes">
+  <link rel="apple-touch-icon" sizes="57x57" href="assets/ios/57.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="assets/ios/120.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="assets/ios/152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/ios/180.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="assets/ios/167.png">
+
+
+  <style>
+    .ad2hs-prompt {
+      background-color: rgb(59, 134, 196); /* Blue */
+      border: none;
+      display: none;
+      color: white;
+      margin:0px auto;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      width: calc(100% - 32px);
+    }
+
+    .ios-prompt {
+      background-color: #fcfcfc;
+      border: 1px solid #666;
+      display: none;
+      padding: 0.8rem 1rem 0 0.5rem;
+      text-decoration: none;
+      font-size: 16px;
+      color: #555;
+
+      position: absolute;
+      margin: 0 auto;
+      left: 1rem;
+      right: 1rem;
+      bottom: 0;
+    }
+  </style>
+
 </head>
 <body>
   <app-root></app-root>
+
+  <button type="button" class="ad2hs-prompt">Install Web App</button>
+  <div class="ios-prompt">
+    <span style="color: rgb(187, 187, 187); float: right; margin-top: -14px; margin-right: -11px;">&times;</span>
+    <img src="assets/ios/add2home.png" style="float: left; height: 80px; width: auto; margin-top: -8px; margin-right: 1rem;">
+    <p style="margin-top: -3px; line-height: 1.3rem;">To install this Web App in your iPhone/iPad press <img src="assets/ios/share.png" style="display: inline-block; margin-top: 4px; margin-bottom: -4px; height: 20px; width: auto;"> and then Add to Home Screen.</p>
+  </div>
+
+  <!-- <script type="text/javascript">
+
+    // Detects if device is in standalone mode
+    const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('ngsw-worker.js')
+        .then(() => console.log('service worker installed'))
+        .catch(err => console.error('Error', err));
+    }
+
+    function addToHomeScreen() {
+      let a2hsBtn = document.querySelector(".ad2hs-prompt");  // hide our user interface that shows our A2HS button
+      a2hsBtn.style.display = 'none';  // Show the prompt
+      deferredPrompt.prompt();  // Wait for the user to respond to the prompt
+      deferredPrompt.userChoice
+        .then(function(choiceResult){
+
+      if (choiceResult.outcome === 'accepted') {
+        console.log('User accepted the A2HS prompt');
+      } else {
+        console.log('User dismissed the A2HS prompt');
+      }
+
+      deferredPrompt = null;
+
+    });}
+
+    function showAddToHomeScreen() {
+
+      let a2hsBtn = document.querySelector(".ad2hs-prompt");
+      a2hsBtn.style.display = "block";
+      a2hsBtn.addEventListener("click", addToHomeScreen);
+
+    }
+
+
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', function (e) {
+      // Prevent Chrome 67 and earlier from automatically showing the prompt
+      e.preventDefault();
+      // Stash the event so it can be triggered later.
+      deferredPrompt = e;
+
+    // Checks if should display install popup notification:
+    if (isInStandaloneMode()) {
+      // this.setState({ showInstallMessage: true });
+      showAddToHomeScreen();
+    }
+
+
+
+    });
+
+    function showIosInstall() {
+      let iosPrompt = document.querySelector(".ios-prompt");
+      iosPrompt.style.display = "block";
+      iosPrompt.addEventListener("click", () => {
+        iosPrompt.style.display = "none";
+      });
+    }
+
+    // Detects if device is on iOS
+    const isIos = () => {
+      const userAgent = window.navigator.userAgent.toLowerCase();
+      return /iphone|ipad|ipod/.test( userAgent );
+    }
+
+
+    // Checks if should display install popup notification:
+    if (isIos() && isInStandaloneMode()) {
+      // this.setState({ showInstallMessage: true });
+      showIosInstall();
+    }
+
+  </script> -->
+
   <noscript>Please enable JavaScript to continue using this application.</noscript>
 </body>
 </html>

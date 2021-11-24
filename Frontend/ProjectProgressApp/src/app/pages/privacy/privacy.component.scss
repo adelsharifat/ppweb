@@ -1,0 +1,13 @@
+.privacyWraper{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(195, 4, 4);
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  line-height: 2rem;
+}
