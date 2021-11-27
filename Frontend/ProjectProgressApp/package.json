@@ -27,8 +27,10 @@
     "angular-tree-search": "^1.4.1",
     "file-saver": "^2.0.5",
     "material-design-icons": "^3.0.1",
+    "ng2-pdf-viewer": "^7.0.2",
     "ngx-avatar": "^4.1.0",
     "ngx-dropzone": "^3.0.0",
+    "ngx-extended-pdf-viewer": "^10.5.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

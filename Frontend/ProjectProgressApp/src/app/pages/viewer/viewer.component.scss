@@ -1,0 +1,78 @@
+.page-wrapper{
+  flex: 1 auto;
+  height: 100vh;
+
+  .header{
+    margin-bottom: 0 ;
+    background-color: #fefefe;
+  }
+
+  .content{
+    width: 100%;
+    height: calc(100% - 280px);
+    .bodypreloading{
+      margin: auto;
+    }
+
+    .attachmentWrapper{
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-direction: column;
+      max-width: 800px;
+      margin:auto;
+      height: calc(100% - 18px);
+      overflow-y: scroll;
+      padding: 20px;
+
+      .itemAttachment{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 5px;
+        background-color: mediumpurple;
+        color: white;
+        border-radius: 10px;
+
+        .downloadBtn{
+          border-left: 1px solid #fff;
+        }
+
+        .itemData{
+          font-size: 0.8rem;
+          display: flex;
+          flex: 1;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: space-between;
+
+
+          .fileName{
+            margin-bottom: 5px;
+          }
+
+          .remark{
+            border-radius: 3px;
+            padding: 5px;
+            margin-bottom: 3px;
+          }
+
+          .fileInfo{
+            display: flex;
+            flex-wrap: wrap;
+            font-size: 0.7rem;
+
+            .createdDate{
+              margin-right: 5px;
+              color: #999;
+            }
+            .createdBy{
+              margin-left: 5px;
+              color: #999;
+            }
+          }
+        }
+      }
+    }
+  }
+}

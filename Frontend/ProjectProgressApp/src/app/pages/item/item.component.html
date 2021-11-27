@@ -3,7 +3,7 @@
     <app-nav pageTitle="{{itemData.name}}"></app-nav>
   </div>
   <div class="content">
-    <div  *ngIf="bodyPreloading"><mat-icon class="bodypreloading"><mat-spinner diameter="40" color="primary"></mat-spinner></mat-icon></div>
+    <div *ngIf="bodyPreloading"><mat-icon class="bodypreloading"><mat-spinner diameter="40" color="primary"></mat-spinner></mat-icon></div>
     <div class="attachmentWrapper">
       <div class="itemAttachment" *ngFor="let attachment of attachmentData.value">
         <div class="itemData">

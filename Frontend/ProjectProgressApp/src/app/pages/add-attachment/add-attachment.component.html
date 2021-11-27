@@ -25,7 +25,7 @@
       </div>
       <div class="uploadBtnWrapper border-bottom">
         <button type="button" mat-stroked-button color="primary" mat-button (click)="fileInput.click()">Choose File</button>
-        <button type="button" mat-raised-button color="primary"  mat-button (click)= "upload()">
+        <button [disabled]="!fg.valid" type="button" mat-raised-button color="primary"  mat-button (click)= "upload()">
           <mat-icon *ngIf="uploadPreloading"><mat-spinner diameter="30" color="primary"></mat-spinner></mat-icon>
           Upload
         </button>

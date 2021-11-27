@@ -64,6 +64,10 @@ export class AddAttachmentComponent implements OnInit {
   {
     this.fg.controls['fileAddressInput'].setValue(event.target.files[0].name)
     this.file = event.target.files[0]
+    if(this.file.type !== 'application/pdf') {
+      this.file = null;
+      this.fg.reset()
+    }
   }
 
 

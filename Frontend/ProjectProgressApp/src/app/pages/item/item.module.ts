@@ -10,11 +10,13 @@ import { NavModule } from './../../components/nav/nav.module';
 import { ItemComponent } from './item.component';
 import { ItemRoutingModule } from './item-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 @NgModule({
   declarations: [ItemComponent],
   imports: [
     CommonModule,
     ItemRoutingModule,
+    PdfViewerModule,
     MatIconModule,
     MatToolbarModule,
     MatTreeModule,

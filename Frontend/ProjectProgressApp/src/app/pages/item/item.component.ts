@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as FileSaver from 'file-saver';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { AttachmentService } from 'src/app/data/service/attachment.service';
 import { AuthService } from 'src/app/data/service/auth.service';
 import { ItemService } from 'src/app/data/service/item.service';
 import { IDownloadAttachmentRequest } from './../../data/interface/request/IDownloadAttachmentRequest';
 import { DownloadService } from './../../data/service/download.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-item',
@@ -21,6 +22,8 @@ export class ItemComponent implements OnInit {
   item:BehaviorSubject<any> = new BehaviorSubject<any>(null)
   itemId:string|null = null;
   itemData:any = [];
+  fileStream:string|Uint8Array='';
+  fileContent:string|undefined = '';
   loading = false;
 
   constructor(private itemService:ItemService,
@@ -34,8 +37,30 @@ export class ItemComponent implements OnInit {
      }
 
 
+  // download(streamId:any){
+  //   this.downloadService.downloadFile(streamId);
+  // }
+
   download(streamId:any){
-    this.downloadService.downloadFile(streamId);
+    this.handleFileApi(streamId).add(()=>{
+      this.downloadService.fileStream.next(<string>this.fileStream);
+      this.router.navigate(['../../viewer']);
+    });
+  }
+
+
+  handleFileApi(streamId: string) {
+     return this.attachmentService
+      .downloadAttachment(streamId).subscribe(res=>
+        {console.log(res);
+          // const byteCharacters = atob(res.payload.fileStream);
+          // const byteNumbers = new Array(byteCharacters.length);
+          // for (let i = 0; i < byteCharacters.length; i++)
+          //   byteNumbers[i] = byteCharacters.charCodeAt(i);
+          // const byteArray = new Uint8Array(byteNumbers);
+        //this.fileContent = URL.createObjectURL(new Blob([byteArray], { type:'application/pdf;base64'}))
+        this.fileStream = res.payload.fileStream
+        },err=>console.log(err));
   }
 
 

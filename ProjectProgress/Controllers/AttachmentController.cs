@@ -87,6 +87,11 @@ namespace ProjectProgress.Controllers
             {
                 byte[] fileBytes = null;
                 var file= attachmentrequest.File;
+
+                if(Path.GetExtension(file.FileName) != ".pdf")
+                    return BadRequest(new ApiResponse(StatusCodes.Status500InternalServerError, "file not valid!"));
+
+
                 using (var ms = new MemoryStream())
                 {
                     file.CopyTo(ms);

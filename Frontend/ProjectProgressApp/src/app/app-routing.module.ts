@@ -40,6 +40,11 @@ const routes:Routes = [
     path: 'item/:id',
     loadChildren: () => import('./pages/item/item.module').then(_=>_.ItemModule),
   },
+  {
+    path: 'viewer',
+    loadChildren: () => import('./pages/viewer/viewer.module').then(_=>_.ViewerModule),
+  },
+
 ]
 
 @NgModule({

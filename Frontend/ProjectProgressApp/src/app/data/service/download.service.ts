@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import {AttachmentService} from './attachment.service'
 import { map } from 'rxjs/operators';
 import { saveAs } from 'file-saver';
@@ -10,6 +10,10 @@ import { saveAs } from 'file-saver';
 export class DownloadService {
 
   constructor(private attachmentService:AttachmentService) { }
+
+  fileStream:BehaviorSubject<string|Uint8Array>  = new BehaviorSubject<string|Uint8Array>('');
+
+
 
   downloadFile(streamId:string) {
     const path = streamId;
