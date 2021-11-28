@@ -51,7 +51,7 @@ namespace ProjectProgress.Controllers
         }
 
 
-        [HttpPost, Route("login")]
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody]LoginRequest loginRequest)
         {
             try
@@ -59,12 +59,12 @@ namespace ProjectProgress.Controllers
                 var user =await _userManager.FindUserAsync(x => x.UserName == loginRequest.UserName);
                 if (user == null) return BadRequest(new ApiResponse { StatusCode = StatusCodes.Status401Unauthorized,Error = new List<string> {"User not found"} });
 
-                if(user.Password != BCrypt.HashPassword(loginRequest.Password,user.Salt,1010,70)) return BadRequest(new ApiResponse { StatusCode = StatusCodes.Status401Unauthorized, Error = new List<string> { "Password incorect!" } });
+                if(user.Password != BCrypt.Hash(loginRequest.Password)) return BadRequest(new ApiResponse { StatusCode = StatusCodes.Status401Unauthorized, Error = new List<string> { "Password incorect!" } });
 
                 var authResult = await GenerateJwtTokenAsync(user);
 
                 if(authResult.Success)
-                    return Ok(new ApiResponse { Payload = new { Token = authResult.Token, RefreshToken = authResult.RefreshToken }, StatusCode = StatusCodes.Status200OK });
+                    return Ok(new ApiResponse { Payload = new { Token = authResult.Token, RefreshToken = authResult.RefreshToken,User = user }, StatusCode = StatusCodes.Status200OK });
 
                 return BadRequest(new ApiResponse {StatusCode = StatusCodes.Status401Unauthorized,Error=new List<string> { "token payload is null" } });
             }
@@ -119,16 +119,12 @@ namespace ProjectProgress.Controllers
                     new Claim("Id", user.Id.ToString()),
                     new Claim(ClaimTypes.Name, user.UserName),
                     new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim("IsAdmin",user.IsAdmin.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(_jwtOptions.Expire),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
-
-            foreach (UserRole userRole in user.UserRoles)
-            {
-                tokenDescriptor.Subject.AddClaim(new Claim(ClaimTypes.Role,userRole.Role.Name.ToLower()));
-            }
 
             var accessToken = jwtTokenHandler.CreateToken(tokenDescriptor);
             var jwtToken = jwtTokenHandler.WriteToken(accessToken);
@@ -242,18 +238,16 @@ namespace ProjectProgress.Controllers
                 var checkExistUser = await _userManager.FindUserAsync(x => x.UserName == authRequest.UserName);
                 if (checkExistUser != null) throw new Exception("UserName alredy exist in the server!");
 
-                var salt = BCrypt.GenerateSalt(70);
-
                 AppUser newUser = new AppUser();
                 newUser.UserName = authRequest.UserName;
-                newUser.Salt = salt;
-                newUser.Password = BCrypt.HashPassword(authRequest.Password,salt,1010,70);
+                newUser.Password = BCrypt.Hash(authRequest.Password);
+                newUser.FirstName = authRequest.FirstName;
+                newUser.LastName = authRequest.LastName;
+                newUser.IsAdmin = authRequest.IsAdmin;
 
                 var result = await _userManager.CreateUserAsync(newUser);
                 if(result.Successed)
                 {
-                    // login here
-
                     return Ok(new ApiResponse() {StatusCode = StatusCodes.Status200OK});
                 }
 
@@ -261,7 +255,7 @@ namespace ProjectProgress.Controllers
             }
             catch (Exception ex) 
             {
-                throw ex;
+                return BadRequest(new ApiResponse(StatusCodes.Status400BadRequest,ex.Message));
             }
         }
 

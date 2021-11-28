@@ -5,7 +5,7 @@ import { UsersRoutingModule } from './users-routing.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavModule } from 'src/app/components/nav/nav.module';
 
 @NgModule({
@@ -17,6 +17,7 @@ import { NavModule } from 'src/app/components/nav/nav.module';
     MatToolbarModule,
     MatButtonModule,
     FormsModule,
+    ReactiveFormsModule,
     NavModule
   ],
   providers:[]

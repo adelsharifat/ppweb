@@ -4,12 +4,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-image: url('../../../../assets/img/loginImage.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
 
   .loginContent{
-    background-image: url('../../../../assets/img/loginImage.png');
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-position: 0 10px;
     width: 300px;
     height: 500px;
     display: flex;
@@ -23,7 +22,7 @@
       align-items: stretch;
       justify-content: center;
       flex-direction: column;
-      margin-top: 200px;
+      margin-top: 150px;
 
       .btn-login{
         padding: 8px;

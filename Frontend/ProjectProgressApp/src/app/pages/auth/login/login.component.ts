@@ -39,8 +39,8 @@ export class LoginComponent implements OnInit {
         this.tokenService.saveToken(data.payload.token);
         this.tokenService.saveRefreshToken(data.payload.refreshToken);
         this.toolbarService.sidebarState.next(false);
+        this.authService.user.next(data.payload.user);
         this.router.navigate([''])
-
       },
       err => {
         this.errorMessage = err.error.message;

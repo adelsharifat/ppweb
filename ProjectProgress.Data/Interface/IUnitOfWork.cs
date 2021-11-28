@@ -8,8 +8,6 @@ namespace ProjectProgress.Data.Interface
     public interface IUnitOfWork
     {
         IUserRepo UserRepo { get; }
-        IRoleRepo RoleRepo { get; }
-        IUserRoleRepo UserRoleRepo { get; }
         ITokenRepo TokenRepo { get; }
         IItemRepo ItemRepo { get; }
         IAttachmentRepo AttachmentRepo { get; }

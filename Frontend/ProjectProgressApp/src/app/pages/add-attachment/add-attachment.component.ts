@@ -90,7 +90,7 @@ export class AddAttachmentComponent implements OnInit {
     this.uploadPreloading = true;
     const objectId:any = this.itemId?.toString();
     var formData = new FormData();
-    formData.append('createdBy','1');
+    formData.append('createdBy',this.authService.userId().toString());
     formData.append('itemId', objectId);
     formData.append('fileName',this.file.name);
     formData.append('file',this.file);

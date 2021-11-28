@@ -1,10 +1,26 @@
 <div class="page-wrapper">
   <div class="header">
-    <app-nav pageTitle="Users Management"></app-nav>
+    <app-nav pageTitle="Users Managements"></app-nav>
   </div>
   <div class="content">
-    <div class="formAddItem">
-
-    </div>
+    <form  [formGroup]="fg" enctype='multipart/form-data' (ngSubmit)="register()">
+      <div class="formControl inputFocusBorder leave">
+        <input formControlName="userName" type="text" class="input" placeholder="UserName">
+      </div>
+      <div class="formControl">
+        <input formControlName="password" type="text" class="input" placeholder="Password">
+      </div>
+      <div class="formControl">
+        <input formControlName="firstName" type="text" class="input" placeholder="FirstName">
+      </div>
+      <div class="formControl">
+        <input formControlName="lastName" type="text" class="input" placeholder="LastName">
+      </div>
+      <div class="checkbox">
+        <input id="isAdmin" formControlName="isAdmin" type="checkbox" class="inputcheck">
+        <label for="isAdmin">Is Admin</label>
+      </div>
+      <button class="btn-primary" type="submit" [disabled]="!fg.valid">Save</button>
+    </form>
   </div>
 </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { AuthService } from 'src/app/data/service/auth.service';
 import { ItemService } from './../../data/service/item.service';
 
 @Component({
@@ -19,8 +20,11 @@ export class AddItemComponent implements OnInit {
   itemTypeName:string = 'Control Project Report Item';
   itemData:any = [];
   operationResultStatus:number = 1;
-  constructor(private itemService:ItemService,private route:ActivatedRoute,private router:Router)
+  constructor(private authService:AuthService,private itemService:ItemService,private route:ActivatedRoute,private router:Router)
   {
+
+    if(this.authService.isAdmin() === false) this.router.navigate(['/']);
+
      this.itemId = this.route.snapshot.paramMap.get('id');
   }
 
@@ -38,10 +42,8 @@ export class AddItemComponent implements OnInit {
     this.itemService.getItemById(this.itemId).subscribe(
       res=>{
         this.item.next(res.payload)
-
       },
       err=>{
-
       }
     ).add(()=>{
       this.itemData = this.item.value;
@@ -49,9 +51,8 @@ export class AddItemComponent implements OnInit {
   }
 
   addItem(itemName:any){
-    console.log(itemName,this.itemType)
     const parentId = this.itemId == 'new'?null:this.itemId
-    const newItemObject = {name:itemName,parentId:parentId,itemType:this.itemType,userId:1}
+    const newItemObject = {name:itemName,parentId:parentId,itemType:this.itemType,userId:this.authService.userId()}
     this.itemService.addItem(newItemObject).subscribe(
       res=>{
         this.message = 'Opertion Success!';

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes, CanActivate } from '@angular/router';
-import { AuthGuard } from 'src/app/middleware/auth/auth.guard';
+import { RouterModule, Routes } from '@angular/router';
 import { UsersComponent } from './users.component';
 
 
@@ -10,7 +9,6 @@ const routes:Routes = [
     path: '',
     pathMatch: 'full',
     component:UsersComponent,
-    //canActivate:[AuthGuard],
   }
 ]
 
@@ -21,6 +19,6 @@ const routes:Routes = [
     CommonModule
   ],
   exports:[RouterModule],
-  providers:[AuthGuard]
+  providers:[]
 })
 export class UsersRoutingModule { }

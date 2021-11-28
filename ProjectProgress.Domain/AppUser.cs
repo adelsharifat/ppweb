@@ -13,16 +13,17 @@ namespace ProjectProgress.Domain
         public string UserName { get; set; }
         [Required]
         public string Password { get; set; }
-        [Required]
-        public string Salt { get; set; }
+        //[Required]
+        //public string Salt { get; set; }
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
         [NotMapped]
         public string FullName => $"{FirstName} {LastName}";
         public string Avatar { get; set; }
+        public bool IsAdmin { get; set; }
 
-        public virtual ICollection<UserRole> UserRoles { get; set; }
+
         public virtual ICollection<RefreshToken> RefreshTokens { get; set; }
         public virtual ICollection<Attachment> Attachments { get; set; }
     }

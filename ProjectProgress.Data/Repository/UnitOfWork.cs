@@ -24,25 +24,6 @@ namespace ProjectProgress.Data.Repository
             }
         }
 
-        private IRoleRepo roleRepo;
-        public IRoleRepo RoleRepo {
-            get
-            {
-                if (roleRepo == null) roleRepo =  new RoleRepo(_context);
-                return roleRepo;
-            }
-        }
-
-        private IUserRoleRepo userRoleRepo;
-        public IUserRoleRepo UserRoleRepo
-        {
-            get
-            {
-                if (userRoleRepo == null) userRoleRepo =  new UserRoleRepo(_context);
-                return userRoleRepo;
-            }
-        }
-
         private ITokenRepo tokenRepo;
         public ITokenRepo TokenRepo
         {

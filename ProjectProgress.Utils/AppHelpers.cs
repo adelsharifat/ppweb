@@ -9,32 +9,11 @@ namespace ProjectProgress.Utils
     {
         public static class BCrypt
         {
-            public static string GenerateSalt(int nSalt)
+            public static string Hash(string value, string salt = "")
             {
-                var saltBytes = new byte[nSalt];
-
-                using (var provider = new RNGCryptoServiceProvider())
-                {
-                    provider.GetNonZeroBytes(saltBytes);
-                }
-
-                return Convert.ToBase64String(saltBytes);
-            }
-
-            public static string HashPassword(string password, string salt, int nIterations, int nHash)
-            {
-                var saltBytes = Convert.FromBase64String(salt);
-
-                using (var rfc2898DeriveBytes = new Rfc2898DeriveBytes(password, saltBytes, nIterations))
-                {
-                    return Convert.ToBase64String(rfc2898DeriveBytes.GetBytes(nHash));
-                }
-            }
-
-            public static bool Verify(string providerPassword, string hashedPassword,string salt, int nIterations, int nHash)
-            {
-                if (HashPassword(providerPassword,salt, nIterations,nHash) == hashedPassword) return true;
-                return false;
+                byte[] data = System.Text.Encoding.ASCII.GetBytes(salt + value);
+                data = System.Security.Cryptography.MD5.Create().ComputeHash(data);
+                return Convert.ToBase64String(data);
             }
         }
     }
