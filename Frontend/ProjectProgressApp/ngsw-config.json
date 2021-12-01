@@ -32,9 +32,10 @@
       "name": "api",
       "urls": ["https://cmisweb.arup.local:4434/api/*"],
       "cacheConfig": {
-        "maxSize": 14,
-        "maxAge": "1h",
-        "strategy": "freshness"
+        "maxAge": "12h",
+        "strategy": "freshness",
+        "maxSize": 10,
+        "timeout":"10s"
       }
     }
   ]

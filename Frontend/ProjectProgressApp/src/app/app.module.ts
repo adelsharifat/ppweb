@@ -11,6 +11,7 @@ import { AuthInterceptorProviders } from './middleware/auth/auth.interceptor';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { AuthGuard } from './middleware/auth/auth.guard';
 
 
 @NgModule({
@@ -27,7 +28,7 @@ import { environment } from '../environments/environment';
       enabled: environment.production
     }),
   ],
-  providers: [{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },JwtHelperService,AuthService,TokenService,AuthInterceptorProviders],
+  providers: [{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },JwtHelperService,AuthGuard,AuthService,TokenService,AuthInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

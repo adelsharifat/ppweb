@@ -29,6 +29,7 @@
     "material-design-icons": "^3.0.1",
     "ng2-pdf-viewer": "^7.0.2",
     "ngx-avatar": "^4.1.0",
+    "ngx-device-detector": "^3.0.0",
     "ngx-dropzone": "^3.0.0",
     "ngx-extended-pdf-viewer": "^10.5.0",
     "rxjs": "~6.6.0",

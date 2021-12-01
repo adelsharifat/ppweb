@@ -23,7 +23,7 @@ export class AddItemComponent implements OnInit {
   constructor(private authService:AuthService,private itemService:ItemService,private route:ActivatedRoute,private router:Router)
   {
 
-    if(this.authService.isAdmin() === false) this.router.navigate(['/']);
+    if(this.authService.isAdmin() === "False") this.router.navigate(['/']);
 
      this.itemId = this.route.snapshot.paramMap.get('id');
   }

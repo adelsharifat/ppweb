@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ThemePalette } from '@angular/material/core';
-import { AdminService } from './../../../data/service/admin.service';
-import { ProgressBarMode } from '@angular/material/progress-bar';
-import { BehaviorSubject } from 'rxjs';
-import { AttachmentService } from './../../../data/service/attachment.service';
-import { ItemService } from 'src/app/data/service/item.service';
+import { AuthService } from 'src/app/data/service/auth.service';
 import { ToolbarService } from './../../../data/service/toolbar.service';
+import { TokenService } from './../../../data/service/token.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -16,9 +13,11 @@ export class HomeComponent implements OnInit {
 
   load_tile_body = false;
   itemData:any = [];
+  fullName:any;
 
-  constructor(private adminService:AdminService,private toolBarService:ToolbarService) {
+  constructor(private toolBarService:ToolbarService,private authService:AuthService,private tokenService:TokenService,private router:Router) {
     this.toolBarService.sidebarState.next(false)
+    this.fullName = this.authService.fullName();
   }
 
   makeGuid(length:Number)
@@ -34,13 +33,8 @@ export class HomeComponent implements OnInit {
   }
 
 
-
-
-
   ngOnInit() {
     this.load_tile_body = true;
-    this.adminService.index();
-
   }
 
   sidebarState = false;

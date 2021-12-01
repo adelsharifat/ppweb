@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminService } from 'src/app/data/service/admin.service';
 import { ItemService } from 'src/app/data/service/item.service';
 import { AttachmentService } from './../../../../data/service/attachment.service';
 

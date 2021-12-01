@@ -10,16 +10,16 @@ import { IUser } from 'src/app/data/interface/model/User';
 })
 export class SidebarComponent implements OnInit {
 
-  user:IUser|null = null;
+  fullName:any;
   isAdmin:Boolean|undefined = false;
 
   constructor(private toolbarService:ToolbarService,private authService:AuthService) {
-    this.user = this.authService.user.value;
-
+    this.fullName = this.authService.fullName();
+    this.isAdmin = this.authService.isAdmin() === "True";
   }
 
   ngOnInit(): void {
-    this.isAdmin = this.authService.isAdmin();
+
   }
 
   getSidebarState(){

@@ -1,17 +1,17 @@
 <div class="sidebar-wrapper" [class.backdrop-hide] = "!getSidebarState()" [class.backdrop-show] = "getSidebarState()" (click)="closeSidebar()"></div>
 <div class="sidebar-nav" [class.nav-expand] = "getSidebarState()">
   <div class="avatar-wrapper">
-    <ngx-avatar size="100" name="Saeed Zarei" bgColor="#eeeeddee" fgColor="#000000" borderColor="#00000011" [round]="true">
+    <ngx-avatar size="100" name="{{fullName}}" bgColor="#eeeeddee" fgColor="#000000" borderColor="#00000011" [round]="true">
 </ngx-avatar>
   </div>
   <ul class="sidebar-nav-item-wrapper">
-    <li class="sidebar-nav-item">
+    <li class="sidebar-nav-item" *ngIf="isAdmin">
       <a routerLink="manage-items" class="pointer">
         <mat-icon>library_books</mat-icon>
         <div>Manage Items</div>
       </a>
     </li>
-    <li class="sidebar-nav-item">
+    <li class="sidebar-nav-item"  *ngIf="isAdmin">
       <a [routerLink]="['users']" class="pointer">
         <mat-icon>supervisor_account</mat-icon>
         <div>Users</div>

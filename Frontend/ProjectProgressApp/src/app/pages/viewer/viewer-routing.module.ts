@@ -10,7 +10,7 @@ const routes:Routes = [
     path: '',
     pathMatch: 'full',
     component:ViewerComponent,
-    //canActivate:[AuthGuard],
+    canActivate:[AuthGuard],
   }
 ]
 

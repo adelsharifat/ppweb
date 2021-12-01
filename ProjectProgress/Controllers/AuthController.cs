@@ -120,7 +120,9 @@ namespace ProjectProgress.Controllers
                     new Claim(ClaimTypes.Name, user.UserName),
                     new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                    new Claim("IsAdmin",user.IsAdmin.ToString())
+                    new Claim("IsAdmin",user.IsAdmin.ToString()),
+                    new Claim("FullName",user.FullName.ToString()),
+                    new Claim("SeenDesktopMode",user.SeenDesktopMode.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(_jwtOptions.Expire),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

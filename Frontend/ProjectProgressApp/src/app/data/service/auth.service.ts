@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { ILoginRequest } from '../interface/request/ILoginRequest';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, ObservableInput, of } from 'rxjs';
 import { IApiResponse } from './../interface/response/IApiResponse';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { windowWhen } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { IRegisterRequest } from '../interface/request/IRegisterRequest';
 import { IUser } from '../interface/model/User';
@@ -25,11 +24,8 @@ export class AuthService {
 
   }
 
-  user:BehaviorSubject<IUser|null> = new BehaviorSubject<IUser|null>(null);
 
-
-
-  isAdmin(){
+  isAdmin():String{
     return this.jwtHelper.decodeToken(this.tokenService.getToken()?.toString()).IsAdmin;
   }
 
@@ -38,10 +34,22 @@ export class AuthService {
   }
 
 
+  fullName(){
+    return <number>this.jwtHelper.decodeToken(this.tokenService.getToken()?.toString()).FullName;
+  }
+
+  seenDesktopMode():String{
+    return <String>this.jwtHelper.decodeToken(this.tokenService.getToken()?.toString()).SeenDesktopMode;
+  }
+
+
+
+
   public isAuthenticated(): boolean {
-    const token = window.sessionStorage.getItem('token');
+    const token = window.localStorage.getItem('token');
     if(token)
     {
+      console.log(!this.jwtHelper.isTokenExpired(token))
       return !this.jwtHelper.isTokenExpired(token);
     }
     return false;
@@ -69,8 +77,8 @@ export class AuthService {
 
 
   logout(){
-    window.sessionStorage.clear();
-    this.router.navigate(['login']);
+    window.sessionStorage.clear()
+    this.router.navigate(['/login'])
   }
 
   refreshToken(token: string | undefined |null,refreshToken:string |undefined| null):Observable<IApiResponse> {

@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './middleware/auth/auth.guard';
 
 const routes:Routes = [
   {
     path: '',
     loadChildren: ()=> import('./pages/main/home/home.module').then(_=>_.HomeModule),
-    data: { animation: 'HomePage' }
+    data: { animation: 'HomePage' },
   },
   {
     path: 'login',
@@ -14,11 +15,11 @@ const routes:Routes = [
   },
   {
     path: 'users',
-    loadChildren: () => import('./pages/users/users.module').then(_=>_.UsersModule)
+    loadChildren: () => import('./pages/users/users.module').then(_=>_.UsersModule),
   },
   {
     path: 'privacy',
-    loadChildren: () => import('./pages/privacy/privacy.module').then(_=>_.PrivacyModule)
+    loadChildren: () => import('./pages/privacy/privacy.module').then(_=>_.PrivacyModule),
   },
   {
     path: 'manage-items',
@@ -50,7 +51,7 @@ const routes:Routes = [
 @NgModule({
   declarations: [],
   imports: [
-  RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes),
     CommonModule
   ],
   exports:[RouterModule]

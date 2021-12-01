@@ -24,13 +24,13 @@ export class UsersComponent implements OnInit {
   }
 
   register(){
-    console.log(this.fg.value)
     this.authService.register(this.fg.value).subscribe(
       res=>{
-        console.log(res.payload)
+        this.fg.reset();
+        alert('Operation Success!')
       },
       err=>{
-        console.log(err)
+        alert('Operation Faild!')
       }
     )
   }

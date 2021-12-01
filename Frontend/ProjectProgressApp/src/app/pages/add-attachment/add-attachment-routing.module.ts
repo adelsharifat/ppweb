@@ -10,7 +10,7 @@ const routes:Routes = [
     path: '',
     pathMatch: 'full',
     component:AddAttachmentComponent,
-    //canActivate:[AuthGuard],
+    canActivate:[AuthGuard],
   }
 ]
 

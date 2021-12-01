@@ -106,7 +106,7 @@ namespace ProjectProgress
 
 
             app.UseCors(options=> {
-                options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+                options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
             });
 
 

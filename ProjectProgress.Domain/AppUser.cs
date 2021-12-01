@@ -22,6 +22,7 @@ namespace ProjectProgress.Domain
         public string FullName => $"{FirstName} {LastName}";
         public string Avatar { get; set; }
         public bool IsAdmin { get; set; }
+        public bool SeenDesktopMode { get; set; }
 
 
         public virtual ICollection<RefreshToken> RefreshTokens { get; set; }

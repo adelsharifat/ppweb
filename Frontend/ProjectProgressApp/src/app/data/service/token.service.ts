@@ -13,6 +13,12 @@ export class TokenService {
 
   constructor() { }
 
+  isLoggedIn(){
+    if(window.localStorage.getItem(TOKEN_KEY) === null) return false;
+    return true;
+  }
+
+
   signOut(): void {
     window.localStorage.clear();
   }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from './../../../data/service/auth.service';
 import { TokenService } from './../../../data/service/token.service';
@@ -15,23 +15,25 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   isLoginFaild = false;
 
-  loginForm = new FormGroup({
-    userName: new FormControl('admin'),
-    password: new FormControl('admin'),
-    isRemember: new FormControl(true)
+  loginForm = this.fb.group({
+    userName: ['',Validators.required],
+    password: ['',Validators.required],
+    isRemember: [false]
   });
 
 
   constructor(private authService:AuthService,
+    private fb:FormBuilder,
     private tokenService:TokenService,
     private toolbarService:ToolbarService,
-    private router:Router) {}
+    private router:Router) {
+
+    }
 
   ngOnInit(): void {
+    // if(this.tokenService.isLoggedIn()===true) this.router.navigate([''])
+    // return;
   }
-
-
-
 
   onSubmit(): void {
     this.authService.login(this.loginForm.value).subscribe(
@@ -39,14 +41,16 @@ export class LoginComponent implements OnInit {
         this.tokenService.saveToken(data.payload.token);
         this.tokenService.saveRefreshToken(data.payload.refreshToken);
         this.toolbarService.sidebarState.next(false);
-        this.authService.user.next(data.payload.user);
+        this.loginForm.reset();
         this.router.navigate([''])
       },
       err => {
-        this.errorMessage = err.error.message;
         this.isLoginFaild = true;
+        console.log(err);
       }
-    );
+    ).add(()=>{
+
+    });
   }
 
 

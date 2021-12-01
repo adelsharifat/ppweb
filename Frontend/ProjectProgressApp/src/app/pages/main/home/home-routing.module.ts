@@ -13,12 +13,13 @@ const routes:Routes = [
     path: '',
     pathMatch: 'full',
     component:HomeComponent,
-    //canActivate:[AuthGuard],
+    canActivate:[AuthGuard],
+
     children:[
       {
         path: '',
         pathMatch:'full',
-        component:HomeItemsComponent
+        component:HomeItemsComponent,
       },
     ]
   }
@@ -29,7 +30,7 @@ const routes:Routes = [
 @NgModule({
   declarations: [],
   imports: [
-  RouterModule.forChild(routes),
+    RouterModule.forChild(routes),
     CommonModule
   ],
   exports:[RouterModule],
