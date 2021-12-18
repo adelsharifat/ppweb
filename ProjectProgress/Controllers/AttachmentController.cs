@@ -18,7 +18,6 @@ namespace ProjectProgress.Controllers
     public class AttachmentController : ControllerBase
     {
         private readonly IAttachmentService _attachmentService;
-
         public AttachmentController(IAttachmentService attachmentService)
         {
             _attachmentService = attachmentService;
@@ -30,7 +29,7 @@ namespace ProjectProgress.Controllers
         {
             try
             {
-                return Ok(new ApiResponse(StatusCodes.Status200OK, (await _attachmentService.Find_ASYNC(x=>x.Item.Id == objectId)).OrderByDescending(x=>x.Id)));
+                return Ok(new ApiResponse(StatusCodes.Status200OK, (await _attachmentService.Find_ASYNC(x=>x.Item.Id == objectId && x.IsDelete == false)).OrderByDescending(x=>x.Id)));
             }
             catch (Exception ex)
             {            
@@ -44,7 +43,7 @@ namespace ProjectProgress.Controllers
         {
             try
             {
-                return Ok(new ApiResponse(StatusCodes.Status200OK, await _attachmentService.GET_ASYNC(x=>x.Id == Id)));
+                return Ok(new ApiResponse(StatusCodes.Status200OK, await _attachmentService.GET_ASYNC(x=>x.Id == Id && x.IsDelete == false)));
             }
             catch (Exception ex)
             {

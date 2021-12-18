@@ -124,7 +124,7 @@ namespace ProjectProgress.Controllers
                     new Claim("FullName",user.FullName.ToString()),
                     new Claim("SeenDesktopMode",user.SeenDesktopMode.ToString())
                 }),
-                Expires = DateTime.UtcNow.AddMinutes(_jwtOptions.Expire),
+                Expires = DateTime.UtcNow.AddHours(_jwtOptions.Expire),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
