@@ -23,7 +23,7 @@ namespace ProjectProgress.Service.Service
         {
             try
             {
-                if(expression == null) return await _unitOfWork.ItemRepo.FIND_ASYNC();
+                if(expression == null) return await _unitOfWork.ItemRepo.FIND_ASYNC(null,"Items","Attachments");
                 return await _unitOfWork.ItemRepo.FIND_ASYNC(expression);
             }
             catch (Exception ex)

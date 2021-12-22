@@ -44,7 +44,7 @@ namespace ProjectProgress
 
             services.AddDbContext<AppDbContext>(options => {                
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultCS"));
-                options.UseLazyLoadingProxies();
+                //options.UseLazyLoadingProxies();
             });
 
             var key = Encoding.ASCII.GetBytes(Configuration["JwtOptions:SecKey"]);

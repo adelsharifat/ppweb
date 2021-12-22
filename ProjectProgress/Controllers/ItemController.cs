@@ -32,7 +32,7 @@ namespace ProjectProgress.Controllers
             {
                 var data = await _itemService.GetAllAsync();
                 if (data == null) return BadRequest(new ApiResponse { StatusCode = StatusCodes.Status200OK, Error = new List<string> { "empty data" } });
-                return Ok(new ApiResponse { Payload = data, StatusCode = StatusCodes.Status200OK });
+                return Ok(new ApiResponse { Payload = data.Where(x=>x.ParentId == null), StatusCode = StatusCodes.Status200OK });
             }
             catch (Exception ex)
             {

@@ -31,12 +31,20 @@ namespace ProjectProgress.Data.Repository
             }
         }
 
-        public async Task<IEnumerable<TEntity>> FIND_ASYNC(Expression<Func<TEntity, bool>> expression = null)
+        public async Task<IEnumerable<TEntity>> FIND_ASYNC(Expression<Func<TEntity, bool>> expression = null, params string[] includes)
         {
             try
             {
-                if (expression == null) return await _context.Set<TEntity>().ToListAsync();
-                return await _context.Set<TEntity>().Where(expression).ToListAsync();
+                var query = _context.Set<TEntity>().AsQueryable();
+
+                foreach (string include in includes)
+                {
+                    query = query.Include(include);
+                }
+
+                if (expression == null)
+                    return await query.ToListAsync();
+                return await query.Where(expression).ToListAsync();
             }
             catch (Exception ex)
             {

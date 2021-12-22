@@ -19,7 +19,9 @@
             <!-- use a disabled button to provide padding for tree leaf -->
             <button mat-icon-button disabled></button>
             <div>
-              {{node.name}}<span class="badge-blue" *ngIf="node.count>0">{{node.count}}</span>
+              {{node.name}}
+              <span class="badge-blue" *ngIf="node.count>0">{{node.count}}</span>
+              <span class="badge-danger" *ngIf="node.itemCount>0">{{node.itemCount}}</span>
               <span class="badge-success" *ngIf="node.itemsType===0">CP</span>
               <span class="badge-success" *ngIf="node.itemsType===1">MGMT</span>
             </div>
@@ -39,9 +41,10 @@
             </button>
             <div>
               {{node.name}}
-              <span class="badge-danger" *ngIf="node.itemCount>0">{{node.itemCount}}</span>
               <span class="badge-blue" *ngIf="node.count>0">{{node.count}}</span>
-              <span class="badge-danger">{{node.itemsType}}</span>
+              <span class="badge-danger" *ngIf="node.itemCount>0">{{node.itemCount}}</span>
+              <span class="badge-success" *ngIf="node.itemsType===0">CP</span>
+              <span class="badge-success" *ngIf="node.itemsType===1">MGMT</span>
 
             </div>
             <div class="action spacer">
