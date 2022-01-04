@@ -1,6 +1,5 @@
-import { LEADING_TRIVIA_CHARS } from '@angular/compiler/src/render3/view/template';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { ItemService } from 'src/app/data/service/item.service';
 
@@ -21,7 +20,7 @@ export class ManageItemComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.itemId !== 'new')
-      this.getItemById();
+    this.getItemById();
   }
 
   openAddItemPage(){
@@ -42,7 +41,6 @@ export class ManageItemComponent implements OnInit {
       }
     ).add(()=>{
       this.itemData = this.item.value;
-      console.log(this.itemData)
     })
   }
 

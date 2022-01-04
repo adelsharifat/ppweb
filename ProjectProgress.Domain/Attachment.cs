@@ -17,10 +17,9 @@ namespace ProjectProgress.Domain
         public Guid StreamId { get; set; }
         public string FileType { get; set; }
         public bool IsDelete { get; set; }
-
+        public DateTime? AttachmentDate { get; set; }
 
         public virtual Item Item { get; set; }
         public virtual AppUser User { get; set; }
-
     }
 }

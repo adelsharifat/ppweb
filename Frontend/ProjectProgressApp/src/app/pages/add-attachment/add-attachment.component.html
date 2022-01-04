@@ -11,6 +11,7 @@
             <p><label>File</label></p>
             <input hidden type="file" #fileInput formControlName="file" (change)="onChangeFileInput($event)">
             <input type="text" formControlName="fileAddressInput" class="fileAddressInput"  readonly/>
+            <input type="date" #attachmentDate formControlName="attachmentDateInput" class="attachmentDateInput">
             <p><label for="remark">Remark</label></p>
             <textarea class="remark" formControlName="remark"></textarea>
             <mat-progress-bar *ngIf="progress>0"
@@ -46,7 +47,7 @@
             <div class="createdBy">{{attachment.user.firstName + ' ' + attachment.user.lastName}}</div>
           </div>
         </div>
-        <div><button mat-button>Action</button></div>
+        <div class="d-none"><button mat-button>Action</button></div>
       </div>
     </div>
   </div>

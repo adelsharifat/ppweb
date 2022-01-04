@@ -13,5 +13,6 @@ namespace ProjectProgress.Domain.DTO.Request
         public IFormFile File { get; set; }
         public int ItemId { get; set; }
         public string Remark { get; set; }
+        public DateTime AttachmentDate { get; set; }
     }
 }

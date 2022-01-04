@@ -29,7 +29,7 @@ namespace ProjectProgress.Controllers
         {
             try
             {
-                return Ok(new ApiResponse(StatusCodes.Status200OK, (await _attachmentService.Find_ASYNC(x=>x.Item.Id == objectId && x.IsDelete == false)).OrderByDescending(x=>x.Id)));
+                return Ok(new ApiResponse(StatusCodes.Status200OK, (await _attachmentService.Find_ASYNC(x=>x.Item.Id == objectId /*&& x.IsDelete == false*/)).OrderByDescending(x=>x.Id)));
             }
             catch (Exception ex)
             {            
@@ -43,7 +43,7 @@ namespace ProjectProgress.Controllers
         {
             try
             {
-                return Ok(new ApiResponse(StatusCodes.Status200OK, await _attachmentService.GET_ASYNC(x=>x.Id == Id && x.IsDelete == false)));
+                return Ok(new ApiResponse(StatusCodes.Status200OK, await _attachmentService.GET_ASYNC(x=>x.Id == Id /*&& x.IsDelete == false*/)));
             }
             catch (Exception ex)
             {
@@ -104,6 +104,7 @@ namespace ProjectProgress.Controllers
                 model.File = fileBytes;
                 model.Remark = attachmentrequest.Remark;
                 model.CreatedBy = attachmentrequest.CreatedBy;
+                model.AttachmentDate = attachmentrequest.AttachmentDate;
 
                 await _attachmentService.SaveAttachment(model);
                 return Ok(new ApiResponse(StatusCodes.Status201Created, "Endpoint Worked"));

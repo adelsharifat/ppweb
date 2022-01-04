@@ -47,7 +47,7 @@ namespace ProjectProgress.Service.Service
         {
             try
             {
-                return await _unitOfWork.AttachmentRepo.FIND_ASYNC(expression);
+                return await _unitOfWork.AttachmentRepo.FIND_ASYNC(expression,"User");
             }
             catch (Exception ex)
             {
@@ -117,7 +117,8 @@ namespace ProjectProgress.Service.Service
                 UserId = attachment.CreatedBy,
                 FileName = attachment.FileName,
                 FileContent = attachment.File,
-                Remark = attachment.Remark
+                Remark = attachment.Remark,
+                AttachmentDate = attachment.AttachmentDate
             },commandType: CommandType.StoredProcedure);
         }
 

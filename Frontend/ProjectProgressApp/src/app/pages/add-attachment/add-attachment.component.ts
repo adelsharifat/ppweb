@@ -48,6 +48,7 @@ export class AddAttachmentComponent implements OnInit {
 
   fg = this.fb.group({
     file:[null,Validators.required],
+    attachmentDateInput:[null,Validators.required],
     fileAddressInput:[null],
     remark:[null]
   });
@@ -62,7 +63,10 @@ export class AddAttachmentComponent implements OnInit {
 
   onChangeFileInput(event:any)
   {
-    this.fg.controls['fileAddressInput'].setValue(event.target.files[0].name)
+    let fileFullName:string = event.target.files[0].name;
+    let fileName = fileFullName.replace(/\.[^/.]+$/, "")
+    this.fg.controls['fileAddressInput'].setValue(fileFullName)
+    this.fg.controls['remark'].setValue(fileName)
     this.file = event.target.files[0]
     if(this.file.type !== 'application/pdf') {
       this.file = null;
@@ -77,10 +81,9 @@ export class AddAttachmentComponent implements OnInit {
       res=>{
         this.attachmentData.next(res.payload);
         this.bodyPreloading = false;
-        console.log(res);
       },
       err=>{
-        console.log(err);
+        console.log(err)
       }
     )
   }
@@ -94,7 +97,9 @@ export class AddAttachmentComponent implements OnInit {
     formData.append('itemId', objectId);
     formData.append('fileName',this.file.name);
     formData.append('file',this.file);
+    formData.append('attachmentDate',this.fg.value.attachmentDateInput);
     formData.append('remark',this.fg.value.remark);
+    console.log(this.fg.value.attachmentDateInput)
     this.attchmentService.saveAttachments(formData)
     .subscribe( (event) => {
       if (event.type === HttpEventType.UploadProgress) {
@@ -142,8 +147,5 @@ export class AddAttachmentComponent implements OnInit {
       this.itemData = this.item.value;
       this.findAllAttachmentByObjectId(this.itemId)
     })
-
-
   }
-
 }

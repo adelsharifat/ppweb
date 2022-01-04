@@ -30,7 +30,25 @@ html,body{
 }
 
 
+.d-none{
+  display:none !important;
+}
 
+.d-block{
+  display: block !important;
+}
+
+.d-flex{
+  display: flex;
+}
+
+.align-items-center{
+  align-items: center;
+}
+
+.justify-content-center{
+  justify-content: center;
+}
 
 
 .mat-progress-spinner{

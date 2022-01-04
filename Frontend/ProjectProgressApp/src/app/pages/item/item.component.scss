@@ -30,9 +30,11 @@
         display: flex;
         align-items: center;
         padding: 5px;
-        background-color: mediumpurple;
+        background-color: rgb(70, 184, 25);
         color: white;
         border-radius: 10px;
+        margin-bottom: 5px;
+        box-shadow: 0 2px 2px 0 rgba(0,0,0,0.6);
 
         .downloadBtn{
           border-left: 1px solid #fff;
@@ -57,6 +59,14 @@
             margin-bottom: 3px;
           }
 
+          .reportDate{
+            padding: 5px;
+            font-size: 0.7rem;
+            background-color: rgba($color: #FFF, $alpha: 0.3);
+            border-radius: 5px;
+          }
+
+
           .fileInfo{
             display: flex;
             flex-wrap: wrap;
@@ -75,4 +85,11 @@
       }
     }
   }
+}
+
+
+.isDelete{
+  background-color: rgb(191, 232, 255) !important;
+  color: rgb(0, 31, 49) !important;
+  box-shadow: none !important;
 }

@@ -5,9 +5,10 @@
   <div class="content">
     <div *ngIf="bodyPreloading"><mat-icon class="bodypreloading"><mat-spinner diameter="40" color="primary"></mat-spinner></mat-icon></div>
     <div class="attachmentWrapper">
-      <div class="itemAttachment" *ngFor="let attachment of attachmentData.value">
+      <div class="itemAttachment" *ngFor="let attachment of attachmentData.value" [class.isDelete]="attachment.isDelete">
         <div class="itemData">
           <div class="remark">{{attachment.remark}}</div>
+          <div class="reportDate" *ngIf="attachment.attachmentDate">{{attachment.attachmentDate | date}}</div>
         </div>
         <div class="downloadBtn"><button mat-button (click)="download(attachment.streamId)">View</button></div>
       </div>
