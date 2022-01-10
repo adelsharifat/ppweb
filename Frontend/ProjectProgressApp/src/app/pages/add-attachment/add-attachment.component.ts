@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AttachmentService } from './../../data/service/attachment.service';
 import { AuthService } from './../../data/service/auth.service';
@@ -12,6 +12,9 @@ import {ThemePalette} from '@angular/material/core';
 import {ProgressBarMode} from '@angular/material/progress-bar';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { LEADING_TRIVIA_CHARS } from '@angular/compiler/src/render3/view/template';
+import { computeMsgId } from '@angular/compiler';
+import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-attachment',
@@ -32,12 +35,14 @@ export class AddAttachmentComponent implements OnInit {
   itemData:any = [];
   file:string|Blob|any='';
 
+
   attachmentData = new BehaviorSubject<any>(null);
 
   constructor(private itemService:ItemService,
     private authService:AuthService,
     private attchmentService:AttachmentService,
     private fb:FormBuilder,
+    private tostrService:ToastrService,
     private route:ActivatedRoute,
     private router:Router) {
 
@@ -82,9 +87,7 @@ export class AddAttachmentComponent implements OnInit {
         this.attachmentData.next(res.payload);
         this.bodyPreloading = false;
       },
-      err=>{
-        console.log(err)
-      }
+      err=>this.tostrService.error(err)
     )
   }
 
@@ -121,6 +124,17 @@ export class AddAttachmentComponent implements OnInit {
 
   }
 
+  deleteAttachment(userId:number,id:number)
+  {
+    if(!confirm("Are you sure for delete selected attachment?"))return;
+    this.attchmentService.deleteAttachment({UserId:userId,Id:id}).subscribe(
+      res=>{
+        this.tostrService.success('Opeartion Delete Attachment Suuccessfull');
+      },
+      err=>this.tostrService.error(err)
+    )
+  }
+
   makeGuid(length:Number)
   {
     var result = '';
@@ -141,7 +155,7 @@ export class AddAttachmentComponent implements OnInit {
         this.item.next(res.payload);
       },
       err=>{
-        console.log(err)
+        this.tostrService.error(err);
       }
     ).add(()=>{
       this.itemData = this.item.value;

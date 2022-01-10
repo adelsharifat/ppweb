@@ -1,0 +1,81 @@
+.content form {
+  padding: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.content form .formControl {
+  position: relative;
+}
+
+.content form .formControl .input {
+  padding: 5px;
+  border: none;
+  border-bottom: 1px solid #eeeeee;
+  text-align: center;
+  border-radius: 3px;
+  font-size: 1rem;
+  color: black;
+}
+
+.content form .formControl::after {
+  position: absolute;
+  content: '';
+  width: 0%;
+  height: 1px;
+  bottom: 0px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  background: #006ddf;
+  background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0)), color-stop(50%, #006ddf), to(rgba(255, 255, 255, 0)));
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #006ddf 50%, rgba(255, 255, 255, 0) 100%);
+  z-index: 20;
+  -webkit-transition: all 300ms ease;
+  transition: all 300ms ease;
+}
+
+.content form .formControl:focus-within::after {
+  width: 100%;
+}
+
+.content form input:checkbox {
+  margin-right: 2px;
+}
+
+.content form label {
+  margin-left: 2px;
+}
+
+.content form .formControl, .content form .checkbox, .content form .btn-primary {
+  margin: 15px;
+}
+
+.content form .btn-primary {
+  background-color: #0d4ec8;
+  border-radius: 5px;
+  padding: 10px;
+  border: none;
+  font-size: 1rem;
+  color: white;
+  -webkit-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+  -webkit-transition: all 300ms ease;
+  transition: all 300ms ease;
+}
+
+.content form .btn-primary:hover {
+  background-color: royalblue;
+}
+/*# sourceMappingURL=users.component.css.map */

@@ -29,11 +29,11 @@ namespace ProjectProgress.Controllers
         {
             try
             {
-                return Ok(new ApiResponse(StatusCodes.Status200OK, (await _attachmentService.Find_ASYNC(x=>x.Item.Id == objectId /*&& x.IsDelete == false*/)).OrderByDescending(x=>x.Id)));
+                return Ok(new ApiResponse(StatusCodes.Status200OK, (await _attachmentService.Find_ASYNC(x => x.Item.Id == objectId /*&& x.IsDelete == false*/)).OrderByDescending(x => x.Id)));
             }
             catch (Exception ex)
-            {            
-                return BadRequest(new ApiResponse(StatusCodes.Status500InternalServerError,ex.Message));
+            {
+                return BadRequest(new ApiResponse(StatusCodes.Status500InternalServerError, ex.Message));
             }
         }
 
@@ -43,7 +43,7 @@ namespace ProjectProgress.Controllers
         {
             try
             {
-                return Ok(new ApiResponse(StatusCodes.Status200OK, await _attachmentService.GET_ASYNC(x=>x.Id == Id /*&& x.IsDelete == false*/)));
+                return Ok(new ApiResponse(StatusCodes.Status200OK, await _attachmentService.GET_ASYNC(x => x.Id == Id /*&& x.IsDelete == false*/)));
             }
             catch (Exception ex)
             {
@@ -78,16 +78,16 @@ namespace ProjectProgress.Controllers
 
         }
 
-        [HttpPost,DisableRequestSizeLimit]
+        [HttpPost, DisableRequestSizeLimit]
         [Route("SaveAttachments")]
         public async Task<IActionResult> SaveAttachmentsAsync([FromForm] AttachmentRequest attachmentrequest)
         {
             try
             {
                 byte[] fileBytes = null;
-                var file= attachmentrequest.File;
+                var file = attachmentrequest.File;
 
-                if(Path.GetExtension(file.FileName) != ".pdf")
+                if (Path.GetExtension(file.FileName) != ".pdf")
                     return BadRequest(new ApiResponse(StatusCodes.Status500InternalServerError, "file not valid!"));
 
 
@@ -100,7 +100,7 @@ namespace ProjectProgress.Controllers
 
                 Attachment model = new Attachment();
                 model.ObjectId = attachmentrequest.ItemId;
-                model.FileName = Guid.NewGuid().ToString("N")+attachmentrequest.FileName;
+                model.FileName = Guid.NewGuid().ToString("N") + attachmentrequest.FileName;
                 model.File = fileBytes;
                 model.Remark = attachmentrequest.Remark;
                 model.CreatedBy = attachmentrequest.CreatedBy;
@@ -115,8 +115,23 @@ namespace ProjectProgress.Controllers
             }
         }
 
+        [HttpPost()]
+        [Route("DeleteAttachment")]
+        public async Task<IActionResult> DeleteAttachmentById([FromBody] DeleteAttachmentRequest deleteAttachmentRequest)
+        {
+            try
+            {
+                await _attachmentService.DELETE_ASYNC(deleteAttachmentRequest.Id,deleteAttachmentRequest.UserId);
+                return Ok(new ApiResponse(StatusCodes.Status201Created, "Endpoint Worked"));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponse(StatusCodes.Status500InternalServerError, ex.Message));
+            }
+        }
 
-        
+
+
 
     }
 }

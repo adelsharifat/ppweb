@@ -12,7 +12,7 @@
 
 .page-wrapper .content {
   width: 100%;
-  height: calc(100% - 280px);
+  height: calc(100% - 300px);
 }
 
 .page-wrapper .content .attachment {
@@ -36,6 +36,20 @@
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
+}
+
+.page-wrapper .content .attachment .searchWrapper .attachmentDateInput {
+  width: 100%;
+  background-color: #FFF;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  font-size: 1rem;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 5px;
 }
 
 .page-wrapper .content .attachment .searchWrapper .fileAddressInput {

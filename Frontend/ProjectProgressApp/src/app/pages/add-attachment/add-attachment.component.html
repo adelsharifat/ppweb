@@ -47,7 +47,18 @@
             <div class="createdBy">{{attachment.user.firstName + ' ' + attachment.user.lastName}}</div>
           </div>
         </div>
-        <div class="d-none"><button mat-button>Action</button></div>
+        <!-- <div class="d-none"><button mat-button>Action</button></div> -->
+        <div>
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button #deleteMenuItem mat-menu-item (click)="deleteAttachment(attachment.user.id,attachment.id)" [disabled]="attachment.isDelete">
+              <mat-icon>delete</mat-icon>
+              <span>Delete Attachment</span>
+            </button>
+          </mat-menu>
+        </div>
       </div>
     </div>
   </div>

@@ -95,11 +95,16 @@ namespace ProjectProgress.Service.Service
                 return new MutationResult(false, ex.Message);
             }
         }
-        public async Task<MutationResult> DELETE_ASYNC(Attachment attachment)
+        public async Task<MutationResult> DELETE_ASYNC(int id,int userId)
         {
             try
             {
-                await _unitOfWork.AttachmentRepo.CREATE_ASYNC(attachment);
+                var attachment = await _unitOfWork.AttachmentRepo.GET_ASYNC(x => x.Id == id);
+                if (attachment == null) throw new Exception("attachment not found!");
+                attachment.IsDelete = true;
+                attachment.DeletedBy = userId;
+                attachment.DeletedDate = DateTime.Now;
+                await _unitOfWork.AttachmentRepo.UPDATE_ASYNC(attachment);
                 var result = await _unitOfWork.Commit();
                 if (result > 0) return new MutationResult(true);
                 return new MutationResult(false, "Delete item faild");

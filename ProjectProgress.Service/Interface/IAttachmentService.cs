@@ -19,7 +19,7 @@ namespace ProjectProgress.Service.Interface
         Task<Attachment> GET_ASYNC(Expression<Func<Attachment, bool>> expression);
         Task<MutationResult> ADD_ASYNC(Attachment attachment);
         Task<MutationResult> UPDATE_ASYNC(Attachment attachment);
-        Task<MutationResult> DELETE_ASYNC(Attachment attachment);
+        Task<MutationResult> DELETE_ASYNC(int id,int userId);
         Task SaveAttachment(Attachment attachment);
         Task<AttachResponse> DownloadAttachment(string id);
     }

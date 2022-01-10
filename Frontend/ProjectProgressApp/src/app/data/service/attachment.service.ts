@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from './../../../environments/environment';
 import { Observable } from 'rxjs';
+import { IDeleteAttachmentRequest } from './../interface/request/IDeleteAttachmentRequest';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -32,6 +33,10 @@ export class AttachmentService {
       reportProgress: true,
       observe: 'events'
     })
+  }
+
+  deleteAttachment(deleteAttachmentRequest:IDeleteAttachmentRequest):Observable<any>{
+    return this.http.post<any>(environment.ATTACHMENT_API + 'DeleteAttachment',deleteAttachmentRequest)
   }
 
 }

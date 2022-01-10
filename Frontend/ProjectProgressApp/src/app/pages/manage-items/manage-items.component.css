@@ -22,6 +22,7 @@
   position: fixed;
   bottom: 25px;
   right: 25px;
+  z-index: 1999;
 }
 
 .page-wrapper .content .treeWrapper {

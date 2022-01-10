@@ -39,6 +39,7 @@ const routes:Routes = [
   },
   {
     path: 'item/:id',
+    pathMatch: 'full',
     loadChildren: () => import('./pages/item/item.module').then(_=>_.ItemModule),
   },
   {

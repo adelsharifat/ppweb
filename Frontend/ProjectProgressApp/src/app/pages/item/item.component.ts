@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as FileSaver from 'file-saver';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { AttachmentService } from 'src/app/data/service/attachment.service';
 import { AuthService } from 'src/app/data/service/auth.service';
 import { ItemService } from 'src/app/data/service/item.service';
-import { IDownloadAttachmentRequest } from './../../data/interface/request/IDownloadAttachmentRequest';
 import { DownloadService } from './../../data/service/download.service';
-import { map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-item',
@@ -18,7 +16,7 @@ import { map } from 'rxjs/operators';
 export class ItemComponent implements OnInit {
 
   bodyPreloading =false;
-  attachmentData = new BehaviorSubject<any>(null);
+  attachmentData = new BehaviorSubject<any>([]);
   item:BehaviorSubject<any> = new BehaviorSubject<any>(null)
   itemId:string|null = null;
   itemData:any = [];
@@ -33,7 +31,7 @@ export class ItemComponent implements OnInit {
     private fb:FormBuilder,
     private route:ActivatedRoute,
     private router:Router) {
-      this.itemId = this.route.snapshot.paramMap.get('id')
+
      }
 
 
@@ -52,14 +50,8 @@ export class ItemComponent implements OnInit {
   handleFileApi(streamId: string) {
      return this.attachmentService
       .downloadAttachment(streamId).subscribe(res=>
-        {console.log(res);
-          // const byteCharacters = atob(res.payload.fileStream);
-          // const byteNumbers = new Array(byteCharacters.length);
-          // for (let i = 0; i < byteCharacters.length; i++)
-          //   byteNumbers[i] = byteCharacters.charCodeAt(i);
-          // const byteArray = new Uint8Array(byteNumbers);
-        //this.fileContent = URL.createObjectURL(new Blob([byteArray], { type:'application/pdf;base64'}))
-        this.fileStream = res.payload.fileStream
+        {
+          this.fileStream = res.payload.fileStream
         },err=>console.log(err));
   }
 
@@ -80,6 +72,7 @@ export class ItemComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.itemId = this.route.snapshot.params.id
     this.item.next(null);
     this.itemData = [];
     this.itemService.getItemById(this.itemId).subscribe(

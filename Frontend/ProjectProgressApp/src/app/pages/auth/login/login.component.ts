@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from './../../../data/service/auth.service';
 import { TokenService } from './../../../data/service/token.service';
 import { ToolbarService } from './../../../data/service/toolbar.service';
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
     private fb:FormBuilder,
     private tokenService:TokenService,
     private toolbarService:ToolbarService,
+    private tostrService:ToastrService,
     private router:Router) {
 
     }
@@ -46,7 +48,7 @@ export class LoginComponent implements OnInit {
       },
       err => {
         this.isLoginFaild = true;
-        console.log(err);
+        this.tostrService.error(err.error.error)
       }
     ).add(()=>{
 
