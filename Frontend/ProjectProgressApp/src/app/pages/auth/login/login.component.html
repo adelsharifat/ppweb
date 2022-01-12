@@ -13,8 +13,10 @@
           <input class="chboxInput" id="isRemember" type="checkbox" formControlName="isRemember">
           <label for="isRemember">Remember Me</label>
         </div>
-        <button class="btn-login mt-5" type="submit" [disabled]="!loginForm.valid">
-            Login
+
+        <button class="btn-login mt-5 d-flex align-items-center justify-content-center" type="submit" [disabled]="!loginForm.valid">
+          <mat-icon  *ngIf="loading"><mat-spinner class="mat-spinner-white" diameter="20" color="primary"></mat-spinner></mat-icon>
+          <span>Login</span>
         </button>
     </form>
     </div>

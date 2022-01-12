@@ -43,23 +43,16 @@ html,body{
 }
 
 .align-items-center{
-  align-items: center;
+  align-items: center !important;
 }
 
 .justify-content-center{
-  justify-content: center;
+  justify-content: center !important;
 }
 
 
-.mat-progress-spinner{
-  position:absolute;
-  top: 25%;
-  margin: auto;
-  transform: scale(50%);
-}
-
-.mat-progress-spinner circle, .mat-spinner circle {
-  stroke: #000;
+.mat-spinner-white circle {
+  stroke: #fff;
 }
 
 

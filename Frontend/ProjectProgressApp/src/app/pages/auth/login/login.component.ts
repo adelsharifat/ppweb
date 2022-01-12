@@ -13,6 +13,8 @@ import { ToolbarService } from './../../../data/service/toolbar.service';
 })
 export class LoginComponent implements OnInit {
 
+  loading = false;
+
   errorMessage = '';
   isLoginFaild = false;
 
@@ -38,8 +40,10 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.loading = true;
     this.authService.login(this.loginForm.value).subscribe(
       data => {
+
         this.tokenService.saveToken(data.payload.token);
         this.tokenService.saveRefreshToken(data.payload.refreshToken);
         this.toolbarService.sidebarState.next(false);
@@ -51,7 +55,7 @@ export class LoginComponent implements OnInit {
         this.tostrService.error(err.error.error)
       }
     ).add(()=>{
-
+      this.loading = false;
     });
   }
 

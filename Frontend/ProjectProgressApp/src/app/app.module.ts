@@ -28,7 +28,7 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserAnimationsModule,
     ToastrModule.forRoot(
       {
-        positionClass: 'toast-center-center',
+        positionClass: 'toast-bottom-center',
       }
     ),
     ServiceWorkerModule.register('ngsw-worker.js', {

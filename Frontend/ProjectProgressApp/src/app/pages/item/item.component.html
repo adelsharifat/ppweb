@@ -4,6 +4,7 @@
   </div>
   <div class="content">
     <div *ngIf="bodyPreloading"><mat-icon class="bodypreloading"><mat-spinner diameter="40" color="primary"></mat-spinner></mat-icon></div>
+    <div style="text-align: center;padding: 5px 0;"><small style="color: lightgray; font-size: 0.75rem;font-weight: 100;">Pull down to reload page</small></div>
     <div class="attachmentWrapper">
       <div class="itemAttachment" *ngFor="let attachment of attachmentData.value" [class.isDelete]="attachment.isDelete">
         <div class="itemData">
